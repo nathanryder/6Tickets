@@ -1,0 +1,13 @@
+#!/bin/sh
+
+ssh user@127.0.0.1 -p 1013 <<EOF
+ cd ~/Documents/College/6Tickets/
+ tmux send-keys -t "6tickets" 'C-c' Enter
+ tmux send-keys -t "6tickets" 'exit' Enter
+ git pull
+ npm install
+ tmux new -d -s 6tickets
+ tmux send-keys -t "6tickets" 'npm start' Enter
+ exit
+EOF
+
