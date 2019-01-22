@@ -7,6 +7,10 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+router.get("/test", function(req, res, next) {
+	res.send("hello world");
+});
+
 router.post("/deploy", function(req, res, next) {
   exec("php deploy.php", function (error, stdout, stderr) {
     res.send(stdout);
