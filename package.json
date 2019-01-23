@@ -7,13 +7,14 @@
     "test": "./node_modules/.bin/mocha --recursive"
   },
   "dependencies": {
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
     "express": "~4.16.0",
     "hbs": "~4.0.1",
     "http-errors": "~1.6.2",
     "mocha": "^5.2.0",
-    "morgan": "~1.9.0",
-    "supertest": "^3.4.2"
+    "morgan": "~1.9.0"
   }
 }
