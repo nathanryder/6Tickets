@@ -1,0 +1,131 @@
+ <div class="row">
+        <div class="col" id="main-content">
+
+          <div class="row">
+            <div class="col-md-8">
+              <h3 class="title"><i class="fa fa-credit-card"></i> Payment</h3>
+              <span class="text-muted">Step 2 of 3</span>
+              <hr>
+              <div class="bg-light p-3 border shadow-sm">
+                <ul class="nav nav-pills payment-nav mb-4" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" id="cc-tab" data-toggle="pill" href="#cc" role="tab" aria-controls="cc" aria-selected="true">
+                      <i class="fa fa-fw fa-credit-card"></i> Pay with Credit Card
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="paypal-tab" data-toggle="pill" href="#paypal" role="tab" aria-controls="paypal" aria-selected="false">
+                      <i class="fa fa-fw fa-paypal"></i> Pay with PayPal
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" id="redeem-tab" data-toggle="pill" href="#redeem" role="tab" aria-controls="redeem" aria-selected="false">
+                      <i class="fa fa-fw fa-database"></i> Redeem Points
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane fade show active" id="cc" role="tabpanel" aria-labelledby="cc-tab">
+                    <div class='card-wrapper mb-3'></div>
+                    <form id="ccForm">
+                      <div class="form-row">
+                        <div class="form-group col-sm-6">
+                          <input type="text" name="number" class="form-control" placeholder="Card Number">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <input type="text" name="name" class="form-control" placeholder="Full Name">
+                        </div>
+                      </div>
+                      <div class="form-row">
+                        <div class="form-group col-sm-3">
+                          <input type="text" name="expiry" class="form-control" placeholder="Expiry Date">
+                        </div>
+                        <div class="form-group col-sm-3">
+                          <input type="text" name="cvc" class="form-control" placeholder="CVC Code">
+                        </div>
+                        <div class="form-group col-sm-6">
+                          <a href="/checkout-3" class="btn btn-primary btn-block">NEXT <i class="fa fa-angle-right"></i></a>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="paypal" role="tabpanel" aria-labelledby="paypal-tab">
+                    <form id="paypalForm" class="p-sm-5 mx-sm-5">
+                      <h5>Log in to your PayPal account</h5>
+                      <div class="form-group">
+                        <input type="email" name="email" class="form-control" placeholder="Email">
+                      </div>
+                      <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="Password">
+                      </div>
+                      <div class="form-group">
+                        <a href="/checkout-3" class="btn btn-primary">NEXT <i class="fa fa-angle-right"></i></a>
+                      </div>
+                    </form>
+                  </div>
+                  <div class="tab-pane fade" id="redeem" role="tabpanel" aria-labelledby="redeem-tab">
+                    <div class="text-center">
+                      <div class="alert alert-primary" role="alert">
+                        You currently have <strong>9,386</strong> Points to spend.
+                      </div>
+                      <div class="custom-control custom-checkbox mb-3">
+                        <input type="checkbox" class="custom-control-input" id="customCheck1">
+                        <label class="custom-control-label" for="customCheck1">Use my Points to pay for this order.</label>
+                      </div>
+                      <a href="/checkout-3" class="btn btn-primary">NEXT <i class="fa fa-angle-right"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4 pt-5">
+              <h4 class="title mb-3">Order summary</h4>
+                            <div class="media border-bottom mb-3">
+                <img src="images/product/1.jpg" width="50" height="50" alt="NEW Microsoft Surface Go">
+                <div class="media-body ml-3">
+                  <h6>NEW Microsoft Surface Go</h6>
+                  <div>1 x <span class="price">$549.00</span></div>
+                </div>
+              </div>
+                            <div class="media border-bottom mb-3">
+                <img src="images/product/3.jpg" width="50" height="50" alt="SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive">
+                <div class="media-body ml-3">
+                  <h6>SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive</h6>
+                  <div>1 x <span class="price">$13.49</span></div>
+                </div>
+              </div>
+                            <div class="media border-bottom mb-3">
+                <img src="images/product/8.jpg" width="50" height="50" alt="Beats Studio3 Wireless Headphones">
+                <div class="media-body ml-3">
+                  <h6>Beats Studio3 Wireless Headphones</h6>
+                  <div>1 x <span class="price">$299.99</span></div>
+                </div>
+              </div>
+                            <div class="media border-bottom mb-3">
+                <img src="images/product/12.jpg" width="50" height="50" alt="Essential Phone in Halo Gray - 128 GB Unlocked">
+                <div class="media-body ml-3">
+                  <h6>Essential Phone in Halo Gray - 128 GB Unlocked</h6>
+                  <div>1 x <span class="price">$435.00</span></div>
+                </div>
+              </div>
+                            <div class="d-flex justify-content-between">
+                <span>Items</span>
+                <span>$1,297.48</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Estimated tax</span>
+                <span>$20.00</span>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span>Shipping</span>
+                <span>$9.95</span>
+              </div>
+              <hr>
+              <div class="box-total">
+                  <h4>TOTAL</h4>
+                  <h4><span class="price">$1,297.48</span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+ </div>

@@ -1,0 +1,99 @@
+ <div class="row">
+     <div class="col" id="main-content">
+
+         <div class="card user-card">
+             <div class="card-body">
+                 <div class="media">
+                     <img src="images/user.svg" class="img-thumbnail rounded-circle" alt="John Thor">
+                     <div class="media-body ml-3 pt-4">
+                         <h4>John Thor</h4>
+                         <div class="small text-muted">Joined Dec 31, 2017</div>
+                         <div class="small text-muted">Points: 100</div>
+                     </div>
+                 </div>
+                 <hr>
+                 <ul class="nav nav-pills">
+                     <li class="nav-item">
+                         <a class="nav-link" href="/account-profile">Profile</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="/account-order">Orders</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link active" href="/account-address">Address</a>
+                     </li>
+                     <li class="nav-item">
+                         <a class="nav-link" href="/account-wishlist">Wishlist</a>
+                     </li>
+                 </ul>              <hr>
+                 <h3 class="title">Billing Address<button class="btn btn-sm btn-outline-warning float-right"><i class="fa fa-pencil"></i> Edit</button></h3>
+                 <table class="table mb-3 table-sm">
+                     <tbody>
+                     <tr>
+                         <td class="border-top-0">
+                             <strong>Address</strong>
+                             <div>Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <strong>Country</strong>
+                             <div>United Kingdom</div>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <strong>Region / State</strong>
+                             <div>Lorem ipsum</div>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <strong>City</strong>
+                             <div>Manchester</div>
+                         </td>
+                     </tr>
+                     <tr>
+                         <td>
+                             <strong>ZIP Code</strong>
+                             <div>12345</div>
+                         </td>
+                     </tr>
+                     </tbody>
+                 </table>
+                 <h3 class="title">Shipping Address</h3>
+                 <div class="custom-control custom-checkbox">
+                     <input type="checkbox" class="custom-control-input" id="shippingAddr" checked="checked">
+                     <label class="custom-control-label" for="shippingAddr">
+                         <span role="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Same as Billing Address</span>
+                     </label>
+                 </div>
+                 <form class="mt-2 collapse" id="collapseExample">
+                     <div class="form-group mb-1 mb-md-3">
+                         <label for="inputAddress" class="mb-0 mb-md-2">Address *</label>
+                         <input type="text" class="form-control" id="inputAddress">
+                     </div>
+                     <div class="form-row">
+                         <div class="form-group mb-1 mb-md-3 col-md-6">
+                             <label for="inputCountry" class="mb-0 mb-md-2">Country *</label>
+                             <input type="text" class="form-control" id="inputCountry">
+                         </div>
+                         <div class="form-group mb-1 mb-md-3 col-md-6">
+                             <label for="inputZip" class="mb-0 mb-md-2">Zip/Postal Code *</label>
+                             <input type="text" class="form-control" id="inputZip">
+                         </div>
+                         <div class="form-group mb-1 mb-md-3 col-md-6">
+                             <label for="inputCity" class="mb-0 mb-md-2">City *</label>
+                             <input type="text" class="form-control" id="inputCity">
+                         </div>
+                         <div class="form-group mb-1 mb-md-3 col-md-6">
+                             <label for="inputRegion" class="mb-0 mb-md-2">Region *</label>
+                             <input type="text" class="form-control" id="inputRegion">
+                         </div>
+                     </div>
+                     <button type="submit" class="btn btn-success btn-block">SAVE</button>
+                 </form>
+             </div>
+         </div>
+     </div>
+ </div>
