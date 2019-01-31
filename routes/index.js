@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var exec = require("child_process").exec;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -105,12 +104,6 @@ router.get('/list', function(req, res, next) {
 /* GET login page. */
 router.get('/login', function(req, res, next) {
     res.render('login', { title: 'Login' });
-});
-
-router.post("/deploy", function(req, res, next) {
-    exec("php deploy.php", function (error, stdout, stderr) {
-        res.send(stdout);
-  });
 });
 
 
