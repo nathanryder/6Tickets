@@ -4,9 +4,11 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "./node_modules/.bin/mocha --recursive"
+    "test": "./node_modules/.bin/mocha --recursive",
+    "docs": "./node_modules/apidoc/bin/apidoc -f \"routes/.*\\.js$\" -i ./ -o public/docs/"
   },
   "dependencies": {
+    "apidoc": "^0.17.7",
     "bcrypt-nodejs": "0.0.3",
     "chai": "^4.2.0",
     "chai-http": "^4.2.1",

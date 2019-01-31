@@ -6,10 +6,16 @@ var jwt = require("jsonwebtoken");
 /**
  * @api {post} /:username Create a user
  * @apiName AddUser
- * @apiGroup Comments
- * @apiParam {password} Users password
- * @apiParam {firstname} Users first name
- * @apiParam {lastname} Users last name
+ * @apiGroup Users
+ * @apiParam {String} password Users password.
+ * @apiParam {String} firstname Users firstname.
+ * @apiParam {String} lastname Users lastname.
+ * @apiParam {String} emailAddress Users email address.
+ * @apiParam {String} phoneNo Users phone number.
+ * @apiParam {String} addressOne Users first address line.
+ * @apiParam {String} addressTwo Users second address line (optional).
+ * @apiParam {String} city Users city.
+ * @apiParam {String} country Users country.
  *
  * @apiSuccessExample Example data on success:
  * {
@@ -17,6 +23,7 @@ var jwt = require("jsonwebtoken");
  * }
  *
  * @apiError InvalidArguments incorrect arguments supplied
+ *
  */
 router.post("/:username", function (req, res, next) {
     var username = req.params.username;
