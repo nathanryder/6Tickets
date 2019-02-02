@@ -4,7 +4,7 @@ var User = require("../../models/users");
 var jwt = require("jsonwebtoken");
 
 /**
- * @api {post} /:username Create a user
+ * @api {post} /users/:username Create a user
  * @apiName AddUser
  * @apiGroup Users
  * @apiParam {String} password Users password.
@@ -37,13 +37,12 @@ router.post("/:username", function (req, res, next) {
     var city = req.body.city;
     var country = req.body.country;
 
-    if (!password || !firstname || !lastname || !email || !phoneNo || !addressOne || !addressTwo || !city || !country) {
+    if (!password || !firstname || !lastname || !email || !phoneNo || !addressOne || !city || !country) {
         res.status(400).json({
             "error": "Invalid arguments"
         });
         return;
     }
-
 
     User.findOne({"username": username}, function (err, user) {
 
@@ -58,6 +57,14 @@ router.post("/:username", function (req, res, next) {
             var newUser = new User();
             newUser.username = username;
             newUser.password = newUser.generateHash(password);
+            newUser.firstname = firstname;
+            newUser.lastname = lastname;
+            newUser.email = email;
+            newUser.phoneNo = phoneNo;
+            newUser.addressOne = addressOne;
+            newUser.addressTwo = addressTwo;
+            newUser.city = city;
+            newUser.country = country;
             newUser.access_token = createJwt({"username":username});
 
             newUser.save(function(err, user) {
