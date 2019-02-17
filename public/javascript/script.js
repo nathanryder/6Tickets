@@ -340,4 +340,26 @@ $(function () {
       container: '.card-wrapper'
     })
   }
+
+  $('.input-spinner').each(function () {
+    var input = $(this).find('input[type="number"]')
+
+    var min = input.attr('min')
+
+    var max = input.attr('max')
+
+    var btnIncrease = $(this).find('.btn:first-child')
+
+    var btnDecrease = $(this).find('.btn:last-child')
+    btnIncrease.click(function () {
+      if (input.val() < max) {
+        input.val(parseInt(input.val()) + 1).trigger('change')
+      }
+    })
+    btnDecrease.click(function () {
+      if (input.val() > min) {
+        input.val(parseInt(input.val()) - 1).trigger('change')
+      }
+    })
+  })
 })

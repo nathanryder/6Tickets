@@ -138,6 +138,11 @@ header.navbar {
     /*display: -ms-flexbox;*/
     /*display: flex;*/
   /*}*/
+/*}*/
+
+.logo{
+  width: auto;
+  height: 5vh;
 }
 
 .navbar-brand > img {
