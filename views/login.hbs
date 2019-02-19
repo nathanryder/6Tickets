@@ -1,24 +1,20 @@
-<!--login/register script-->
-<script src="javascript/user.js"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
-<div class="row">
+i<div class="row">
     <div class="col" id="main-content">
 
         <div class="row justify-content-center">
-            <div class="col-xl-6 col-md-8 col-12">
+            <div class="col-xl-3 col-md-6 col-4">
                 <nav class="d-flex justify-content-center mb-4">
                     <div class="btn-group nav" role="tablist">
-                        <a class="btn btn-outline-info active" data-toggle="tab" href="#login" id="login-tab" role="tab" aria-controls="login" aria-selected="true">Login</a>
-                        <a class="btn btn-outline-info" data-toggle="tab" href="#register" id="register-tab" role="tab" aria-controls="register" aria-selected="false">Register</a>
+                        <a class="btn btn-outline-info active show" data-toggle="tab" href="#login" id="login-tab" role="tab" aria-controls="login" aria-selected="true">Login</a>
+                        <a class="btn btn-outline-info show" data-toggle="tab" href="#register" id="register-tab" role="tab" aria-controls="register" aria-selected="false">Register</a>
                     </div>
                 </nav>
                 <div class="tab-content">
-                    <div class="tab-pane fade show active" id="login" role="tabpanel" aria-labelledby="login-tab">
+                    <div class="tab-pane fade active show" id="login" role="tabpanel" aria-labelledby="login-tab">
                         <div class="card shadow-sm card-login-form">
-                            <div class="card-body">
+                            <div class="container">
                                 <div class="row">
-                                    <div class="col-sm-6">
+                                    <div class=" col-sm-10 col-xl-10 col-md-10 col-lg-10">
                                         <form>
                                             <div class="form-group text-center">Login to your account</div>
                                             <div class="form-group">
@@ -36,21 +32,7 @@
                                             <button type="submit" class="btn btn-success btn-block">LOGIN</button>
                                         </form>
                                     </div>
-                                    <div class="col-sm-6 mt-2 mt-sm-0">
-                                        <div class="form-group text-center">OR</div>
-                                        <div class="btn-group w-100 mb-1">
-                                            <button class="btn btn-primary active"><i class="fa fa-facebook fa-fw"></i></button>
-                                            <button class="btn btn-primary btn-block">Login with Facebook</button>
-                                        </div>
-                                        <div class="btn-group w-100 mb-1">
-                                            <button class="btn btn-danger active"><i class="fa fa-google-plus fa-fw"></i></button>
-                                            <button class="btn btn-danger btn-block">Login with Google+</button>
-                                        </div>
-                                        <div class="btn-group w-100">
-                                            <button class="btn btn-info active"><i class="fa fa-twitter fa-fw"></i></button>
-                                            <button class="btn btn-info btn-block">Login with Twitter</button>
-                                        </div>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -106,20 +88,19 @@
                                             <input type="password" class="form-control" id="registerConfirmPassword">
                                         </div>
                                         <!--ReCaptcha Here-->
-                                        </div>
-                                        <div class="form-group col-12">
-                                            <button type="submit" class="btn btn-success btn-block">REGISTER</button>
-                                        </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="form-group col-12">
+                                        <button type="submit" class="btn btn-success btn-block">REGISTER</button>
+                                    </div>
+                                </form></div>
+
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
+
 </div>
 
 
