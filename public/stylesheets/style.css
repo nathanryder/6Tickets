@@ -134,10 +134,10 @@ header.navbar {
 }
 
 /*@media (max-width: 991.98px) {*/
-  /*.toggle-menu {*/
-    /*display: -ms-flexbox;*/
-    /*display: flex;*/
-  /*}*/
+/*.toggle-menu {*/
+/*display: -ms-flexbox;*/
+/*display: flex;*/
+/*}*/
 /*}*/
 
 .logo{
@@ -995,16 +995,15 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   }
 }
 
-@media (min-width: 576px) {
+@media (min-width: 300px) {
   .card-login-form [class*="col-"]:first-child {
-    border-right: 1px solid #dee2e6;
+
   }
 }
 
 @media (max-width: 575.98px) {
   .card-login-form [class*="col-"]:first-child {
     padding-bottom: 1rem;
-    border-bottom: 1px solid #dee2e6;
   }
 }
 
@@ -1202,8 +1201,19 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   margin-top: 2rem;
   margin-left: -15px;
   margin-right: -15px;
+
 }
 
+.login-footer {
+  background-color: #f8f9fa;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  margin-left: -15px;
+  margin-right: -15px;
+  bottom: 0px;
+
+}
 .btn-tags .btn {
   border-radius: 24px;
   margin-bottom: 5px;
