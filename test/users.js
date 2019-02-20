@@ -1,8 +1,9 @@
 process.env.NODE_ENV = 'test';
 
+var app = require('../app.js');
 var chai = require('chai');
 var chaiHttp = require('chai-http');
-var app = require('../app.js');
+var request = require('supertest');
 
 var should = chai.should();
 
@@ -11,7 +12,7 @@ chai.use(chaiHttp);
 describe("Users", () => {
 
     it("creates a user", (done) => {
-        chai.request(app).post("/api/users/test")
+        request(app).post("/api/users/test")
             .send({
                 "password": "test",
                 "firstname": "test",
@@ -22,15 +23,14 @@ describe("Users", () => {
                 "city": "test",
                 "country": "test"
             })
-            .end((err, res) => {
+            .expect(function (res) {
                 res.body.should.contain.property("success");
-
-                done();
-            });
+            })
+            .expect(201, done);
     });
 
     it("doesn't allow duplicate user names", (done) => {
-        chai.request(app).post("/api/users/test")
+        request(app).post("/api/users/test")
             .send({
                 "password": "test",
                 "firstname": "test",
@@ -41,11 +41,10 @@ describe("Users", () => {
                 "city": "test",
                 "country": "test"
             })
-            .end((err, res) => {
+            .expect(function (res) {
                 res.body.should.contain.property("error");
-
-                done();
-            });
+            })
+            .expect(400, done);
     });
 
 });
