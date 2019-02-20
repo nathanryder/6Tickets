@@ -1,8 +1,39 @@
 $(document).ready(function() {
 
+    //check passwords
+    $("#registerPassword, #registerConfirmPassword").on('keyup', function(){
+        var password = document.getElementById("registerPassword").value;
+        var passwordConfirm = document.getElementById("registerConfirmPassword").value;
+        var errorMsg = "";
+        if (password !== passwordConfirm) {
+            errorMsg += "<span>Passwords are different!</span><br>";
+        }
+        if(password.length<=10){
+            errorMsg += "<span>Your password must be at least 10 characters long!</span><br>";
+        }
+        if(password.match(/[^A-Za-z0-9]/) === null) {
+            errorMsg += "<span>Your password need to contain at least one special character!</span><br>"
+        }
+        if(password.match(/[0-9]/) === null) {
+            errorMsg += "<span>Your password needs to contain at least one number!</span><br>"
+        }
+        if(password.match(/[A-Z]/) === null) {
+            errorMsg += "<span>Your password needs to contain at least one upper case letter!</span><br>"
+        }
+
+        if(errorMsg===""){
+            $("#error").html("");
+            $("#registerBtn").prop("disabled",false);
+        }
+        else {
+            $("#error").html(errorMsg);
+            $("#registerBtn").prop("disabled",true);
+        }
+    });
+
+
     $("#reg-form").submit(function (event) {
         event.preventDefault();
-        //check if password the same
         var username = event.target.registerUsername.value;
         $.ajax({
             type: 'POST',
@@ -25,6 +56,4 @@ $(document).ready(function() {
             }
         });
     });
-
-
 });
