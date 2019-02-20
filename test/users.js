@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 describe("Users", () => {
 
-    it("creates a user", (done) => {
+    it("successfully creates a user", (done) => {
         request(app).post("/api/users/test")
             .send({
                 "password": "test",
@@ -45,6 +45,13 @@ describe("Users", () => {
                 res.body.should.contain.property("error");
             })
             .expect(400, done);
+    });
+
+    it ("successfully deletes a user", (done) => {
+
+        request(app).delete("/api/users/test")
+            .expect(200, done)
+
     });
 
 });

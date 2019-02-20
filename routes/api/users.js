@@ -82,6 +82,43 @@ router.post("/:username", function (req, res, next) {
     });
 });
 
+
+/**
+ * @api {delete} /users/:username Delete a user
+ * @apiName DeleteUser
+ * @apiGroup Users
+ *
+ * @apiSuccessExample Example data on success:
+ * {
+ *     success: "account deleted"
+ * }
+ *
+ * @apiError UserNotFound Username does not exist
+ *
+ */
+router.delete("/:username", function(req, res, next) {
+    var username = req.params.username;
+
+    User.findOne({"username": username}, function (err, user) {
+
+        if (err)
+            res.send(err);
+
+        if (!user) {
+            res.status(400).json({
+                "error": "user not found"
+            });
+        }
+    });
+
+    User.deleteOne({"username": username}, function(err, rem) {
+        if (err)
+            throw err;
+
+        res.status(200).json({"success": "account deleted"});
+    });
+});
+
 function createJwt(profile) {
     return jwt.sign(profile, "8ea73037538f45b4827845e3ec03a9cc", {
         expiresIn: "10d"
