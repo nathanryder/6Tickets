@@ -50,7 +50,7 @@ describe("Users", () => {
     it ("successfully deletes a user", (done) => {
 
         request(app).delete("/api/users/test")
-            .expect(200, done)
+            .expect(200, done);
 
     });
 

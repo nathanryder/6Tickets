@@ -120,17 +120,22 @@ router.delete("/:username", function(req, res, next) {
         if (err)
             res.send(err);
 
+        console.log(user);
         if (!user) {
-            res.status(400).json({
-                "error": "user not found"
-            });
+            // res.status(400).json({
+            //     "error": "user not found"
+            // });
             notFound = true;
 
         }
     });
 
-    if (!notFound)
+    if (notFound) {
+	    res.status(400).json({
+            "error": "user not found"
+        });
         return;
+    }
 
     User.deleteOne({"username": username}, function(err, rem) {
         if (err)
