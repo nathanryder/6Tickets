@@ -4,6 +4,21 @@ var User = require("../../models/users");
 var jwt = require("jsonwebtoken");
 
 /**
+ * @api {get} /users/ Get the list of users
+ * @apiName GetUsers
+ */
+router.get("/", function (req, res, next) {
+    var page = req.query.page*10;
+
+    User.find({}, function (err, comments) {
+        if (err)
+            res.send(err);
+
+        res.json(comments);
+    }).sort({"username":1}).skip(page).limit(10);
+});
+
+/**
  * @api {post} /users/:username Create a user
  * @apiName AddUser
  * @apiGroup Users
@@ -98,6 +113,7 @@ router.post("/:username", function (req, res, next) {
  */
 router.delete("/:username", function(req, res, next) {
     var username = req.params.username;
+    var notFound = false;
 
     User.findOne({"username": username}, function (err, user) {
 
@@ -108,8 +124,13 @@ router.delete("/:username", function(req, res, next) {
             res.status(400).json({
                 "error": "user not found"
             });
+            notFound = true;
+
         }
     });
+
+    if (!notFound)
+        return;
 
     User.deleteOne({"username": username}, function(err, rem) {
         if (err)
