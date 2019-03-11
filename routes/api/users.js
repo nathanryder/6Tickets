@@ -19,6 +19,110 @@ router.get("/", function (req, res, next) {
 });
 
 /**
+ * @api {delete} /users/:username Delete a user
+ * @apiName DeleteUser
+ * @apiGroup Users
+ *
+ * @apiSuccessExample Example data on success:
+ * {
+ *     success: "account deleted"
+ * }
+ *
+ * @apiError UserNotFound Username does not exist
+ *
+ */
+router.delete("/:username", function(req, res, next) {
+    var username = req.params.username;
+    var notFound = false;
+
+    User.findOne({"username": username}, function (err, user) {
+
+        if (err)
+            res.send(err);
+
+        console.log(user);
+        if (!user) {
+            // res.status(400).json({
+            //     "error": "user not found"
+            // });
+            notFound = true;
+
+        }
+    });
+
+    if (notFound) {
+	    res.status(400).json({
+            "error": "user not found"
+        });
+        return;
+    }
+
+    User.deleteOne({"username": username}, function(err, rem) {
+        if (err)
+            throw err;
+
+        res.status(200).json({"success": "account deleted"});
+    });
+});
+
+
+/**
+ * @api {post} /users/login Login a user
+ * @apiName AuthenticateUser
+ * @apiGroup Users
+ * @apiParam {String} username Users username.
+ * @apiParam {String} password Users password.
+ *
+ * @apiSuccessExample Example data on success:
+ * {
+ *     success: "account created"
+ * }
+ *
+ */
+router.post("/login", function(req, res, next) {
+    var username = req.body.username;
+    var password = req.body.password;
+
+    console.log("Username: " + username + " " + password);
+    if (!username || !password) {
+        res.status(400).json({
+            "error": "Invalid arguments"
+        });
+        return;
+    }
+
+    User.findOne({"username": username}, function (err, user) {
+        if (err)
+            res.send(err);
+
+        if (user) {
+
+            if (user.validPassword(password)) {
+                user.access_token = createJwt({"username": username});
+                user.save();
+
+                req.session.username = username;
+                res.status(200).json({"success": "loggedIn"});
+            } else {
+                res.status(401).send({
+                    "status": "error",
+                    "body": "Email or password does not match"
+                });
+            }
+
+        } else {
+            res.status(401).send({
+                "status": "error",
+                "body": "Username not found"
+            });
+        }
+
+    });
+
+
+});
+
+/**
  * @api {post} /users/:username Create a user
  * @apiName AddUser
  * @apiGroup Users
@@ -34,7 +138,7 @@ router.get("/", function (req, res, next) {
  *
  * @apiSuccessExample Example data on success:
  * {
- *     success: "account created"
+ *     success: "loggedIn"
  * }
  *
  * @apiError InvalidArguments incorrect arguments supplied
@@ -97,53 +201,6 @@ router.post("/:username", function (req, res, next) {
     });
 });
 
-
-/**
- * @api {delete} /users/:username Delete a user
- * @apiName DeleteUser
- * @apiGroup Users
- *
- * @apiSuccessExample Example data on success:
- * {
- *     success: "account deleted"
- * }
- *
- * @apiError UserNotFound Username does not exist
- *
- */
-router.delete("/:username", function(req, res, next) {
-    var username = req.params.username;
-    var notFound = false;
-
-    User.findOne({"username": username}, function (err, user) {
-
-        if (err)
-            res.send(err);
-
-        console.log(user);
-        if (!user) {
-            // res.status(400).json({
-            //     "error": "user not found"
-            // });
-            notFound = true;
-
-        }
-    });
-
-    if (notFound) {
-	    res.status(400).json({
-            "error": "user not found"
-        });
-        return;
-    }
-
-    User.deleteOne({"username": username}, function(err, rem) {
-        if (err)
-            throw err;
-
-        res.status(200).json({"success": "account deleted"});
-    });
-});
 
 function createJwt(profile) {
     return jwt.sign(profile, "8ea73037538f45b4827845e3ec03a9cc", {
