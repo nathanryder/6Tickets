@@ -6,6 +6,9 @@ var jwt = require("jsonwebtoken");
 /**
  * @api {get} /users/ Get the list of users
  * @apiName GetUsers
+ * @apiGroup Users
+ *
+ * @apiParam {Number} page Page number (optional)
  */
 router.get("/", function (req, res, next) {
     var page = req.query.page*10;
