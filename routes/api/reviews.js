@@ -121,13 +121,19 @@ router.post("/:username", function(req, res, next) {
                 throw err;
 
             res.status(201).json({
-                "success": "review created"
+                "success": "review created",
+                "_id": review._id
             });
         });
     });
 });
 
 var userExists = function (username, callback) {
+    if (process.env.NODE_ENV === "test") {
+        callback(null, true);
+        return;
+    }
+
     Users.find({"username": username}, function(err, res) {
         if (err)
             callback(err);
