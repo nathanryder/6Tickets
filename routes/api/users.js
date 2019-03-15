@@ -22,6 +22,25 @@ router.get("/", function (req, res, next) {
 });
 
 /**
+ * @api {post} /users/verify Set a users verified status
+ * @apiName VerifyUser
+ * @apiGroup Users
+ * @apiParam {String} username
+ * @apiParam {number} verified
+ */
+router.post("/verify", function(req, res, next) {
+    var username = req.body.username;
+    var verified = req.body.verified;
+
+    User.updateOne({"username": username}, {$set:{"verified": verified}}, function(err, update) {
+        if (err)
+            throw err;
+
+        res.status(201).json({"success": "user verified status changed"});
+    });
+});
+
+/**
  * @api {delete} /users/:username Delete a user
  * @apiName DeleteUser
  * @apiGroup Users
@@ -68,7 +87,6 @@ router.delete("/:username", function(req, res, next) {
     });
 });
 
-
 /**
  * @api {post} /users/login Login a user
  * @apiName AuthenticateUser
@@ -86,7 +104,6 @@ router.post("/login", function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
 
-    console.log("Username: " + username + " " + password);
     if (!username || !password) {
         res.status(400).json({
             "error": "Invalid arguments"
