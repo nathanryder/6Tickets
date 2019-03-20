@@ -22,6 +22,23 @@ router.get("/", function (req, res, next) {
 });
 
 /**
+ * @api {get} /users/:username Get a users information
+ * @apiName GetUser
+ * @apiGroup Users
+ *
+ * @apiParam {String} username
+ */
+router.get("/:username", function (req, res, next) {
+    console.log(req.params.username);
+    User.find({"username": req.params.username}, function (err, users) {
+        if (err)
+            res.send(err);
+
+        res.json(users);
+    });
+});
+
+/**
  * @api {post} /users/verify Set a users verified status
  * @apiName VerifyUser
  * @apiGroup Users
