@@ -50,7 +50,7 @@ router.post("/", function(req, res, next) {
 router.get("/", function(req, res, next) {
 
     Event.find({}, function(err, events) {
-        res.status(201).json(events);
+        res.status(200).json(events);
     })
 
 });
@@ -84,7 +84,7 @@ router.get("/search", function(req, res, next) {
         if (err)
             throw err;
 
-        res.status(201).json(events);
+        res.status(200).json(events);
     }).sort({startDate: -1})
 
 });
@@ -103,7 +103,7 @@ router.get("/:eventId", function(req, res, next) {
         if (err)
             throw err;
 
-        res.status(201).json(event);
+        res.status(200).json(event);
     })
 
 });
@@ -122,7 +122,7 @@ router.delete("/:id", function(req, res, next) {
         if (err)
             throw err;
 
-        res.status(201).json({"success": "Event deleted"});
+        res.status(200).json({"success": "Event deleted"});
     });
 
 });
