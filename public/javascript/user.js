@@ -5,6 +5,7 @@ $(document).ready(function() {
         var password = document.getElementById("registerPassword").value;
         var passwordConfirm = document.getElementById("registerConfirmPassword").value;
         var errorMsg = "";
+
         if (password !== passwordConfirm) {
             errorMsg += "<span>Passwords are different!</span><br>";
         }
@@ -35,6 +36,7 @@ $(document).ready(function() {
     $("#reg-form").submit(function (event) {
         event.preventDefault();
         var username = event.target.registerUsername.value;
+
         $.ajax({
             type: 'POST',
             url: 'api/users/'+username,
@@ -50,10 +52,39 @@ $(document).ready(function() {
                 'city': event.target.registerCity.value,
                 'country': event.target.registerCountry.value
             },
-            success: function(token){},
+            success: function(token){
+                window.location.href = "/login";
+            },
             error: function(errMsg) {
                 console.log(errMsg);
             }
         });
+    });
+
+    $("#login-form").submit(function (event) {
+       event.preventDefault();
+       var username = event.target.loginUsername.value;
+       var password = event.target.loginPassword.value;
+
+        if (!username || !password) {
+            $("#login-error").html("Invalid login details!");
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: "api/users/login",
+            dataType: "json",
+            data: {
+                "username": username,
+                "password": password
+            },
+            success: function (res) {
+                window.location.href = "/";
+            },
+            error: function (res) {
+                $("#login-error").html("Invalid login details!");
+            }
+        })
     });
 });

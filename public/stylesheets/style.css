@@ -1247,6 +1247,20 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   color: crimson;
 }
 
+.login-error {
+  color: crimson;
+  text-align: center;
+}
+
+.no-style-link {
+    color: #16181b;
+    text-decoration: none;
+}
+.no-style-link:hover {
+    color: #16181b;
+    text-decoration: none;
+}
+
 @media (min-width: 576px) and (max-width: 767.98px) {
   .embed-map {
     height: 419px;

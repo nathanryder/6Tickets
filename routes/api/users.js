@@ -88,6 +88,16 @@ router.delete("/:username", function(req, res, next) {
 });
 
 /**
+ * @api {get} /users/logout Logout a user
+ * @apiName LogoutUser
+ * @apiGroup Users
+ */
+router.get("/logout", function(req, res, next) {
+    req.session.destroy();
+    res.redirect("/");
+});
+
+/**
  * @api {post} /users/login Login a user
  * @apiName AuthenticateUser
  * @apiGroup Users
@@ -176,7 +186,7 @@ router.post("/:username", function (req, res, next) {
     var city = req.body.city;
     var country = req.body.country;
 
-    if (!password || !firstname || !lastname || !email || !phoneNo || !addressOne || !city || !country) {
+    if (!password || !firstname || !lastname || !email || !addressOne || !city || !country) {
         res.status(400).json({
             "error": "Invalid arguments"
         });
