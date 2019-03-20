@@ -4,11 +4,10 @@
         <div class="card user-card">
             <div class="card-body">
                 <div class="media">
-                    <img src="images/user.svg" class="img-thumbnail rounded-circle" alt="John Thor">
+                    <img src="images/user.svg" class="img-thumbnail rounded-circle">
                     <div class="media-body ml-3 pt-4">
-                        <h4>John Thor</h4>
+                        <h4 id="full-name"></h4>
                         <div class="small text-muted">Joined Dec 31, 2017</div>
-                        <div class="small text-muted">Points: 100</div>
                     </div>
                 </div>
                 <hr>
@@ -30,7 +29,7 @@
                     <div class="form-row">
                         <div class="form-group col-sm-6">
                             <label for="profileFirstName">First Name</label>
-                            <input type="text" class="form-control" id="profileFirstName" value="John">
+                            <input type="text" class="form-control" id="profileFirstName">
                         </div>
                         <div class="form-group col-sm-6">
                             <label for="profileLastName">Last Name</label>
@@ -61,3 +60,20 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/users/{{username}}",
+            success: function (data) {
+                $("#profileFirstName").val(data[0].firstname);
+                $("#profileLastName").val(data[0].lastname);
+                $("#profileEmail").val(data[0].emailAddress);
+                $("#profilePhone").val(data[0].phoneNo);
+                $("#full-name").html(data[0].firstname + " " + data[0].lastname);
+            }
+        });
+
+    });
+</script>
