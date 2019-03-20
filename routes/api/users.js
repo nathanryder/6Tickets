@@ -79,11 +79,7 @@ router.delete("/:username", function(req, res, next) {
         if (err)
             res.send(err);
 
-        console.log(user);
         if (!user) {
-            // res.status(400).json({
-            //     "error": "user not found"
-            // });
             notFound = true;
 
         }
@@ -225,7 +221,7 @@ router.post("/:username", function (req, res, next) {
             newUser.password = newUser.generateHash(password);
             newUser.firstname = firstname;
             newUser.lastname = lastname;
-            newUser.email = email;
+            newUser.emailAddress = email;
             newUser.phoneNo = phoneNo;
             newUser.addressOne = addressOne;
             newUser.addressTwo = addressTwo;
