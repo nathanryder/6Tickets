@@ -1,6 +1,21 @@
 var express = require('express');
 var router = express.Router();
 
+var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address"];
+
+// Check if authorization is required
+router.get("*", function(req, res, next) {
+    var data = req.url.split("/");
+    var page = data[data.length-1];
+
+    if (authRequired.includes(page) && !req.session.username) {
+        res.redirect("/login");
+        return;
+    }
+
+    next();
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('index', { username: req.session.username, title: '6Tickets' });
