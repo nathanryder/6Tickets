@@ -22,6 +22,17 @@ router.get("/", function (req, res, next) {
 });
 
 /**
+ * @api {get} /users/logout Logout a user
+ * @apiName LogoutUser
+ * @apiGroup Users
+ */
+router.get("/logout", function(req, res, next) {
+    console.log("Ran");
+    req.session.destroy();
+    res.redirect("/");
+});
+
+/**
  * @api {get} /users/:username Get a users information
  * @apiName GetUser
  * @apiGroup Users
@@ -29,7 +40,6 @@ router.get("/", function (req, res, next) {
  * @apiParam {String} username
  */
 router.get("/:username", function (req, res, next) {
-    console.log(req.params.username);
     User.find({"username": req.params.username}, function (err, users) {
         if (err)
             res.send(err);
@@ -98,16 +108,6 @@ router.delete("/:username", function(req, res, next) {
 
         res.status(200).json({"success": "account deleted"});
     });
-});
-
-/**
- * @api {get} /users/logout Logout a user
- * @apiName LogoutUser
- * @apiGroup Users
- */
-router.get("/logout", function(req, res, next) {
-    req.session.destroy();
-    res.redirect("/");
 });
 
 /**
