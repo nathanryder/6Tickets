@@ -134,7 +134,7 @@ router.post("/login", function(req, res, next) {
         return;
     }
 
-    User.findOne({"username": username}, function (err, user) {
+    User.findOne({"username": new RegExp("^" + username + "$", 'i')}, function (err, user) {
         if (err)
             res.send(err);
 
