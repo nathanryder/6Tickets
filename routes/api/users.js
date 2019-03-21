@@ -40,7 +40,7 @@ router.get("/logout", function(req, res, next) {
  * @apiParam {String} username
  */
 router.get("/:username", function (req, res, next) {
-    User.find({"username": req.params.username}, function (err, users) {
+    User.find({"username": new RegExp("^" + req.params.username + "$", 'i')}, function (err, users) {
         if (err)
             res.send(err);
 
