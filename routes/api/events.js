@@ -96,7 +96,7 @@ router.get("/search", function(req, res, next) {
     } else if (category) {
         searchQuery = {"category": category}
     }
-    searchQuery.request = req.query.approved === "false" ? 0 : 1;
+    searchQuery.request = req.query.approved === "false" ? 1 : 0;
 
     Event.find(searchQuery, function(err, events) {
         if (err)
@@ -134,10 +134,8 @@ router.get("/:eventId", function(req, res, next) {
  * @apiParam {String} id
  */
 router.get("/approve/:id", function(req, res, next) {
-    console.log("SHOULD BE RAN");
     var id = req.params.id;
 
-    console.log("2");
     Event.updateOne({"_id": id}, {$set:{
             "request": 0,
         }}, function(err, update) {

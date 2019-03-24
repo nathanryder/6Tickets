@@ -16,6 +16,8 @@ describe("Events", () => {
             .send({
                 "eventName": "Test event",
                 "category": "sport",
+                "description": "Test description",
+                "venue": "Venue Name",
                 "startDate": "2019-03-15T12:11:44.164Z",
                 "endDate": "2019-03-20T12:11:44.164Z"
             })
@@ -31,6 +33,8 @@ describe("Events", () => {
             .send({
                 "name": "Test event updated",
                 "category": "music",
+                "description": "Updated test description",
+                "venue": "Venue",
                 "startDate": "2019-03-15T12:11:44.164Z",
                 "endDate": "2019-03-20T12:11:44.164Z"
             })
