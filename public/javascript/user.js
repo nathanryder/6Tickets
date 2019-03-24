@@ -77,7 +77,8 @@ $(document).ready(function() {
             dataType: "json",
             data: {
                 "username": username,
-                "password": password
+                "password": password,
+                "adminLogin": false
             },
             success: function (res) {
                 window.location.href = "/";

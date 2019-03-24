@@ -8,34 +8,52 @@ var Event = require("../../models/event");
  * @apiGroup Events
  *
  * @apiParam {String} eventName
+ * @apiParam {String} description
+ * @apiParam {String} venue
+ * @apiParam {String} address
  * @apiParam {String} category
  * @apiParam {Date} startDate
  * @apiParam {Date} endDate
+ * @apiParam {String} logo (Optional)
+ * @apiParam {String} header (Optional)
+ * @apiParam {Number} isRequest (Optional)
  */
 router.post("/", function(req, res, next) {
 
     var name = req.body.eventName;
+    var desc = req.body.description;
+    var venue = req.body.venue;
+    var addr = req.body.address;
     var category = req.body.category;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
+    var header = req.body.header;
+    var logo = req.body.logo;
+    var request = req.body.isRequest ? req.body.isRequest : 0;
 
-    if (!name || !category || !startDate || !endDate) {
+    if (!name || !category || !startDate || !endDate || !desc || !venue) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }
 
     var event = new Event();
     event.name = name;
+    event.description = desc;
+    event.venue = venue;
+    event.address = addr;
     event.category = category;
     event.startDate = startDate;
     event.endDate = endDate;
+    event.header = header;
+    event.logo = logo;
+    event.request = request;
 
     event.save(function(err, event) {
         if (err)
             throw err;
 
         res.status(201).json({
-            "success": "review created",
+            "success": "event created",
             "_id": event._id
         });
     });
@@ -78,7 +96,7 @@ router.get("/search", function(req, res, next) {
     } else if (category) {
         searchQuery = {"category": category}
     }
-
+    searchQuery.request = req.query.approved === "false" ? 0 : 1;
 
     Event.find(searchQuery, function(err, events) {
         if (err)
@@ -104,6 +122,29 @@ router.get("/:eventId", function(req, res, next) {
             throw err;
 
         res.status(200).json(event);
+    })
+
+});
+
+/**
+ * @api {get} Approve an event
+ * @apiName ApproveEvent
+ * @apiGroup Events
+ *
+ * @apiParam {String} id
+ */
+router.get("/approve/:id", function(req, res, next) {
+    console.log("SHOULD BE RAN");
+    var id = req.params.id;
+
+    console.log("2");
+    Event.updateOne({"_id": id}, {$set:{
+            "request": 0,
+        }}, function(err, update) {
+        if (err)
+            throw err;
+
+        res.status(201).json({"success": "Updated event details"});
     })
 
 });
@@ -139,7 +180,6 @@ router.delete("/:id", function(req, res, next) {
  * @apiParam {String} endDate
  */
 router.put("/:id", function(req, res, next) {
-
     var id = req.params.id;
     var name = req.body.name;
     var category = req.body.category;

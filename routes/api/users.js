@@ -126,6 +126,7 @@ router.delete("/:username", function(req, res, next) {
 router.post("/login", function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
+    var adminLogin = req.body.adminLogin;
 
     if (!username || !password) {
         res.status(400).json({
@@ -144,7 +145,17 @@ router.post("/login", function(req, res, next) {
                 user.access_token = createJwt({"username": username});
                 user.save();
 
+                console.log(adminLogin + " " + !user.admin);
+                if (adminLogin && !user.admin) {
+                    res.status(401).send({
+                        "status": "error",
+                        "body": "Email or password does not match"
+                    });
+                    return;
+                }
+
                 req.session.username = username;
+                req.session.admin = user.admin;
                 res.status(200).json({"success": "loggedIn"});
             } else {
                 res.status(401).send({

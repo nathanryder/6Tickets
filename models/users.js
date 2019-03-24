@@ -14,6 +14,7 @@ var usersSchema = new Schema({
     city: {type: String, default: null},
     country: {type: String, default: null},
     password: {type: String, default: null},
+    admin: {type: Number, default: 0},
     verified: {type: Number, default: 0},
     access_token: String
 });

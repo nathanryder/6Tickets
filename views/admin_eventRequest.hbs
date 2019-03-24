@@ -1,0 +1,51 @@
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form id="event-form">
+            <div class="form-row">
+                <div class="form-group col-sm-12">
+                    <label for="eventName">Event Name</label>
+                    <input type="text" class="form-control" id="eventName" value="{{data.name}}">
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="eventDesc">Description</label>
+                    <textarea type="text" class="form-control" id="eventDesc">{{data.description}}</textarea>
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="eventStartDate">Start Date</label>
+                    <input type="date" class="form-control" id="eventStartDate" value="{{data.startDate}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="eventEndDate">End Date</label>
+                    <input type="date" class="form-control" id="eventEndDate" value="{{data.endDate}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="eventCat">Category</label>
+                    <input type="text" class="form-control" id="eventCat" value="{{data.category}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="eventVenue">Venue</label>
+                    <input type="text" class="form-control" id="eventVenue" value="{{data.venue}}">
+                </div>
+                <div class="form-group col-sm-12">
+                    <label for="eventAddress">Address</label>
+                    <input type="text" class="form-control" id="eventAddress" value="{{data.address}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="eventHeader">Header</label>
+                    <input type="file" class="form-control" id="eventHeader" value="{{data.header}}">
+                </div>
+                <div class="form-group col-sm-6">
+                    <label for="eventLogo">Logo</label>
+                    <input type="file" class="form-control" id="eventLogo" value="{{data.logo}}">
+                </div>
+                <div id="error" class="error col-sm-12"></div>
+                <div class="mx-auto">
+                    <button type="submit" eid="{{data._id}}" class="btn btn-success" id="approveBtn">Approve</button>
+                    <button type="submit" eid="{{data._id}}" class="btn btn-danger" id="deleteBtn">Delete</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="javascript/admin/eventRequests.js"></script>

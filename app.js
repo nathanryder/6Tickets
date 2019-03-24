@@ -6,6 +6,7 @@ var session = require('express-session');
 var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
+var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/api/users');
 var reviewsRouter = require('./routes/api/reviews');
 var eventsRouter = require('./routes/api/events');
@@ -24,6 +25,7 @@ app.use(session({secret:"secretKey", saveUninitialized : true, resave : true}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
+app.use('/', adminRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/events', eventsRouter);
