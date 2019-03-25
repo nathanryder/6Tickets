@@ -27,7 +27,6 @@ router.get("/", function (req, res, next) {
  * @apiGroup Users
  */
 router.get("/logout", function(req, res, next) {
-    console.log("Ran");
     req.session.destroy();
     res.redirect("/");
 });
@@ -126,7 +125,8 @@ router.delete("/:username", function(req, res, next) {
 router.post("/login", function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
-    var adminLogin = req.body.adminLogin;
+    var adminLogin = req.body.adminPage === "1";
+    console.log("ADMIN PAGE: " + req.body.adminPage + " " + adminLogin);
 
     if (!username || !password) {
         res.status(400).json({
@@ -145,8 +145,10 @@ router.post("/login", function(req, res, next) {
                 user.access_token = createJwt({"username": username});
                 user.save();
 
-                console.log(adminLogin + " " + !user.admin);
-                if (adminLogin && !user.admin) {
+                var isAdmin = user.admin === 1;
+                console.log("Ran " + adminLogin + " " + (isAdmin === false));
+                if (adminLogin && isAdmin === false) {
+                    console.log("ADMIN ERROR");
                     res.status(401).send({
                         "status": "error",
                         "body": "Email or password does not match"

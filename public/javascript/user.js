@@ -76,9 +76,9 @@ $(document).ready(function() {
             url: "api/users/login",
             dataType: "json",
             data: {
+                "adminPage": 0,
                 "username": username,
-                "password": password,
-                "adminLogin": false
+                "password": password
             },
             success: function (res) {
                 window.location.href = "/";

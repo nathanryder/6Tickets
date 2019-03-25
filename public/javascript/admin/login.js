@@ -17,7 +17,7 @@ $(document).ready(function () {
             data: {
                 "username": username,
                 "password": password,
-                "adminLogin": true
+                "adminPage": 1
             },
             success: function (res) {
                 window.location.href = "/admin_index";
