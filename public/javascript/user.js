@@ -1,10 +1,12 @@
 $(document).ready(function() {
 
-    //check passwords
-    $("#registerPassword, #registerConfirmPassword").on('keyup', function(){
-        var password = document.getElementById("registerPassword").value;
-        var passwordConfirm = document.getElementById("registerConfirmPassword").value;
+    //checks if two password fit constraints and are the same
+    function checkPasswords(password, passwordConfirm){
         var errorMsg = "";
+        if(password==="" && passwordConfirm===""){
+            errorMsg="          "
+            return errorMsg;
+        }
 
         if (password !== passwordConfirm) {
             errorMsg += "<span>Passwords are different!</span><br>";
@@ -13,7 +15,7 @@ $(document).ready(function() {
             errorMsg += "<span>Your password must be at least 10 characters long!</span><br>";
         }
         if(password.match(/[^A-Za-z0-9]/) === null) {
-            errorMsg += "<span>Your password need to contain at least one special character!</span><br>"
+            errorMsg += "<span>Your password needs to contain at least one special character!</span><br>"
         }
         if(password.match(/[0-9]/) === null) {
             errorMsg += "<span>Your password needs to contain at least one number!</span><br>"
@@ -21,18 +23,28 @@ $(document).ready(function() {
         if(password.match(/[A-Z]/) === null) {
             errorMsg += "<span>Your password needs to contain at least one upper case letter!</span><br>"
         }
+        return errorMsg;
+    }
+
+    //disable button if different passwords
+    $("#registerPassword, #registerConfirmPassword").on('keyup', function(){
+        var password = document.getElementById("registerPassword").value;
+        var passwordConfirm = document.getElementById("registerConfirmPassword").value;
+        var errorMsg = "";
+
+        errorMsg=checkPasswords(password, passwordConfirm);
 
         if(errorMsg===""){
-            $("#error").html("");
+            $("#passError").html("");
             $("#registerBtn").prop("disabled",false);
         }
         else {
-            $("#error").html(errorMsg);
+            $("#passError").html(errorMsg);
             $("#registerBtn").prop("disabled",true);
         }
     });
 
-
+    //refistration form
     $("#reg-form").submit(function (event) {
         event.preventDefault();
         var username = event.target.registerUsername.value;
@@ -61,6 +73,7 @@ $(document).ready(function() {
         });
     });
 
+    //login form
     $("#login-form").submit(function (event) {
        event.preventDefault();
        var username = event.target.loginUsername.value;
@@ -88,4 +101,52 @@ $(document).ready(function() {
             }
         })
     });
+
+//    edit profile
+//     $("#save").on('keyup', function(){
+        ////need to get the username from somewhere
+        // var username;
+        //
+        // $.ajax({
+        //     type: "PUT",
+        //     url: "api/users/"+username,
+        //     dataType: "json",
+        //     data: {
+        //         "adminPage": 0,
+        //         "profileFirstName": profileFirstName,
+        //         "profileLastName": profileLastName,
+        //         "profileEmail": profileEmail,
+        //         "profilePhone": profilePhone,
+        //         "profilePassword": profilePassword,
+        //         "profileConfirmPassword": profileConfirmPassword
+        //
+        //     },
+        //     success: function (res) {
+        //         window.location.href = "/";
+        //     },
+        //     error: function (res) {
+            //
+            // }
+        // })
+
+    // });
+
+    //edit profile - check if passwords are the same
+    $("#profilePassword, #profileConfirmPassword").on('keyup', function(){
+        var password = document.getElementById("profilePassword").value;
+        var passwordConfirm = document.getElementById("profileConfirmPassword").value;
+        var errorMsg = "";
+
+        errorMsg=checkPasswords(password, passwordConfirm);
+
+        if(errorMsg===""){
+            $("#passError").html("");
+            $("#saveBtn").prop("disabled",false);
+        }
+        else {
+            $("#passError").html(errorMsg);
+            $("#saveBtn").prop("disabled",true);
+        }
+    });
+
 });
