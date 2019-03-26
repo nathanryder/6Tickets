@@ -143,5 +143,9 @@ router.get('/login', function(req, res, next) {
     res.render('login', { username: req.session.username, title: 'Login' });
 });
 
+/* GET login page. */
+router.get('/sell-tickets', function(req, res, next) {
+    res.render('sell-tickets', { username: req.session.username, title: 'Sell Tickets' });
+});
 
 module.exports = router;
