@@ -141,8 +141,8 @@ header.navbar {
 /*}*/
 
 .logo{
-  width: auto;
-  height: 4vh;
+  width: 10vh;
+  height: auto;
 }
 
 .navbar-brand > img {

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address"];
+var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "sell-tickets"];
 
 // Check if authorization is required
 router.get("*", function(req, res, next) {
