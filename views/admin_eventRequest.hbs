@@ -32,11 +32,13 @@
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="eventHeader">Header</label>
-                    <input type="file" class="form-control" id="eventHeader" value="{{data.header}}">
+                    <input type="file" class="form-control" id="eventHeader">
+                    <img src="/uploads/{{data.header}}">
                 </div>
                 <div class="form-group col-sm-6">
                     <label for="eventLogo">Logo</label>
-                    <input type="file" class="form-control" id="eventLogo" value="{{data.logo}}">
+                    <input type="file" class="form-control" id="eventLogo">
+                    <img src="/uploads/{{data.logo}}">
                 </div>
                 <div id="error" class="error col-sm-12"></div>
                 <div class="mx-auto">
@@ -47,5 +49,4 @@
         </form>
     </div>
 </div>
-
 <script src="javascript/admin/eventRequests.js"></script>

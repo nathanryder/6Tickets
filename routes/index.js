@@ -1,5 +1,7 @@
 var express = require('express');
 var router = express.Router();
+var fs = require("fs");
+var path = require("path");
 
 var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "sell-tickets"];
 
@@ -148,9 +150,18 @@ router.get('/sell-tickets', function(req, res, next) {
     res.render('sell-tickets', { username: req.session.username, title: 'Sell Tickets' });
 });
 
-router.post("/test", function(req, res, next) {
+router.get("/uploads/:file", function(req, res, next) {
+    var file = req.params.file;
 
-    console.log(req.files);
+    try {
+        if (fs.existsSync("uploads/" + file)) {
+            res.sendFile(path.resolve("uploads/" + file));
+        } else {
+            res.render("404");
+        }
+    } catch (err) {
+        console.log(err);
+    }
 
 });
 
