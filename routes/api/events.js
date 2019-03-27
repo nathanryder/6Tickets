@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var crypto = require("crypto");
 var Event = require("../../models/event");
 
 /**
@@ -14,8 +15,8 @@ var Event = require("../../models/event");
  * @apiParam {String} category
  * @apiParam {Date} startDate
  * @apiParam {Date} endDate
- * @apiParam {String} logo (Optional)
- * @apiParam {String} header (Optional)
+ * @apiParam {File} logo (Optional)
+ * @apiParam {File} header (Optional)
  * @apiParam {Number} isRequest (Optional)
  */
 router.post("/", function(req, res, next) {
@@ -31,7 +32,7 @@ router.post("/", function(req, res, next) {
     var logo = req.body.logo;
     var request = req.body.isRequest ? req.body.isRequest : 0;
 
-    if (!name || !category || !startDate || !endDate || !desc || !venue) {
+    if (!name || !category || !startDate || !endDate || !desc || !venue || (process.env.NODE_ENV !== "test" && req.files === null)) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }
@@ -44,9 +45,29 @@ router.post("/", function(req, res, next) {
     event.category = category;
     event.startDate = startDate;
     event.endDate = endDate;
-    event.header = header;
-    event.logo = logo;
     event.request = request;
+
+    if (process.env.NODE_ENV !== "test") {
+        for (var i = 0; i < req.files.file.length; i++) {
+            var file = req.files.file[i];
+            var data = file.name.split("\.");
+
+            var extension = data[data.length - 1];
+            var fileName = crypto.randomBytes(20).toString("hex") + "." + extension;
+
+            file.mv("uploads/" + fileName, function (err) {
+                if (err) {
+                    console.log(err);
+                    return res.status(500).send(err);
+                }
+            });
+
+            if (i === 0)
+                event.header = fileName;
+            else
+                event.logo = fileName;
+        }
+    }
 
     event.save(function(err, event) {
         if (err)
@@ -176,11 +197,11 @@ router.delete("/:id", function(req, res, next) {
  * @apiParam {String} description
  * @apiParam {String} venue
  * @apiParam {String} address
- * @apiParam {String} header
- * @apiParam {String} logo
  * @apiParam {String} category
  * @apiParam {String} startDate
  * @apiParam {String} endDate
+ * @apiParam {File} header (optional)
+ * @apiParam {File} logo (optional)
  */
 router.put("/:id", function(req, res, next) {
     var id = req.params.id;
@@ -188,8 +209,6 @@ router.put("/:id", function(req, res, next) {
     var description = req.body.description;
     var venue = req.body.venue;
     var address = req.body.address;
-    var header = req.body.header;
-    var logo = req.body.logo;
     var category = req.body.category;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
@@ -199,17 +218,42 @@ router.put("/:id", function(req, res, next) {
         return;
     }
 
-    Event.updateOne({"_id": id}, {$set:{
-            "name": name,
-            "category": category,
-            "description": description,
-            "venue": venue,
-            "address": address,
-            "header": header,
-            "logo": logo,
-            "startDate": startDate,
-            "endDate": endDate
-        }}, function(err, update) {
+    var update = {
+        "name": name,
+        "category": category,
+        "description": description,
+        "venue": venue,
+        "address": address,
+        "startDate": startDate,
+        "endDate": endDate
+    };
+
+    if (process.env.NODE_ENV !== "test") {
+        if (req.files.file.length === 2) {
+
+            for (var i = 0; i < req.files.file.length; i++) {
+                var file = req.files.file[i];
+                var data = file.name.split("\.");
+
+                var extension = data[data.length - 1];
+                var fileName = crypto.randomBytes(20).toString("hex") + "." + extension;
+
+                file.mv("uploads/" + fileName, function (err) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(500).send(err);
+                    }
+                });
+
+                if (i === 0)
+                    update.header = fileName;
+                else
+                    update.logo = fileName;
+            }
+        }
+    }
+
+    Event.updateOne({"_id": id}, {$set:update}, function(err, update) {
         if (err)
             throw err;
 

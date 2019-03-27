@@ -148,4 +148,10 @@ router.get('/sell-tickets', function(req, res, next) {
     res.render('sell-tickets', { username: req.session.username, title: 'Sell Tickets' });
 });
 
+router.post("/test", function(req, res, next) {
+
+    console.log(req.files);
+
+});
+
 module.exports = router;

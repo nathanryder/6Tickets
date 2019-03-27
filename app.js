@@ -4,6 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var session = require('express-session');
 var logger = require('morgan');
+var fileUpload = require('express-fileupload');
 
 var indexRouter = require('./routes/index');
 var adminRouter = require('./routes/admin');
@@ -23,6 +24,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(session({secret:"secretKey", saveUninitialized : true, resave : true}));
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(fileUpload({
+    limits: { fileSize: 50 * 1024 * 1024},
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+    createParentPath: true
+}));
 
 app.use('/', indexRouter);
 app.use('/', adminRouter);
