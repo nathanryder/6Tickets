@@ -34,7 +34,10 @@ describe("Events", () => {
                 "name": "Test event updated",
                 "category": "music",
                 "description": "Updated test description",
+                "address": "Updated address",
                 "venue": "Venue",
+                "header": "headerPath",
+                "logo": "logoPath",
                 "startDate": "2019-03-15T12:11:44.164Z",
                 "endDate": "2019-03-20T12:11:44.164Z"
             })

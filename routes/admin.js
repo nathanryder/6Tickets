@@ -30,7 +30,7 @@ router.get("/admin_eventRequest", function (req, res, next) {
     requestify.get("http://" + req.get("host") + "/api/events/" + id)
         .then(function (resp) {
             var data = resp.getBody()[0];
-            if (data.request === 1) {
+            if (data.request === 0) {
                 res.redirect("admin_index");
                 return;
             }

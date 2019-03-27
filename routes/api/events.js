@@ -173,6 +173,11 @@ router.delete("/:id", function(req, res, next) {
  *
  * @apiParam {String} id
  * @apiParam {String} name
+ * @apiParam {String} description
+ * @apiParam {String} venue
+ * @apiParam {String} address
+ * @apiParam {String} header
+ * @apiParam {String} logo
  * @apiParam {String} category
  * @apiParam {String} startDate
  * @apiParam {String} endDate
@@ -180,6 +185,11 @@ router.delete("/:id", function(req, res, next) {
 router.put("/:id", function(req, res, next) {
     var id = req.params.id;
     var name = req.body.name;
+    var description = req.body.description;
+    var venue = req.body.venue;
+    var address = req.body.address;
+    var header = req.body.header;
+    var logo = req.body.logo;
     var category = req.body.category;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
@@ -192,6 +202,11 @@ router.put("/:id", function(req, res, next) {
     Event.updateOne({"_id": id}, {$set:{
             "name": name,
             "category": category,
+            "description": description,
+            "venue": venue,
+            "address": address,
+            "header": header,
+            "logo": logo,
             "startDate": startDate,
             "endDate": endDate
         }}, function(err, update) {
