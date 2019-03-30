@@ -11,6 +11,7 @@ var adminRouter = require('./routes/admin');
 var usersRouter = require('./routes/api/users');
 var reviewsRouter = require('./routes/api/reviews');
 var eventsRouter = require('./routes/api/events');
+var categoryRouter = require('./routes/api/categories');
 
 var app = express();
 
@@ -37,6 +38,7 @@ app.use('/', adminRouter);
 app.use('/api/users', usersRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/events', eventsRouter);
+app.use('/api/categories', categoryRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
