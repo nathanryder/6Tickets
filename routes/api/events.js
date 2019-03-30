@@ -115,7 +115,7 @@ router.get("/search", function(req, res, next) {
         query = query.replace("+", " ");
         searchQuery = {"name": new RegExp(query, 'i')};
     } else if (category) {
-        searchQuery = {"category": category}
+        searchQuery = {"category": new RegExp(category, 'i')}
     }
     searchQuery.request = req.query.approved === "false" ? 1 : 0;
 
