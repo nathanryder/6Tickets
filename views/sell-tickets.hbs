@@ -1,3 +1,5 @@
+<script src="javascript/tickets.js"></script>
+
 <div class="row">
     <div class="offset-md-3 col-md-6 justify-content-center" id="main-content">
         <div class="row">
@@ -7,7 +9,7 @@
                     <div class="form-group mt-2">
                         <label for="categorySelect">Category</label>
                         <select class="form-control" id="categorySelect">
-                            <option>Concert</option>
+                            <option>Music</option>
                             <option>Sports</option>
                             <option>Comedy</option>
                             <option>eSports</option>
@@ -29,13 +31,14 @@
                 <div class="">
                     <label for="searchResults">Found Events:</label>
                 </div>
+                <div id="searchResults"></div>
                 <!--/Search Rsults-->
             </div>
         </div>
 
         <div class="row mt-3">
             <span class="p-2">
-                <a href=""><span style="color:grey">My event is not here!</span></a>
+                <a href="/add-event"><span style="color:grey">My event is not here!</span></a>
             </span>
             <span class="ml-auto p-2" >
                 <button type="button" class="btn btn-success">Next</button>

@@ -76,8 +76,8 @@ router.get('/cart', function(req, res, next) {
 });
 
 /* GET ticket and event setup page. */
-router.get('/add-ticket', function(req, res, next) {
-    res.render('add-ticket', { username: req.session.username, title: 'Add Event' });
+router.get('/add-event', function(req, res, next) {
+    res.render('add-event', { username: req.session.username, title: 'Add Event' });
 });
 
 /* GET categories page. */
