@@ -18,9 +18,12 @@ $(document).ready(function() {
     function displayEvents(event){
         var output="";
         for(var i=0; i<event.length; i++){
+            var name=event[i].name;
+            var startDate = event[i].startDate;
+            var venue = event[i].venue;
+
             output+=
-                "<div>"+event[i].name+"  "+event[i].startDate+"  "+event[i].venue+"</div>";
-            console.log(event[i]);
+                "<div>"+name+"  "+startDate+"  "+venue+"</div>";
         }
         $("#searchResults").html(output);
     }
