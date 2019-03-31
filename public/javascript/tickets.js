@@ -1,9 +1,18 @@
 $(document).ready(function() {
+    getEvents();
 
     $("#eventSearchForm").on('keyup', function () {
+        getEvents();
+    });
+
+    $("#categorySelect").on('change',function () {
+        console.log("Slected")
+        getEvents();
+    });
+
+    function getEvents(){
         var eventName = document.getElementById("eventSearchForm").value;
         var category = document.getElementById("categorySelect").value;
-        // if(eventName===""){return}
 
         $.ajax({
             type: 'GET',
@@ -13,18 +22,39 @@ $(document).ready(function() {
                 displayEvents(res);
             }
         })
-    });
+    }
 
     function displayEvents(event){
-        var output="";
+        var output="<div class=\"table-responsive\">\n" +
+            "    <table class=\"table table-hover\">\n" +
+            "        <thead class=\"thead-light\">\n" +
+            "        <tr>\n" +
+            "            <th scope=\"col\">Name</th>\n" +
+            "            <th scope=\"col\">Address</th>" +
+            "            <th scope=\"col\">Venue</th>\n" +
+            "            <th scope=\"col\">Start Date</th>\n" +
+            "        </tr>\n" +
+            "        </thead>\n" +
+            "        <tbody>";
+
         for(var i=0; i<event.length; i++){
             var name=event[i].name;
-            var startDate = event[i].startDate;
+            var address = event[i].address;
             var venue = event[i].venue;
+            var startDate = event[i].startDate.split('T');
 
             output+=
-                "<div>"+name+"  "+startDate+"  "+venue+"</div>";
+                "        <tr>\n" +
+                "            <th scope=\"row\"><a href=\"\" class=\"text-info\">"+name+"</a></th>\n" +
+                "            <td>"+address+"</td>" +
+                "            <td>"+venue+"</td>\n" +
+                "            <td>"+startDate[0]+"</td>\n" +
+                "        </tr>"
+
         }
+        output+=
+            "        </tbody>\n" +
+            "    </table>"
         $("#searchResults").html(output);
     }
 
