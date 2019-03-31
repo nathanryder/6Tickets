@@ -6,7 +6,6 @@ $(document).ready(function() {
     });
 
     $("#categorySelect").on('change',function () {
-        console.log("Slected")
         getEvents();
     });
 
