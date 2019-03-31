@@ -3,9 +3,9 @@ $(document).ready(function() {
     //checks if two password fit constraints and are the same
     function checkPasswords(password, passwordConfirm){
         var errorMsg = "";
+
         if(password==="" && passwordConfirm===""){
-            errorMsg="          "
-            return errorMsg;
+            return null;
         }
 
         if (password !== passwordConfirm) {
@@ -139,7 +139,7 @@ $(document).ready(function() {
 
         errorMsg=checkPasswords(password, passwordConfirm);
 
-        if(errorMsg===""){
+        if(errorMsg==="" || errorMsg===null){
             $("#passError").html("");
             $("#saveBtn").prop("disabled",false);
         }
