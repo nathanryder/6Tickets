@@ -208,11 +208,12 @@ router.put("/:id", function(req, res, next) {
     var description = req.body.description;
     var venue = req.body.venue;
     var address = req.body.address;
+    var country = req.body.country;
     var category = req.body.category;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
 
-    if (!name || !category || !startDate || !endDate) {
+    if (!name || !category || !startDate || !endDate || !country) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }

@@ -17,6 +17,7 @@ describe("Events", () => {
                 "eventName": "Test event",
                 "category": "sport",
                 "description": "Test description",
+                "country": "country",
                 "venue": "Venue Name",
                 "startDate": "2019-03-15T12:11:44.164Z",
                 "endDate": "2019-03-20T12:11:44.164Z"
@@ -35,9 +36,9 @@ describe("Events", () => {
                 "category": "music",
                 "description": "Updated test description",
                 "address": "Updated address",
+                "country": "country",
                 "venue": "Venue",
                 "header": "headerPath",
-                "logo": "logoPath",
                 "startDate": "2019-03-15T12:11:44.164Z",
                 "endDate": "2019-03-20T12:11:44.164Z"
             })
