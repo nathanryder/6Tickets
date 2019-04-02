@@ -12,10 +12,10 @@ var Event = require("../../models/event");
  * @apiParam {String} description
  * @apiParam {String} venue
  * @apiParam {String} address
+ * @apiParam {String} country
  * @apiParam {String} category
  * @apiParam {Date} startDate
  * @apiParam {Date} endDate
- * @apiParam {File} logo (Optional)
  * @apiParam {File} header (Optional)
  * @apiParam {Number} isRequest (Optional)
  */
@@ -29,10 +29,10 @@ router.post("/", function(req, res, next) {
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
     var header = req.body.header;
-    var logo = req.body.logo;
+    var country = req.body.country;
     var request = req.body.isRequest ? req.body.isRequest : 0;
 
-    if (!name || !category || !startDate || !endDate || !desc || !venue || (process.env.NODE_ENV !== "test" && req.files === null)) {
+    if (!name || !category || !startDate || !endDate || !desc || !venue || !country || (process.env.NODE_ENV !== "test" && req.files === null)) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }
@@ -42,6 +42,7 @@ router.post("/", function(req, res, next) {
     event.description = desc;
     event.venue = venue;
     event.address = addr;
+    event.country = country;
     event.category = category;
     event.startDate = startDate;
     event.endDate = endDate;
@@ -64,8 +65,6 @@ router.post("/", function(req, res, next) {
 
             if (i === 0)
                 event.header = fileName;
-            else
-                event.logo = fileName;
         }
     }
 
@@ -99,7 +98,7 @@ router.get("/", function(req, res, next) {
  * @apiName SearchEvents
  * @apiGroup Events
  *
- * @apiParam {String} query (optional)
+ * @apiParam {String} q (optional)
  * @apiParam {String} category (optional)
  */
 router.get("/search", function(req, res, next) {
@@ -148,7 +147,7 @@ router.get("/:eventId", function(req, res, next) {
 });
 
 /**
- * @api {get} Approve an event
+ * @api {get} /events/approve/:id Approve an event
  * @apiName ApproveEvent
  * @apiGroup Events
  *
@@ -169,7 +168,7 @@ router.get("/approve/:id", function(req, res, next) {
 });
 
 /**
- * @api {delete} Delete an event
+ * @api {delete} /events/:id Delete an event
  * @apiName DeleteEvent
  * @apiGroup Events
  *
@@ -197,11 +196,11 @@ router.delete("/:id", function(req, res, next) {
  * @apiParam {String} description
  * @apiParam {String} venue
  * @apiParam {String} address
+ * @apiParam {String} country
  * @apiParam {String} category
  * @apiParam {String} startDate
  * @apiParam {String} endDate
  * @apiParam {File} header (optional)
- * @apiParam {File} logo (optional)
  */
 router.put("/:id", function(req, res, next) {
     var id = req.params.id;
@@ -209,11 +208,12 @@ router.put("/:id", function(req, res, next) {
     var description = req.body.description;
     var venue = req.body.venue;
     var address = req.body.address;
+    var country = req.body.country;
     var category = req.body.category;
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
 
-    if (!name || !category || !startDate || !endDate) {
+    if (!name || !category || !startDate || !endDate || !country) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }
@@ -224,6 +224,7 @@ router.put("/:id", function(req, res, next) {
         "description": description,
         "venue": venue,
         "address": address,
+        "country": country,
         "startDate": startDate,
         "endDate": endDate
     };
@@ -247,8 +248,6 @@ router.put("/:id", function(req, res, next) {
 
                 if (i === 0)
                     update.header = fileName;
-                else
-                    update.logo = fileName;
             }
         }
     }

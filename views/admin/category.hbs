@@ -1,0 +1,107 @@
+<script src="javascript/admin/master.js"></script>
+
+<div class="row">
+    <div class="col" id="main-content">
+
+        <div class="card user-card">
+            <div class="card-body">
+                <h2>Admin Dashboard</h2>
+                <div id="alert"></div>
+                <hr>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin_index">Event Requests</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin_categories">Categories</a>
+                    </li>
+                </ul>              <hr>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Actions</th>
+                            <th>
+                                <button onclick="addCategory();" class="btn btn-success">Add</button>
+                            </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each data}}
+                            <tr>
+                                <th id="" scope="row">{{name}}</th>
+                                <td>
+                                    <button onclick="deleteCategory('{{_id}}')" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
+                        {{/each}}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    function deleteCategory(id) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (!result.value)
+                return;
+
+            $.ajax({
+                url: "/api/categories/" + id,
+                type: "DELETE",
+                data: {
+                    "name": result.value
+                },
+                success: function () {
+                    window.location.reload();
+                }
+            });
+        })
+    }
+
+    function addCategory() {
+        Swal.fire({
+            title: 'Enter the name of the category you wish to add',
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Add',
+        }).then((result) => {
+            if (result.value === "") {
+                Swal.fire({
+                    type: 'error',
+                    title: 'Oops...',
+                    text: 'Invalid value given!',
+                });
+
+                return;
+            }
+
+            $.ajax({
+                url: "/api/categories/",
+                type: "POST",
+                data: {
+                    "name": result.value
+                },
+                success: function () {
+                    window.location.reload();
+                }
+            });
+
+        });
+    }
+
+</script>

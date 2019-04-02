@@ -2,12 +2,22 @@ var express = require('express');
 var router = express.Router();
 var requestify = require("requestify");
 
-router.get("/admin", function (req, res, next) {
+router.get("/admin/", function (req, res, next) {
     res.redirect("admin_index",);
 });
 
 router.get("/admin_login", function (req, res, next) {
-    res.render("admin_login.hbs", {title: "Admin Login"});
+    res.render("admin/login.hbs", {title: "Admin Login"});
+});
+
+router.get("/admin_categories", function (req, res, next) {
+    requestify.get("http://" + req.get("host") + "/api/categories/")
+        .then(function (resp) {
+            var data = resp.getBody();
+
+            res.render("admin/category.hbs", {title: "Admin dashboard", data});
+        });
+
 });
 
 router.get("/admin_index", function (req, res, next) {
@@ -19,8 +29,7 @@ router.get("/admin_index", function (req, res, next) {
                 data[i].endDate = data[i].endDate.split("T")[0];
             }
 
-
-            res.render("admin_index.hbs", {title: "Admin dashboard", data});
+            res.render("admin/index.hbs", {title: "Admin dashboard", data});
         });
 
 });
@@ -38,7 +47,7 @@ router.get("/admin_eventRequest", function (req, res, next) {
             data.startDate = data.startDate.split("T")[0];
             data.endDate = data.endDate.split("T")[0];
 
-            res.render("admin_eventRequest.hbs", {title: "Admin | Event Request", data});
+            res.render("admin/eventRequest.hbs", {title: "Admin | Event Request", data});
         });
 
 
