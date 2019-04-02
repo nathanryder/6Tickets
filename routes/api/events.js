@@ -148,7 +148,7 @@ router.get("/:eventId", function(req, res, next) {
 });
 
 /**
- * @api {get} Approve an event
+ * @api {get} /events/approve/:id Approve an event
  * @apiName ApproveEvent
  * @apiGroup Events
  *
@@ -169,7 +169,7 @@ router.get("/approve/:id", function(req, res, next) {
 });
 
 /**
- * @api {delete} Delete an event
+ * @api {delete} /events/:id Delete an event
  * @apiName DeleteEvent
  * @apiGroup Events
  *

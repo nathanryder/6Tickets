@@ -3,7 +3,7 @@ var router = express.Router();
 var Category = require("../../models/category");
 
 /**
- * @api {put} Update a category
+ * @api {put} /categories/:categoryID Update a category
  * @apiName UpdateCategory
  * @apiGroup Categories
  *
@@ -28,7 +28,7 @@ router.put("/:categoryID", function(req, res, next) {
 });
 
 /**
- * @api {delete} Delete a category
+ * @api {delete} /categories/:categoryID Delete a category
  * @apiName DeleteCategory
  * @apiGroup Categories
  *
@@ -48,7 +48,7 @@ router.delete("/:categoryID", function(req, res, next) {
 });
 
 /**
- * @api {get} Get categories
+ * @api {get} /categories/ Get categories
  * @apiName GetCategories
  * @apiGroup Categories
  */
@@ -64,7 +64,7 @@ router.get("/", function (req, res, next) {
 });
 
 /**
- * @api {post} Create a new category
+ * @api {post} /categories/ Create a new category
  * @apiName CreateCategory
  * @apiGroup Categories
  *
