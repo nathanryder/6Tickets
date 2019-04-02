@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require("fs");
 var path = require("path");
 
-var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "add-event"];
+var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "add-event", "ticket-sell"];
 
 // Check if authorization is required
 router.get("*", function(req, res, next) {
@@ -145,9 +145,14 @@ router.get('/login', function(req, res, next) {
     res.render('login', { username: req.session.username, title: 'Login' });
 });
 
-/* GET login page. */
+/* GET event-search */
 router.get('/event-search', function(req, res, next) {
     res.render('event-search', { username: req.session.username, title: 'Sell Tickets' });
+});
+
+/* GET ticket-sell */
+router.get('/ticket-sell', function(req, res, next) {
+    res.render('ticket-sell', { username: req.session.username, title: 'Sell Tickets' });
 });
 
 router.get("/uploads/:file", function(req, res, next) {
