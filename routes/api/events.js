@@ -99,7 +99,7 @@ router.get("/", function(req, res, next) {
  * @apiName SearchEvents
  * @apiGroup Events
  *
- * @apiParam {String} query (optional)
+ * @apiParam {String} q (optional)
  * @apiParam {String} category (optional)
  */
 router.get("/search", function(req, res, next) {
