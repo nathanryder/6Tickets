@@ -12,10 +12,10 @@ var Event = require("../../models/event");
  * @apiParam {String} description
  * @apiParam {String} venue
  * @apiParam {String} address
+ * @apiParam {String} country
  * @apiParam {String} category
  * @apiParam {Date} startDate
  * @apiParam {Date} endDate
- * @apiParam {File} logo (Optional)
  * @apiParam {File} header (Optional)
  * @apiParam {Number} isRequest (Optional)
  */
@@ -29,10 +29,10 @@ router.post("/", function(req, res, next) {
     var startDate = req.body.startDate;
     var endDate = req.body.endDate;
     var header = req.body.header;
-    var logo = req.body.logo;
+    var country = req.body.country;
     var request = req.body.isRequest ? req.body.isRequest : 0;
 
-    if (!name || !category || !startDate || !endDate || !desc || !venue || (process.env.NODE_ENV !== "test" && req.files === null)) {
+    if (!name || !category || !startDate || !endDate || !desc || !venue || !country || (process.env.NODE_ENV !== "test" && req.files === null)) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }
@@ -42,6 +42,7 @@ router.post("/", function(req, res, next) {
     event.description = desc;
     event.venue = venue;
     event.address = addr;
+    event.country = country;
     event.category = category;
     event.startDate = startDate;
     event.endDate = endDate;
@@ -64,8 +65,6 @@ router.post("/", function(req, res, next) {
 
             if (i === 0)
                 event.header = fileName;
-            else
-                event.logo = fileName;
         }
     }
 
@@ -197,11 +196,11 @@ router.delete("/:id", function(req, res, next) {
  * @apiParam {String} description
  * @apiParam {String} venue
  * @apiParam {String} address
+ * @apiParam {String} country
  * @apiParam {String} category
  * @apiParam {String} startDate
  * @apiParam {String} endDate
  * @apiParam {File} header (optional)
- * @apiParam {File} logo (optional)
  */
 router.put("/:id", function(req, res, next) {
     var id = req.params.id;
@@ -224,6 +223,7 @@ router.put("/:id", function(req, res, next) {
         "description": description,
         "venue": venue,
         "address": address,
+        "country": country,
         "startDate": startDate,
         "endDate": endDate
     };
@@ -247,8 +247,6 @@ router.put("/:id", function(req, res, next) {
 
                 if (i === 0)
                     update.header = fileName;
-                else
-                    update.logo = fileName;
             }
         }
     }
