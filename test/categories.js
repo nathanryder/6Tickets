@@ -10,11 +10,6 @@ var should = chai.should();
 chai.use(chaiHttp);
 
 describe("Categories", () => {
-
-    //CREATE
-    //UPDATE
-    //GET
-    //DELETE
     var categoryID = "";
 
     it("creates a category", (done) => {

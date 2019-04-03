@@ -1,6 +1,8 @@
 var express = require('express');
 var router = express.Router();
 var User = require("../../models/users");
+var History = require("../../models/history");
+var Wishlist = require("../../models/wishlist");
 var jwt = require("jsonwebtoken");
 
 /**
@@ -126,7 +128,6 @@ router.post("/login", function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
     var adminLogin = req.body.adminPage === "1";
-    console.log("ADMIN PAGE: " + req.body.adminPage + " " + adminLogin);
 
     if (!username || !password) {
         res.status(400).json({
@@ -146,9 +147,7 @@ router.post("/login", function(req, res, next) {
                 user.save();
 
                 var isAdmin = user.admin === 1;
-                console.log("Ran " + adminLogin + " " + (isAdmin === false));
                 if (adminLogin && isAdmin === false) {
-                    console.log("ADMIN ERROR");
                     res.status(401).send({
                         "status": "error",
                         "body": "Email or password does not match"
@@ -176,6 +175,57 @@ router.post("/login", function(req, res, next) {
     });
 
 
+});
+
+/**
+ * @api {put} /users/:username Create a user
+ * @apiName UpdateUser
+ * @apiGroup Users
+ * @apiParam {String} password Users password.
+ * @apiParam {String} firstname Users firstname.
+ * @apiParam {String} lastname Users lastname.
+ * @apiParam {String} emailAddress Users email address.
+ * @apiParam {String} phoneNo Users phone number.
+ * @apiParam {String} addressOne Users first address line.
+ * @apiParam {String} addressTwo Users second address line (optional).
+ * @apiParam {String} city Users city.
+ * @apiParam {String} country Users country.
+ */
+router.put("/:username", function (req, res, next) {
+    var username = req.params.username;
+    var password = req.body.password;
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var email = req.body.emailAddress;
+    var phoneNo = req.body.phoneNo;
+    var addressOne = req.body.addressOne;
+    var addressTwo = req.body.addressTwo;
+    var city = req.body.city;
+    var country = req.body.country;
+
+    if (!password || !firstname || !lastname || !email || !addressOne || !city || !country) {
+        res.status(400).json({
+            "error": "Invalid arguments"
+        });
+        return;
+    }
+
+    User.updateOne({"username": username}, {$set:{
+            "password": password,
+            "firstname": firstname,
+            "lastname": lastname,
+            "emailAddress": email,
+            "phoneNo": phoneNo,
+            "addressOne": addressOne,
+            "addressTwo": addressTwo,
+            "city": city,
+            "country": country
+        }}, function (err, update) {
+        if (err)
+            throw err;
+
+        res.status(201).json({"success": "Updated user details"});
+    });
 });
 
 /**
@@ -255,6 +305,114 @@ router.post("/:username", function (req, res, next) {
         }
 
     });
+});
+
+//HISTORY
+/**
+ * @api {post} /users/:username/history/ Add an item to a users history
+ * @apiName AddHistory
+ * @apiGroup Users
+ *
+ * @apiParam {String} ticketID
+ */
+router.post("/:username/history/", function(req, res, next) {
+    var username = req.params.username;
+    var ticket = req.body.ticketID;
+
+    History.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+    });
+
+    var history = new History();
+    history.username = username;
+    history.ticketID = ticket;
+
+    history.save(function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(201).json({
+            "success": "Added to history",
+            "_id": resp._id
+        });
+    });
+});
+
+/**
+ * @api {get} /users/:username/history Get a users history
+ * @apiName GetHistory
+ * @apiGroup Users
+ *
+ * @apiParam {Number} page
+ */
+router.get("/:username/history", function (req, res, next) {
+
+    var HISTORY_PER_PAGE = 20;
+    var username = req.params.username;
+    var page = req.query.page ? req.query.page : 0;
+    page = page * HISTORY_PER_PAGE;
+
+    History.find({"username": username}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json(resp);
+    }).sort({date: -1}).skip(page).limit(HISTORY_PER_PAGE);
+
+});
+
+//WISHLIST
+/**
+ * @api {post} /users/:username/wishlist/ Add an item to a users wishlist
+ * @apiName AddWishlist
+ * @apiGroup Users
+ *
+ * @apiParam {String} ticketID
+ */
+router.post("/:username/wishlist/", function(req, res, next) {
+    var username = req.params.username;
+    var ticket = req.body.ticketID;
+
+    Wishlist.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+    });
+
+    var wishlist = new Wishlist();
+    wishlist.username = username;
+    wishlist.ticketID = ticket;
+
+    wishlist.save(function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(201).json({
+            "success": "Added to wishlist",
+            "_id": resp._id
+        });
+    });
+});
+
+/**
+ * @api {get} /users/:username/wishlist Get a users history
+ * @apiName GetWishlist
+ * @apiGroup Users
+ */
+router.get("/:username/wishlist", function (req, res, next) {
+
+    var HISTORY_PER_PAGE = 20;
+    var username = req.params.username;
+    var page = req.query.page ? req.query.page : 0;
+    page = page * HISTORY_PER_PAGE;
+
+    Wishlist.find({"username": username}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json(resp);
+    }).sort({date: -1}).skip(page).limit(HISTORY_PER_PAGE);
+
 });
 
 
