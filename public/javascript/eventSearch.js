@@ -1,6 +1,10 @@
 $(document).ready(function() {
+    //on load
     var events=null;
     getEvents();
+    getCategories();
+
+// -- TIGGERS --
 
     $("#eventSearchForm").on('keyup', function () {
         getEvents();
@@ -9,6 +13,8 @@ $(document).ready(function() {
     $("#categorySelect").on('change',function () {
         getEvents();
     });
+
+// -- FUNCTIONS --
 
     //gets matching events
     function getEvents(){
@@ -55,15 +61,40 @@ $(document).ready(function() {
                 "            <td>"+venue+"</td>\n" +
                 "            <td>"+startDate[0]+"</td>\n" +
                 "            <td><a href=''><i class=\"fa fa-arrow-right\"></i></a>"+
-                "        </tr>"
+                "        </tr>";
         //    <i class="fa fa-arrow-right"></i>
         //    <button type='button' class='btn btn-outline-dark'>Select</button>
 
         }
         output+=
             "        </tbody>\n" +
-            "    </table>"
+            "    </table>";
         $("#searchResults").html(output);
+    }
+
+//    get Categories
+    function getCategories(){
+        $.ajax({
+            type: 'GET',
+            url: 'api/categories',
+            dataType: 'json',
+            success: function (res) {
+                displayCategories(res);
+            }
+        })
+    }
+
+//    display categories on the page
+    function displayCategories(cat) {
+        var output="";
+
+        for(var i=0; i<cat.length; i++){
+            var category= cat[i].name;
+            output+=
+                "<option value='"+category+"'>"+category+"</option>";
+        }
+        $("#categorySelect").html(output);
+
     }
 
 });
