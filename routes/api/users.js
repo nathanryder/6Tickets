@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require("../../models/users");
 var History = require("../../models/history");
+var Wishlist = require("../../models/wishlist");
 var jwt = require("jsonwebtoken");
 
 /**
@@ -341,7 +342,7 @@ router.post("/:username/history/", function(req, res, next) {
 /**
  * @api {get} /users/:username/history Get a users history
  * @apiName GetHistory
- * @apiGroup History
+ * @apiGroup Users
  *
  * @apiParam {Number} page
  */
@@ -361,6 +362,58 @@ router.get("/:username/history", function (req, res, next) {
 
 });
 
+//WISHLIST
+/**
+ * @api {post} /users/:username/wishlist/ Add an item to a users wishlist
+ * @apiName AddWishlist
+ * @apiGroup Users
+ *
+ * @apiParam {String} ticketID
+ */
+router.post("/:username/wishlist/", function(req, res, next) {
+    var username = req.params.username;
+    var ticket = req.body.ticketID;
+
+    Wishlist.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+    });
+
+    var wishlist = new Wishlist();
+    wishlist.username = username;
+    wishlist.ticketID = ticket;
+
+    wishlist.save(function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(201).json({
+            "success": "Added to wishlist",
+            "_id": resp._id
+        });
+    });
+});
+
+/**
+ * @api {get} /users/:username/wishlist Get a users history
+ * @apiName GetWishlist
+ * @apiGroup Users
+ */
+router.get("/:username/wishlist", function (req, res, next) {
+
+    var HISTORY_PER_PAGE = 20;
+    var username = req.params.username;
+    var page = req.query.page ? req.query.page : 0;
+    page = page * HISTORY_PER_PAGE;
+
+    Wishlist.find({"username": username}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json(resp);
+    }).sort({date: -1}).skip(page).limit(HISTORY_PER_PAGE);
+
+});
 
 
 function createJwt(profile) {
