@@ -29,6 +29,24 @@ describe("Users", () => {
             .expect(201, done);
     });
 
+    it("successfully edits a user", (done) => {
+        request(app).put("/api/users/test")
+            .send({
+                "password": "new",
+                "firstname": "firstname",
+                "lastname": "lastname",
+                "emailAddress": "test@test.com",
+                "phoneNo": "0000000000",
+                "addressOne": "test",
+                "city": "city",
+                "country": "country"
+            })
+            .expect(function (res) {
+                res.body.should.contain.property("success");
+            })
+            .expect(201, done);
+    });
+
     it("doesn't allow duplicate user names", (done) => {
         request(app).post("/api/users/test")
             .send({

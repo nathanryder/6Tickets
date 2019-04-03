@@ -126,7 +126,6 @@ router.post("/login", function(req, res, next) {
     var username = req.body.username;
     var password = req.body.password;
     var adminLogin = req.body.adminPage === "1";
-    console.log("ADMIN PAGE: " + req.body.adminPage + " " + adminLogin);
 
     if (!username || !password) {
         res.status(400).json({
@@ -146,9 +145,7 @@ router.post("/login", function(req, res, next) {
                 user.save();
 
                 var isAdmin = user.admin === 1;
-                console.log("Ran " + adminLogin + " " + (isAdmin === false));
                 if (adminLogin && isAdmin === false) {
-                    console.log("ADMIN ERROR");
                     res.status(401).send({
                         "status": "error",
                         "body": "Email or password does not match"
@@ -176,6 +173,57 @@ router.post("/login", function(req, res, next) {
     });
 
 
+});
+
+/**
+ * @api {put} /users/:username Create a user
+ * @apiName UpdateUser
+ * @apiGroup Users
+ * @apiParam {String} password Users password.
+ * @apiParam {String} firstname Users firstname.
+ * @apiParam {String} lastname Users lastname.
+ * @apiParam {String} emailAddress Users email address.
+ * @apiParam {String} phoneNo Users phone number.
+ * @apiParam {String} addressOne Users first address line.
+ * @apiParam {String} addressTwo Users second address line (optional).
+ * @apiParam {String} city Users city.
+ * @apiParam {String} country Users country.
+ */
+router.put("/:username", function (req, res, next) {
+    var username = req.params.username;
+    var password = req.body.password;
+    var firstname = req.body.firstname;
+    var lastname = req.body.lastname;
+    var email = req.body.emailAddress;
+    var phoneNo = req.body.phoneNo;
+    var addressOne = req.body.addressOne;
+    var addressTwo = req.body.addressTwo;
+    var city = req.body.city;
+    var country = req.body.country;
+
+    if (!password || !firstname || !lastname || !email || !addressOne || !city || !country) {
+        res.status(400).json({
+            "error": "Invalid arguments"
+        });
+        return;
+    }
+
+    User.updateOne({"username": username}, {$set:{
+            "password": password,
+            "firstname": firstname,
+            "lastname": lastname,
+            "emailAddress": email,
+            "phoneNo": phoneNo,
+            "addressOne": addressOne,
+            "addressTwo": addressTwo,
+            "city": city,
+            "country": country
+        }}, function (err, update) {
+        if (err)
+            throw err;
+
+        res.status(201).json({"success": "Updated user details"});
+    });
 });
 
 /**
