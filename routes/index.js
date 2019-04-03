@@ -3,7 +3,7 @@ var router = express.Router();
 var fs = require("fs");
 var path = require("path");
 
-var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "add-event", "ticket-sell"];
+var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "event-add", "ticket-sell"];
 
 // Check if authorization is required
 router.get("*", function(req, res, next) {
@@ -76,8 +76,8 @@ router.get('/cart', function(req, res, next) {
 });
 
 /* GET ticket and event setup page. */
-router.get('/add-event', function(req, res, next) {
-    res.render('add-event', { username: req.session.username, title: 'Add Event' });
+router.get('/event-add', function(req, res, next) {
+    res.render('event-add', { username: req.session.username, title: 'Add Event' });
 });
 
 /* GET categories page. */
