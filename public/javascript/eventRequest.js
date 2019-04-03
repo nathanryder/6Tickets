@@ -26,7 +26,7 @@ $(document).ready(function (){
         var desc = $("#eventDesc").val();
         var startDate = $("#eventStartDate").val();
         var endDate = $("#eventEndDate").val();
-        var category = $("#eventCat").val();
+        var category = $("#eventCategory").val();
         var venue = $("#eventVenue").val();
         var addr = $("#eventAddress").val();
         var country = $("#eventCountry").val();
@@ -67,7 +67,7 @@ $(document).ready(function (){
                 $("#eventDesc").val("");
                 $("#eventStartDate").val("");
                 $("#eventEndDate").val("");
-                $("#eventCat").val("");
+                $("#eventCategory").val("");
                 $("#eventVenue").val("");
                 $("#eventAddress").val("");
                 $("#eventCountry").val("");
