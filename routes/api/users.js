@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var User = require("../../models/users");
+var History = require("../../models/history");
 var jwt = require("jsonwebtoken");
 
 /**
@@ -304,6 +305,62 @@ router.post("/:username", function (req, res, next) {
 
     });
 });
+
+//HISTORY
+/**
+ * @api {post} /users/:username/history/ Add an item to a users history
+ * @apiName AddHistory
+ * @apiGroup Users
+ *
+ * @apiParam {String} ticketID
+ */
+router.post("/:username/history/", function(req, res, next) {
+    var username = req.params.username;
+    var ticket = req.body.ticketID;
+
+    History.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+    });
+
+    var history = new History();
+    history.username = username;
+    history.ticketID = ticket;
+
+    history.save(function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(201).json({
+            "success": "Added to history",
+            "_id": resp._id
+        });
+    });
+});
+
+/**
+ * @api {get} /users/:username/history Get a users history
+ * @apiName GetHistory
+ * @apiGroup History
+ *
+ * @apiParam {Number} page
+ */
+router.get("/:username/history", function (req, res, next) {
+
+    var HISTORY_PER_PAGE = 20;
+    var username = req.params.username;
+    var page = req.query.page ? req.query.page : 0;
+    page = page * HISTORY_PER_PAGE;
+
+    History.find({"username": username}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json(resp);
+    }).sort({date: -1}).skip(page).limit(HISTORY_PER_PAGE);
+
+});
+
 
 
 function createJwt(profile) {
