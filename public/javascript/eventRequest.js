@@ -1,4 +1,5 @@
 $(document).ready(function (){
+    getCategories();
 
     var link = window.location.href.split("?");
     if (link.length > 1) {
@@ -77,5 +78,29 @@ $(document).ready(function (){
             }
         })
     });
+
+    //    get Categories
+    function getCategories(){
+        $.ajax({
+            type: 'GET',
+            url: 'api/categories',
+            dataType: 'json',
+            success: function (res) {
+                displayCategories(res);
+            }
+        })
+    }
+
+//    display categories on the page
+    function displayCategories(cat) {
+        var output="";
+
+        for(var i=0; i<cat.length; i++){
+            var category= cat[i].name;
+            output+=
+                "<option value='"+category+"'>"+category+"</option>";
+        }
+        $("#eventCategory").html(output);
+    }
 
 });

@@ -1,8 +1,8 @@
 $(document).ready(function() {
     //on load
     var events=null;
-    getEvents();
     getCategories();
+    // getEvents();
 
 // -- TIGGERS --
 
@@ -86,7 +86,7 @@ $(document).ready(function() {
 
 //    display categories on the page
     function displayCategories(cat) {
-        var output="";
+        var output="";//"<option value=''>-------</option>";
 
         for(var i=0; i<cat.length; i++){
             var category= cat[i].name;
@@ -94,7 +94,7 @@ $(document).ready(function() {
                 "<option value='"+category+"'>"+category+"</option>";
         }
         $("#categorySelect").html(output);
-
+        getEvents()
     }
 
 });

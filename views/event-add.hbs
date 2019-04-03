@@ -1,4 +1,4 @@
-<script src="javascript/addTicketEvent.js"></script>
+<script src="javascript/eventRequest.js"></script>
 <div class="row" style="margin-top: 100px;">
     <div class="col" id="main-content">
         <div class="row justify-content-center">
@@ -27,8 +27,9 @@
                                     <input type="date" class="form-control" id="eventEndDate">
                                 </div>
                                 <div class="form-group col-sm-6">
-                                    <label for="eventCat">*Category</label>
-                                    <input type="text" class="form-control" id="eventCat">
+                                    <label for="eventCategory">*Category</label>
+                                    <select class="form-control" id="eventCategory">
+                                    </select>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label for="eventVenue">*Venue</label>
@@ -43,7 +44,7 @@
                                     <input type="text" class="form-control" id="eventCountry">
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label for="eventHeader">*Header</label>
+                                    <label for="eventHeader">*Logo</label>
                                     <input type="file" class="form-control" id="eventHeader">
                                 </div>
                                 <div id="error" class="error col-sm-12"></div>
