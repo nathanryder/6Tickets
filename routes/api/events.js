@@ -88,6 +88,9 @@ router.post("/", function(req, res, next) {
 router.get("/", function(req, res, next) {
 
     Event.find({}, function(err, events) {
+        if (err)
+            throw err;
+
         res.status(200).json(events);
     })
 

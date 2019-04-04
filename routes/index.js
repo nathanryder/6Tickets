@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var fs = require("fs");
 var path = require("path");
-// var requestify = require("requestify");
+var requestify = require("requestify");
 
 var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "event-add", "ticket-sell"];
 
@@ -152,28 +152,25 @@ router.get('/event-search', function(req, res, next) {
 });
 
 /* GET ticket-sell */
-router.get('/ticket-sell', function(req, res, next) {
-    res.render('ticket-sell', { username: req.session.username, title: 'Sell Tickets' });
-});
+router.get("/ticket-sell", function (req, res, next) {
+    var id = req.query.eventId;
 
-//Nathan please fix! 1221784123-047n12398471-n41134-4n1240n10
-// router.get("/ticket-sell", function (req, res, next) {
-//     var id = req.query.eventId;
-//     requestify.get("http://" + req.get("host") + "/api/events/" + id)
-//         .then(function (resp) {
-//             var data = resp.getBody()[0];
-//             if (data.request === 0) {
-//                 res.redirect("ticket-sell");
-//                 return;
-//             }
-//
-//             data.startDate = data.startDate.split("T")[0];
-//             data.endDate = data.endDate.split("T")[0];
-//
-//             res.render("ticket-sell", {title: "Sell Tickets", data});
-//         });
-//
-// });
+    requestify.get("http://" + req.get("host") + "/api/events/" + id)
+        .then(function (resp) {
+            var data = resp.getBody()[0];
+            console.log(resp.getBody());
+            if (data.request === 1) {
+                res.redirect("event-search");
+                return;
+            }
+
+            data.startDate = data.startDate.split("T")[0];
+            data.endDate = data.endDate.split("T")[0];
+
+            res.render("ticket-sell", {title: "Sell Tickets", data});
+        });
+
+});
 
 router.get("/uploads/:file", function(req, res, next) {
     var file = req.params.file;
