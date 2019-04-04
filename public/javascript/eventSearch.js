@@ -1,6 +1,5 @@
 $(document).ready(function() {
     //on load
-    var events=null;
     getCategories();
     // getEvents();
 
@@ -26,7 +25,6 @@ $(document).ready(function() {
             url: 'api/events/search?q=' + eventName + '&category=' + category,
             dataType: 'json',
             success: function (res) {
-                events=res;
                 displayEvents(res);
             }
         })
@@ -48,19 +46,19 @@ $(document).ready(function() {
             "        <tbody id=\"searchResultsTable\">";
 
         for(var i=0; i<event.length; i++){
-            var id=event[i].id;
+            var id=event[i]._id;
             var name=event[i].name;
             var address = event[i].address;
             var venue = event[i].venue;
             var startDate = event[i].startDate.split('T');
 
             output+=
-                "        <tr id=\"event-"+i+"\">\n" +
-                "            <th scope=\"row\"><a href=\"\" class=\"text-info\">"+name+"</a></th>\n" +
+                "        <tr id='event-"+id+"'>\n" +
+                "            <th scope='row'><a href='' class='text-info'>"+name+"</a></th>" +
                 "            <td>"+address+"</td>" +
-                "            <td>"+venue+"</td>\n" +
-                "            <td>"+startDate[0]+"</td>\n" +
-                "            <td><a href=''><i class=\"fa fa-arrow-right\"></i></a>"+
+                "            <td>"+venue+"</td>" +
+                "            <td>"+startDate[0]+"</td>" +
+                "            <td><a href='/ticket-sell?eventId="+id+"'><i class='fa fa-arrow-right'></i></a>"+
                 "        </tr>";
         //    <i class="fa fa-arrow-right"></i>
         //    <button type='button' class='btn btn-outline-dark'>Select</button>
@@ -94,7 +92,7 @@ $(document).ready(function() {
                 "<option value='"+category+"'>"+category+"</option>";
         }
         $("#categorySelect").html(output);
-        getEvents()
+        getEvents();
     }
 
 });

@@ -27,6 +27,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!-- 6Tickets JS  -->
     <script src="javascript/script.js"></script>
+    <script src="javascript/layout.js"></script>
 
 </head>
 <body>
@@ -140,20 +141,21 @@
     <div class="col" id="main-sidebar">
         <div class="list-group list-group-flush">
             <a href="/" class="list-group-item list-group-item-action active"><i class="fa fa-home fa-lg fa-fw"></i> Home</a>
-            <a href="/grid" class="list-group-item list-group-item-action"><i class="fa fa-star fa-lg fa-fw text-warning"></i> Editor's Choice</a>
+            <a href="/grid" class="list-group-item list-group-item-action"><i class="fa fa-star fa-lg fa-fw text-warning"></i> Our Choice</a>
             <a href="/categories" class="list-group-item list-group-item-action"><i class="fa fa-th fa-lg fa-fw"></i> Categories</a>
-            <a href="/grid" class="list-group-item list-group-item-action sub">Computers</a>
-            <a href="/grid" class="list-group-item list-group-item-action sub">Cell Phones</a>
-            <a href="/grid" class="list-group-item list-group-item-action sub">Photography</a>
-            <a href="/grid" class="list-group-item list-group-item-action sub">Home Entertainment</a>
-            <a href="/grid" class="list-group-item list-group-item-action sub">Video Games</a>
-            <div class="collapse" id="categories">
-                <a href="/grid" class="list-group-item list-group-item-action sub">Headphones</a>
-                <a href="/grid" class="list-group-item list-group-item-action sub">Office Electronics</a>
-                <a href="/grid" class="list-group-item list-group-item-action sub">Office Supplies</a>
-                <a href="/grid" class="list-group-item list-group-item-action sub">Musical Instruments</a>
-            </div>
-            <a href="#categories" class="list-group-item list-group-item-action sub toggle" data-toggle="collapse" aria-expanded="false">MORE &#9662;</a>
+            <div id="sidebarCategories"></div>
+<!--            <a href="/grid" class="list-group-item list-group-item-action sub">Computers</a>-->
+<!--            <a href="/grid" class="list-group-item list-group-item-action sub">Cell Phones</a>-->
+<!--            <a href="/grid" class="list-group-item list-group-item-action sub">Photography</a>-->
+<!--            <a href="/grid" class="list-group-item list-group-item-action sub">Home Entertainment</a>-->
+<!--            <a href="/grid" class="list-group-item list-group-item-action sub">Video Games</a>-->
+<!--            <div class="collapse" id="categories">-->
+<!--                <a href="/grid" class="list-group-item list-group-item-action sub">Headphones</a>-->
+<!--                <a href="/grid" class="list-group-item list-group-item-action sub">Office Electronics</a>-->
+<!--                <a href="/grid" class="list-group-item list-group-item-action sub">Office Supplies</a>-->
+<!--                <a href="/grid" class="list-group-item list-group-item-action sub">Musical Instruments</a>-->
+<!--            </div>-->
+<!--            <a href="#categories" class="list-group-item list-group-item-action sub toggle" data-toggle="collapse" aria-expanded="false">MORE &#9662;</a>-->
             <a href="/about" class="list-group-item list-group-item-action"><i class="fa fa-list fa-lg fa-fw"></i> Other Pages</a>
             <a href="/about" class="list-group-item list-group-item-action sub">About Us</a>
             <a href="/cart" class="list-group-item list-group-item-action sub">Cart</a>
