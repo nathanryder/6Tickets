@@ -52,6 +52,22 @@ router.get("/search", function (req, res, next) {
 });
 
 /**
+ * @api {get} /tickets/:ticketID Get a ticket
+ * @apiName GetTicket
+ * @apiGroup Tickets
+ */
+router.get("/:ticketID", function (req, res, next) {
+    var id = req.params.ticketID;
+
+    Ticket.findOne({"_id": id}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json(resp);
+    });
+});
+
+/**
  * @api {delete} /tickets/:ticketID Delete a ticket
  * @apiName DeleteTicket
  * @apiGroup Tickets
