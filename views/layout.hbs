@@ -54,15 +54,15 @@
     <ul class="navbar-nav ml-auto">
 
         <!-- Currency Dropdown -->
-        <li class="nav-item dropdown d-none d-md-flex">
-            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                USD <i class="fa fa-caret-down fa-fw"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownCurrency">
-                <button class="dropdown-item" type="button">USD</button>
-                <button class="dropdown-item" type="button">EUR</button>
-            </div>
-        </li>
+        <!--<li class="nav-item dropdown d-none d-md-flex">-->
+            <!--<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownCurrency" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--USD <i class="fa fa-caret-down fa-fw"></i>-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownCurrency">-->
+                <!--<button class="dropdown-item" type="button">USD</button>-->
+                <!--<button class="dropdown-item" type="button">EUR</button>-->
+            <!--</div>-->
+        <!--</li>-->
         <!-- /Currency Dropdown -->
 
         <!--Sell Tickets Btn-->
@@ -81,22 +81,22 @@
         <li class="nav-item dropdown ml-1 ml-sm-3">
             <a href="#" class="nav-link" data-toggle="modal" data-target="#cartModal">
                 <i class="fa fa-shopping-cart fa-lg"></i>
-                <span class="badge badge-pink badge-count">4</span>
+                <span class="badge badge-pink badge-count">{{cart.size}}</span>
             </a>
         </li>
         <!-- /Shopping Cart Toggle -->
 
         <!-- Notification Dropdown -->
-        <li class="nav-item dropdown ml-1 ml-sm-3">
-            <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownNotif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-bell fa-lg"></i>
-                <span class="badge badge-info badge-count">3</span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownNotif">
-                <a class="dropdown-item has-icon" href="#"><i class="fa fa-envelope"></i> 1 New Message</a>
-                <a class="dropdown-item has-icon" href="#"><i class="fa fa-comment"></i> 2 New Comments</a>
-            </div>
-        </li>
+        <!--<li class="nav-item dropdown ml-1 ml-sm-3">-->
+            <!--<a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownNotif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">-->
+                <!--<i class="fa fa-bell fa-lg"></i>-->
+                <!--<span class="badge badge-info badge-count">3</span>-->
+            <!--</a>-->
+            <!--<div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownNotif">-->
+                <!--<a class="dropdown-item has-icon" href="#"><i class="fa fa-envelope"></i> 1 New Message</a>-->
+                <!--<a class="dropdown-item has-icon" href="#"><i class="fa fa-comment"></i> 2 New Comments</a>-->
+            <!--</div>-->
+        <!--</li>-->
         <!-- /Notification Dropdown -->
 
         <!-- Login Button -->
@@ -193,76 +193,31 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">You have 4 items in your bag</h5>
+                <h5 class="modal-title" id="cartModalLabel">You have {{cart.size}} items in your bag</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="media">
-                    <a href="/detail"><img src="images/product/1.jpg" width="50" height="50" alt="NEW Microsoft Surface Go"></a>
-                    <div class="media-body">
-                        <a href="/detail" title="NEW Microsoft Surface Go">NEW Microsoft Surface Go</a>
-                        <div class="input-spinner input-spinner-sm">
-                            <input type="number" class="form-control form-control-sm" value="1" min="1" max="999">
-                            <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                            </div>
+                {{#each cart}}
+                    <div class="media">
+                        <!--<a href="/detail"><img src="images/product/1.jpg" width="50" height="50"></a>-->
+                        <div class="media-body">
+                            <a id="{{ticketID}}-name" href="/detail" title="NEW Microsoft Surface Go">{{_id}}</a>
+                            {{quantity}} x<span id="{{ticketID}}-price" class="price">$549.00</span>
+                            <button id="deleteItem" tid="{{ticketID}}" type="button" class="close" aria-label="Close">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
                         </div>
-                        x <span class="price">$549.00</span>
-                        <button type="button" class="close" aria-label="Close"><i class="fa fa-trash-o"></i></button>
                     </div>
-                </div>
-                <div class="media">
-                    <a href="/detail"><img src="images/product/3.jpg" width="50" height="50" alt="SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive"></a>
-                    <div class="media-body">
-                        <a href="/detail" title="SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive">SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive</a>
-                        <div class="input-spinner input-spinner-sm">
-                            <input type="number" class="form-control form-control-sm" value="1" min="1" max="999">
-                            <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                            </div>
-                        </div>
-                        x <span class="price">$13.49</span>
-                        <button type="button" class="close" aria-label="Close"><i class="fa fa-trash-o"></i></button>
-                    </div>
-                </div>
-                <div class="media">
-                    <a href="/detail"><img src="images/product/8.jpg" width="50" height="50" alt="Beats Studio3 Wireless Headphones"></a>
-                    <div class="media-body">
-                        <a href="/detail" title="Beats Studio3 Wireless Headphones">Beats Studio3 Wireless Headphones</a>
-                        <div class="input-spinner input-spinner-sm">
-                            <input type="number" class="form-control form-control-sm" value="1" min="1" max="999">
-                            <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                            </div>
-                        </div>
-                        x <span class="price">$299.99</span>
-                        <button type="button" class="close" aria-label="Close"><i class="fa fa-trash-o"></i></button>
-                    </div>
-                </div>
-                <div class="media">
-                    <a href="/detail"><img src="images/product/12.jpg" width="50" height="50" alt="Essential Phone in Halo Gray - 128 GB Unlocked"></a>
-                    <div class="media-body">
-                        <a href="/detail" title="Essential Phone in Halo Gray - 128 GB Unlocked">Essential Phone in Halo Gray - 128 GB Unlocked</a>
-                        <div class="input-spinner input-spinner-sm">
-                            <input type="number" class="form-control form-control-sm" value="1" min="1" max="999">
-                            <div class="btn-group-vertical">
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                                <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                            </div>
-                        </div>
-                        x <span class="price">$435.00</span>
-                        <button type="button" class="close" aria-label="Close"><i class="fa fa-trash-o"></i></button>
-                    </div>
-                </div>
+                    <script>
+                        setupCartDetails("{{ticketID}}", {{quantity}});
+                    </script>
+                {{/each}}
             </div>
             <div class="modal-footer">
                 <div class="box-total">
-                    <h4>Subotal: <span class="price">$1,297.48</span></h4>
+                    <h4>Subtotal: <span id="subtotal" class="price"></span></h4>
                     <a href="/cart" class="btn btn-success">VIEW CART</a>
                 </div>
             </div>

@@ -31,3 +31,34 @@ $(document).ready(function() {
     }
 
 });
+
+var total = 0;
+function setupCartDetails(id, quantity) {
+
+    $.ajax({
+        url: "/api/tickets/" + id,
+        type: "GET",
+        success: function (resp) {
+
+            $.ajax({
+                url: "/api/events/" + resp.eventID,
+                type: "GET",
+                success: function (event) {
+                    $("#" + id + "-price").html("€" + resp.price);
+                    $("#" + id + "-name").html(event[0].name);
+
+                    total += resp.price * quantity;
+                    $("#subtotal").html("€" + total);
+                }
+            });
+
+
+        }
+    });
+
+}
+
+function getEventNameFromID(id) {
+    console.log("EID: " + id);
+
+}

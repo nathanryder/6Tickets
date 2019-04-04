@@ -4,6 +4,7 @@ var fs = require("fs");
 var path = require("path");
 var requestify = require("requestify");
 
+var variables = {};
 var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "event-add", "ticket-sell"];
 
 // Check if authorization is required
@@ -26,139 +27,174 @@ router.get("*", function(req, res, next) {
         return;
     }
 
+    if (req.url.split("/")[1] !== "api") {
+        variables.username = req.session.username;
+
+        requestify.get("http://" + req.get("host") + "/api/users/" + req.session.username + "/cart")
+            .then(function (resp) {
+                var data = resp.getBody();
+                variables.cart = data;
+                console.log(data);
+                variables.cart.size = data.length;
+            });
+    }
+
     next();
 });
 
-
-
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { username: req.session.username, title: '6Tickets' });
+    variables.title = "6Tickets";
+
+    res.render('index', variables);
 });
 
 /* GET about page. */
 router.get('/about', function(req, res, next) {
-    res.render('about', { username: req.session.username, title: 'About Us' });
+    variables.title = "About Us";
+    res.render('about', variables);
 });
 
 /* GET 404 page. */
 router.get('/404', function(req, res, next) {
-    res.render('404', { username: req.session.username, title: '404' });
+    variables.title = "404";
+    res.render('404', variables);
 });
 
 /* GET account-address page. */
 router.get('/account-address', function(req, res, next) {
-    res.render('account-address', { username: req.session.username, title: 'Account' });
+    variables.title = "Account";
+    res.render('account-address', variables);
 });
 
 /* GET account-order page. */
 router.get('/account-order', function(req, res, next) {
-    res.render('account-order', { username: req.session.username, title: 'Orders' });
+    variables.title = "Orders";
+    res.render('account-order', variables);
 });
 
 /* GET account-profile page. */
 router.get('/account-profile', function(req, res, next) {
-    res.render('account-profile', { username: req.session.username, title: 'Profile' });
+    variables.title = "Profile";
+    res.render('account-profile', variables);
 });
 
 /* GET account-wishlist page. */
 router.get('/account-wishlist', function(req, res, next) {
-    res.render('account-wishlist', { username: req.session.username, title: 'Wishlist' });
+    variables.title = "Wishlist";
+    res.render('account-wishlist', variables);
 });
 
 /* GET account-sell page. */
 router.get('/account-sell', function(req, res, next) {
-    res.render('account-sell', { username: req.session.username, title: 'For Sale' });
+    variables.title = "For Sale";
+    res.render('account-sell', variables);
 });
 
 /* GET cart page. */
 router.get('/cart', function(req, res, next) {
-    res.render('cart', { username: req.session.username, title: 'Your Cart' });
+    variables.title = "Your Cart'";
+    res.render('cart', variables);
 });
 
 /* GET ticket and event setup page. */
 router.get('/event-add', function(req, res, next) {
-    res.render('event-add', { username: req.session.username, title: 'Add Event' });
+    variables.title = "Add Event";
+    res.render('event-add', variables);
 });
 
 /* GET categories page. */
 router.get('/categories', function(req, res, next) {
-    res.render('categories', { username: req.session.username, title: '6Tickets' });
+    variables.title = "6Tickets";
+    res.render('categories', variables);
 });
 
 /* GET checkout page. */
 router.get('/checkout', function(req, res, next) {
-    res.render('checkout', { username: req.session.username, title: 'Checkout' });
+    variables.title = "Checkout";
+    res.render('checkout', variables);
 });
 
 /* GET checkout-2 page. */
 router.get('/checkout-2', function(req, res, next) {
-    res.render('checkout-2', { username: req.session.username, title: 'Checkout' });
+    variables.title = "Checkout";
+    res.render('checkout-2', variables);
 });
 
 /* GET checkout-3 page. */
 router.get('/checkout-3', function(req, res, next) {
-    res.render('checkout-3', { username: req.session.username, title: 'Checkout' });
+    variables.title = "Checkout";
+    res.render('checkout-3', variables);
 });
 
 /* GET checkout-complete page. */
 router.get('/checkout-complete', function(req, res, next) {
-    res.render('checkout-complete', { username: req.session.username, title: 'Checkout' });
+    variables.title = "Checkout";
+    res.render('checkout-complete', variables);
 });
 
 /* GET compare page. */
 router.get('/compare', function(req, res, next) {
-    res.render('compare', { username: req.session.username, title: '6Tickets' });
+    variables.title = "6Tickets";
+    res.render('compare', variables);
 });
 
 /* GET contact page. */
 router.get('/contact', function(req, res, next) {
-    res.render('contact', { username: req.session.username, title: 'Contact' });
+    variables.title = "6Tickets";
+    res.render('contact', variables);
 });
 
 /* GET detail page. */
 router.get('/detail', function(req, res, next) {
-    res.render('detail', { username: req.session.username, title: '6Tickets' });
+    variables.title = "About Us";
+    res.render('detail', variables);
 });
 
 /* GET detail-tab page. */
 router.get('/detail-tab', function(req, res, next) {
-    res.render('detail-tab', { username: req.session.username, title: '6Tickets' });
+    variables.title = "6Tickets";
+    res.render('detail-tab', variables);
 });
 
 /* GET faq page. */
 router.get('/faq', function(req, res, next) {
-    res.render('faq', { username: req.session.username, title: 'FAQ' });
+    variables.title = "FAQ";
+    res.render('faq', variables);
 });
 
 /* GET grid page. */
 router.get('/grid', function(req, res, next) {
-    res.render('grid', { username: req.session.username, title: '6Tickets' });
+    variables.title = "6Tickets";
+    res.render('grid', variables);
 });
 
 /* GET list page. */
 router.get('/list', function(req, res, next) {
-    res.render('list', { username: req.session.username, title: '6Tickets' });
+    variables.title = "6Tickets";
+    res.render('list', variables);
 });
 
 /* GET login page. */
 router.get('/login', function(req, res, next) {
-    res.render('login', { username: req.session.username, title: 'Login' });
+    variables.title = "Login";
+    res.render('login', variables);
 });
 
 /* GET event-search */
 router.get('/event-search', function(req, res, next) {
-    res.render('event-search', { username: req.session.username, title: 'Sell Tickets' });
+    variables.title = "Sell Tickets";
+    res.render('event-search', variables);
 });
 
 /* GET ticket-sell */
 router.get("/ticket-sell", function (req, res, next) {
+    variables.title = "Sell Tickets";
     var id = req.query.eventId;
 
     requestify.get("http://" + req.get("host") + "/api/events/" + id)
         .then(function (resp) {
             var data = resp.getBody()[0];
-            console.log(resp.getBody());
             if (data.request === 1) {
                 res.redirect("event-search");
                 return;
@@ -167,7 +203,8 @@ router.get("/ticket-sell", function (req, res, next) {
             data.startDate = data.startDate.split("T")[0];
             data.endDate = data.endDate.split("T")[0];
 
-            res.render("ticket-sell", {title: "Sell Tickets", data});
+            variables.data = data;
+            res.render("ticket-sell", variables);
         });
 
 });

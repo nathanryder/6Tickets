@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require("../../models/users");
 var History = require("../../models/history");
 var Wishlist = require("../../models/wishlist");
+var Cart = require("../../models/cart");
 var jwt = require("jsonwebtoken");
 
 /**
@@ -412,6 +413,74 @@ router.get("/:username/wishlist", function (req, res, next) {
 
         res.status(200).json(resp);
     }).sort({date: -1}).skip(page).limit(HISTORY_PER_PAGE);
+
+});
+
+//CART
+/**
+ * @api {post} /users/:username/cart/ Add an item to a users shopping cart
+ * @apiName AddToCart
+ * @apiGroup Users
+ *
+ * @apiParam {String} ticketID
+ * @apiParam {Number} quantity
+ */
+router.post("/:username/cart/", function(req, res, next) {
+    var username = req.params.username;
+    var ticket = req.body.ticketID;
+    var quantity = req.body.quantity;
+
+    Cart.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+    });
+
+    var cart = new Cart();
+    cart.username = username;
+    cart.ticketID = ticket;
+    cart.quantity = quantity;
+
+    cart.save(function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(201).json({
+            "success": "Added to cart",
+            "_id": resp._id
+        });
+    });
+});
+
+/**
+ * @api {get} /users/:username/cart Get the items in a users shopping cart
+ * @apiName GetCartItems
+ * @apiGroup Users
+ */
+router.get("/:username/cart", function (req, res, next) {
+    var username = req.params.username;
+
+    Cart.find({"username": new RegExp(username, 'i')}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json(resp);
+    }).sort({date: -1});
+
+});
+
+/**
+ * @api {delete} /users/:username/cart Delete an item from a users cart
+ * @apiName GetCartItems
+ * @apiGroup Users
+ */
+router.delete("/:username/cart", function (req, res, next) {
+
+    Cart.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json({"success": "Successfully removed item"})
+    });
 
 });
 
