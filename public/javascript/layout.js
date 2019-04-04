@@ -57,8 +57,3 @@ function setupCartDetails(id, quantity) {
     });
 
 }
-
-function getEventNameFromID(id) {
-    console.log("EID: " + id);
-
-}
