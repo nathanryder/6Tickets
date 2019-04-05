@@ -1,101 +1,40 @@
 <div class="row">
     <div class="col" id="main-content">
 
-        <h3 class="title mb-3">You have 4 items in your cart</h3>
+        <h3 class="title mb-3">You have {{cart.size}} items in your cart</h3>
 
         <!-- Shopping Cart Table -->
         <table class="table table-cart">
             <tbody>
-            <tr>
-                <td><button class="btn btn-sm btn-outline-warning rounded-circle" title="Remove"><i class="fa fa-close"></i></button></td>
-                <td>
-                    <a href="/detail"><img src="images/product/1.jpg" width="50" height="50" alt="NEW Microsoft Surface Go"></a>
-                    <button class="btn btn-sm btn-outline-warning rounded">Remove</button>
-                </td>
-                <td>
-                    <h6><a href="/detail" class="text-body">NEW Microsoft Surface Go</a></h6>
-                    <h6 class="text-muted">$549.00</h6>
-                    <span class="badge badge-success font-weight-light">RAM: 4GB</span>
-                    <span class="badge badge-dark font-weight-light">Storage: 64GB</span>
-                </td>
-                <td>
-                    <div class="input-spinner">
-                        <input type="number" class="form-control" value="1" min="1" max="999">
-                        <div class="btn-group-vertical">
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
+
+            {{#each cart}}
+                <tr>
+                    <td><button tid="{{ticketID}}" class="btn btn-sm btn-outline-warning rounded-circle deleteItem" title="Remove"><i class="fa fa-close"></i></button></td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-warning rounded">Remove</button>
+                    </td>
+                    <td>
+                        <h6><a href="/detail" class="text-body {{ticketID}}-name"></a></h6>
+                        <h6 class="text-muted"></h6>
+                        <span class="{{ticketID}}-price"></span>
+                    </td>
+                    <td>
+                        <div class="input-spinner">
+                            {{quantity}}
                         </div>
-                    </div>
-                    <span class="price">$549.00</span>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-sm btn-outline-warning rounded-circle" title="Remove"><i class="fa fa-close"></i></button></td>
-                <td>
-                    <a href="/detail"><img src="images/product/3.jpg" width="50" height="50" alt="SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive"></a>
-                    <button class="btn btn-sm btn-outline-warning rounded">Remove</button>
-                </td>
-                <td>
-                    <h6><a href="/detail" class="text-body">SanDisk Cruzer CZ36 64GB USB 2.0 Flash Drive</a></h6>
-                    <h6 class="text-muted">$13.49</h6>
-                </td>
-                <td>
-                    <div class="input-spinner">
-                        <input type="number" class="form-control" value="1" min="1" max="999">
-                        <div class="btn-group-vertical">
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                        </div>
-                    </div>
-                    <span class="price">$13.49</span>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-sm btn-outline-warning rounded-circle" title="Remove"><i class="fa fa-close"></i></button></td>
-                <td>
-                    <a href="/detail"><img src="images/product/8.jpg" width="50" height="50" alt="Beats Studio3 Wireless Headphones"></a>
-                    <button class="btn btn-sm btn-outline-warning rounded">Remove</button>
-                </td>
-                <td>
-                    <h6><a href="/detail" class="text-body">Beats Studio3 Wireless Headphones</a></h6>
-                    <h6 class="text-muted">$299.99</h6>
-                </td>
-                <td>
-                    <div class="input-spinner">
-                        <input type="number" class="form-control" value="1" min="1" max="999">
-                        <div class="btn-group-vertical">
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                        </div>
-                    </div>
-                    <span class="price">$299.99</span>
-                </td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-sm btn-outline-warning rounded-circle" title="Remove"><i class="fa fa-close"></i></button></td>
-                <td>
-                    <a href="/detail"><img src="images/product/12.jpg" width="50" height="50" alt="Essential Phone in Halo Gray - 128 GB Unlocked"></a>
-                    <button class="btn btn-sm btn-outline-warning rounded">Remove</button>
-                </td>
-                <td>
-                    <h6><a href="/detail" class="text-body">Essential Phone in Halo Gray - 128 GB Unlocked</a></h6>
-                    <h6 class="text-muted">$435.00</h6>
-                </td>
-                <td>
-                    <div class="input-spinner">
-                        <input type="number" class="form-control" value="1" min="1" max="999">
-                        <div class="btn-group-vertical">
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-up"></i></button>
-                            <button type="button" class="btn btn-light"><i class="fa fa-chevron-down"></i></button>
-                        </div>
-                    </div>
-                    <span class="price">$435.00</span>
-                </td>
-            </tr>
+                        <span class="price {{ticketID}}-price"></span>
+                    </td>
+                </tr>
+                <script>
+                    setupCartDetails("{{ticketID}}", {{quantity}});
+                </script>
+            {{/each}}
+
+
             <tr>
                 <td colspan="4">
                     <div class="box-total">
-                        <h4>Subotal: <span class="price">$1,297.48</span></h4>
+                        <h4>Subotal: <span class="price subtotal"></span></h4>
                         <a href="/checkout" class="btn btn-success">CHECKOUT</a>
                     </div>
                 </td>

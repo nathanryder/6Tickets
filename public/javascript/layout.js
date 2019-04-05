@@ -17,6 +17,7 @@ $(document).ready(function() {
         });
 
     });
+});
 
 // -- FUNCTIONS --
 
@@ -44,10 +45,12 @@ $(document).ready(function() {
         $("#sidebarCategories").html(output);
     }
 
-});
 
 var total = 0;
+var i = 0;
 function setupCartDetails(id, quantity) {
+    var size = $("#cartAmount").html();
+
 
     $.ajax({
         url: "/api/tickets/" + id,
@@ -58,11 +61,17 @@ function setupCartDetails(id, quantity) {
                 url: "/api/events/" + resp.eventID,
                 type: "GET",
                 success: function (event) {
-                    $("#" + id + "-price").html("€" + resp.price);
-                    $("#" + id + "-name").html(event[0].name);
+                    if (i === parseInt(size)) {
+                        i = 0;
+                        total = 0;
+                    }
+
+                    $("." + id + "-price").html("€" + resp.price);
+                    $("." + id + "-name").html(event[0].name);
 
                     total += resp.price * quantity;
-                    $("#subtotal").html("€" + total);
+                    $(".subtotal").html("€" + total);
+                    i++;
                 }
             });
 

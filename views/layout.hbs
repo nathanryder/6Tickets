@@ -77,14 +77,11 @@
         </li>
         <!-- /Search Toggle -->
 
-        <script>
-            console.log("SIZE: {{cart.size}}");
-        </script>
         <!-- Shopping Cart Toggle -->
         <li class="nav-item dropdown ml-1 ml-sm-3">
             <a href="#" class="nav-link" data-toggle="modal" data-target="#cartModal">
                 <i class="fa fa-shopping-cart fa-lg"></i>
-                <span class="badge badge-pink badge-count">{{cart.size}}</span>
+                <span id="cartAmount" class="badge badge-pink badge-count">{{cart.size}}</span>
             </a>
         </li>
         <!-- /Shopping Cart Toggle -->
@@ -206,8 +203,8 @@
                     <div class="media">
                         <!--<a href="/detail"><img src="images/product/1.jpg" width="50" height="50"></a>-->
                         <div class="media-body">
-                            <a id="{{ticketID}}-name" href="/detail" title="NEW Microsoft Surface Go">{{_id}}</a>
-                            {{quantity}} x<span id="{{ticketID}}-price" class="price">$549.00</span>
+                            <a class="{{ticketID}}-name" href="/detail" title="NEW Microsoft Surface Go">{{_id}}</a>
+                            {{quantity}} x<span class="price {{ticketID}}-price">$549.00</span>
                             <button tid="{{ticketID}}" type="button" class="close deleteItem" aria-label="Close">
                                 <i class="fa fa-trash-o"></i>
                             </button>
@@ -217,12 +214,10 @@
                         setupCartDetails("{{ticketID}}", {{quantity}});
                     </script>
                 {{/each}}
-
-
             </div>
             <div class="modal-footer">
                 <div class="box-total">
-                    <h4>Subtotal: <span id="subtotal" class="price"></span></h4>
+                    <h4>Subtotal: <span class="price subtotal"></span></h4>
                     <a href="/cart" class="btn btn-success">VIEW CART</a>
                 </div>
             </div>
