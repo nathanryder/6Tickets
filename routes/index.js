@@ -27,16 +27,19 @@ router.get("*", function(req, res, next) {
         return;
     }
 
-    if (req.url.split("/")[1] !== "api") {
+    if (data[1] !== "api") {
         variables.username = req.session.username;
 
         requestify.get("http://" + req.get("host") + "/api/users/" + req.session.username + "/cart")
             .then(function (resp) {
                 var data = resp.getBody();
                 variables.cart = data;
-                console.log(data);
                 variables.cart.size = data.length;
+
+                next();
             });
+
+        return;
     }
 
     next();

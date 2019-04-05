@@ -1,8 +1,22 @@
 $(document).ready(function() {
     getCategories();
 
-// -- TIGGERS --
-//
+// -- TRIGGERS --
+    $(".deleteItem").click(function () {
+        var tid = $(this).attr("tid");
+        var username = $("#username").attr("username");
+        var parent = $(this).parent().parent();
+
+        $.ajax({
+            url: "/api/users/" + username + "/cart/" + tid,
+            type: "DELETE",
+            success: function (res) {
+                parent.remove();
+                //TODO update element numbers
+            }
+        });
+
+    });
 
 // -- FUNCTIONS --
 
