@@ -321,12 +321,12 @@ header.navbar {
   z-index: 1031;
 }
 
-.medium-text {
+.text-normal {
   font-size: 12px;
   font-style: normal;
 }
 
-.normal-text {
+.text-medium {
   font-size: 14px;
   font-style: normal;
 }
@@ -1079,6 +1079,16 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   right: 15px;
 }
 
+.hr {
+  border: 1px solid rgba(0,0,0,0.1);
+  border-radius: 1px;
+}
+
+.hr- {
+  border: 1px dashed rgba(0,0,0,0.1);
+  border-radius: 1px;
+}
+
 .price {
   color: #e83e8c;
 }
@@ -1282,13 +1292,31 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 }
 
 .-mb-1{
-  margin-bottom: -5px;
-}
+   margin-bottom: -5px;
+ }
 .-mb-2{
   margin-bottom: -8px;
 }
 .-mb-3{
   margin-bottom: -11px;
+}
+
+.-mt-1{
+  margin-top: -5px;
+}
+.-mt-2{
+  margin-top: -8px;
+}
+.-mt-3{
+  margin-top: -11px;
+}
+
+.-mt-4{
+  margin-top: -15px;
+}
+
+.-mt-5{
+  margin-top: -20px;
 }
 
 /*# sourceMappingURL=style.css.map */

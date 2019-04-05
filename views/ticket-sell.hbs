@@ -10,75 +10,66 @@
                     <form id="event-form">
                         <div class="form-row">
 
-                            <div class="form-group col-sm-12">
-                                <span>Event: </span>
-                                <a href="{{data._id}}"><strong>{{data.name}}</strong></a>
-                            </div>
-
-                            <div class="form-group col-sm-12">
-                                <label for="ticketType">*Ticket type</label>
-                                <select class="form-control col-sm-5" id="ticketType">
-                                    <option value="0">Digital</option>
-                                    <option value="1">Physical</option>
-                                    <option value="2">Both</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <label for="ticketType">*Assigned seats</label>
-                                <select class="form-control" id="ticketIfSeats">
-                                    <option value="yes">Yes - seat no. on the ticket</option>
-                                    <option value="no">No - seats assigned on first come first served basis</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <label for="ticketNum">*Number of tickets</label>
-                                <input type="number" class="form-control" id="ticketNum">
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <label for="ticketPrice">*Price</label>
-                                <input type="number" class="form-control" id="ticketPrice" disabled>
-                            </div>
-
-                            <div class="form-group col-sm-6">
-                                <div style="margin-top: 40px; margin-left: 5px">
-                                    <label for="diffPrice">Tickets have different prices</label>
-                                    <input type="checkbox" id="diffPrice" value="true">
-                                </div>
-                            </div>
-
-                            <div class="form-group col-sm-12">
-                                <label for="ticketDescription">Ticket description - optional</label>
-                                <textarea class="form-control" id="ticketDescription" rows="4" maxlength="600"></textarea>
-                            </div>
-
                             <table class="table table-hover" style="text-align: center">
-                                <thead class="thead-light">
-                                    <tr>
-                                        <th scope="col">#</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Seat No.</th>
-                                        <th scope="col">Options</th>
-                                    </tr>
-                                </thead>
-
                                 <tbody id="ticketSellTable">
-                                    <tr id="idid">
-                                        <th scope="row">1</th>
-                                        <td>address</td>
-                                        <td>venue</td>
-                                        <td>test test test test test test test test </td>
+
+                                    <tr>
+                                        <div class="form-group col-sm-12">
+                                            <span>Event: </span>
+                                            <a href="{{data._id}}"><strong>{{data.name}}</strong></a>
+                                        </div>
                                     </tr>
-                                    <tr id="idid">
-                                        <th scope="row">2</th>
-                                        <td>address</td>
-                                        <td>venue</td>
-                                        <td>date</td>
+
+                                    <tr id="tickets-1">
+                                        <hr class="mb-3 hr-" width="100%">
+                                        <div class="form-group col-sm-12">
+                                            <label for="ticketType">*Ticket type</label>
+                                            <select class="form-control col-sm-5" id="ticketType">
+                                                <option value="0">Digital</option>
+                                                <option value="1">Physical</option>
+                                                <option value="2">Both</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label for="ticketType">*Assigned seats</label>
+                                            <select class="form-control" id="ticketIfSeats">
+                                                <option value="no">No - seats assigned on first come first served basis</option>
+                                                <option value="yes">Yes - seat no. on the ticket</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <div style="margin-left: 5px; margin-top: 8%;">
+                                                <label class="text-muted" for="diffSeats" disabled>Specify seats</label>
+                                                <input type="checkbox" id="diffSeats" value="true" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-6">
+                                            <label for="ticketNum">*Number of tickets</label>
+                                            <input type="number" class="form-control" id="ticketNum">
+                                        </div>
+
+                                        <div class="form-group col-sm-6">
+                                            <label for="ticketPrice">*Price</label>
+                                            <input type="number" class="form-control" id="ticketPrice">
+                                        </div>
+
+
+                                        <div class="form-group col-sm-12">
+                                            <label for="ticketDescription">Ticket description - optional</label>
+                                            <textarea class="form-control" id="ticketDescription" rows="4" maxlength="600"></textarea>
+                                        </div>
                                     </tr>
+
+                                    <tr id="tickets-2"></tr>
                                 </tbody>
                             </table>
+
+                            <div class="col-sm-12 text-right -mt-4" id="addAnother" style="cursor: pointer;">
+                                <span>Add another</span>
+                                <i class="far fa-plus-square" style="font-size: 20px;"></i>
+                            </div>
 
                             <div class="col-md-5 mx-auto">
                                 <button type="submit" class="btn btn-outline-dark btn-block" id="eventBtn">SELL</button>
@@ -87,7 +78,6 @@
                     </form>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
