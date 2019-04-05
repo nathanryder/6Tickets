@@ -321,6 +321,16 @@ header.navbar {
   z-index: 1031;
 }
 
+.medium-text {
+  font-size: 12px;
+  font-style: normal;
+}
+
+.normal-text {
+  font-size: 14px;
+  font-style: normal;
+}
+
 .modal-cart {
   padding-right: 0 !important;
 }
@@ -1269,6 +1279,16 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
 
 .nav-pills .nav-link:not(.active) {
   color: #495057;
+}
+
+.-mb-1{
+  margin-bottom: -5px;
+}
+.-mb-2{
+  margin-bottom: -8px;
+}
+.-mb-3{
+  margin-bottom: -11px;
 }
 
 /*# sourceMappingURL=style.css.map */
