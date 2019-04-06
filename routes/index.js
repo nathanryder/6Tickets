@@ -4,6 +4,14 @@ var fs = require("fs");
 var path = require("path");
 var requestify = require("requestify");
 
+var emailjs = require("emailjs");
+var server = emailjs.server.connect({
+    user: "6tickets.noreply@gmail.com",
+    password: "6T#0Zf2*",
+    host: "smtp.gmail.com",
+    ssl: true
+});
+
 var variables = {};
 var authRequired = ["account-profile", "account-wishlist", "account-order", "account-address", "event-search", "event-add", "ticket-sell"];
 
@@ -167,19 +175,36 @@ router.post('/checkout-3', function(req, res, next) {
 /* POST checkout-complete page. */
 router.post('/checkout-complete', function(req, res, next) {
     variables.title = "Checkout";
-    res.render('checkout-complete', variables);
+
+    requestify.post("http://" + req.get("host") + "/api/orders/", {
+        "username": variables.username,
+        "total": req.body.amount.replace("€", "")
+    }).then(function (resp) {
+        var data = resp.getBody();
+
+        variables.orderNo = data._id;
+        variables.amount = req.body.amount;
+
+        requestify.delete("http://" + req.get("host") + "/api/users/" + variables.username + "/cart/");
+
+        server.send({
+            text: "Hello " + variables.username + "\n\nThis is your confirmation email for order ID " +
+                    variables.orderNo + "\n\nThank you for choosing us.",
+            from: "6Tickets <6tickets.noreply@gmail.com>",
+            to: "<" + req.session.email + ">",
+            subject: "Confirmation email"
+        }, function (err, msg) {
+            console.log (err || msg);
+        });
+
+        res.render('checkout-complete', variables);
+    });
+
 });
 
 /* GET compare page. */
 router.get('/compare', function(req, res, next) {
     variables.title = "6Tickets";
-
-    //TODO email confirm
-    //Order no
-    //Amount
-    //Clear cart
-    variables.amount = req.body.amount;
-
     res.render('compare', variables);
 });
 

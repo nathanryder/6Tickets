@@ -157,6 +157,7 @@ router.post("/login", function(req, res, next) {
                 }
 
                 req.session.username = username;
+                req.session.email = user.emailAddress;
                 req.session.admin = user.admin;
                 res.status(200).json({"success": "loggedIn"});
             } else {
@@ -456,7 +457,7 @@ router.post("/:username/cart/", function(req, res, next) {
 /**
  * @api {get} /users/:username/cart Get the items in a users shopping cart
  * @apiName GetCartItems
- * @apiGroup Users
+ * @apiGroup Cart
  */
 router.get("/:username/cart", function (req, res, next) {
     var username = req.params.username;
@@ -471,9 +472,26 @@ router.get("/:username/cart", function (req, res, next) {
 });
 
 /**
+ * @api {delete} /users/:username/cart Delete all items in a users shopping cart
+ * @apiName DeleteCartItems
+ * @apiGroup Cart
+ */
+router.delete("/:username/cart", function (req, res, next) {
+    var username = req.params.username;
+
+    Cart.deleteMany({"username": new RegExp(username, 'i')}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json({"success": "Successfully cleared cart"})
+    });
+
+});
+
+/**
  * @api {delete} /users/:username/cart/:ticketID Delete an item from a users cart
  * @apiName DeleteCartItem
- * @apiGroup Users
+ * @apiGroup Cart
  */
 router.delete("/:username/cart/:ticketID", function (req, res, next) {
     var username = req.params.username;

@@ -12,15 +12,16 @@
             <p>Your order has been placed and will be processed as soon as possible.</p>
             <p class="mb-0">
                 <span class="text-muted">Order ID: </span>
-                <span class="text-pink">#ORD456789</span>
+                <span class="text-pink">{{orderNo}}</span>
             </p>
             <p>
                 <span class="text-muted">Amount: </span>
-                <span class="text-pink">$1,297.48</span>
+                <span class="text-pink">{{amount}}</span>
             </p>
-            <p>A confirmation email has been sent to <u>user@example.com</u></p>
-            <a href="/grid" class="btn btn-secondary mb-5">CONTINUE SHOPPING</a>
+            <p>A confirmation email has been sent to your email address.</p>
+            <a href="/" class="btn btn-secondary mb-5">HOME</a>
             <a href="/account-order" class="btn btn-success mb-5">VIEW ORDER</a>
         </div>
     </div>
 </div>
+<script src="javascript/checkout.js"></script>

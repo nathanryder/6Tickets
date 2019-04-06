@@ -12,9 +12,10 @@ var Order = require("../../models/order");
  */
 router.post("/", function (req, res, next) {
 
-    var total = req.body.total;
     var username = req.body.username;
-    if (!total | !username) {
+    var total = req.body.total;
+    console.log(total + " " + username);
+    if (!total || !username) {
         res.status(400).json({"error": "Invalid arguments"});
         return;
     }
