@@ -96,7 +96,7 @@ router.get('/account-sell', function(req, res, next) {
 
 /* GET cart page. */
 router.get('/cart', function(req, res, next) {
-    variables.title = "Your Cart'";
+    variables.title = "Your Cart";
     res.render('cart', variables);
 });
 
@@ -115,23 +115,57 @@ router.get('/categories', function(req, res, next) {
 /* GET checkout page. */
 router.get('/checkout', function(req, res, next) {
     variables.title = "Checkout";
-    res.render('checkout', variables);
+
+    requestify.get("http://" + req.get("host") + "/api/users/" + variables.username)
+        .then(function (resp) {
+
+            var data = resp.getBody()[0];
+            variables.firstname = data.firstname;
+            variables.lastname = data.lastname;
+            variables.phone = data.phoneNo;
+            variables.addrOne = data.addressOne;
+            variables.addrTwo = data.addressTwo;
+            variables.city = data.city;
+            variables.country = data.country;
+
+            res.render('checkout', variables);
+        });
+
 });
 
-/* GET checkout-2 page. */
-router.get('/checkout-2', function(req, res, next) {
+/* POST checkout-2 page. */
+router.post('/checkout-2', function(req, res, next) {
     variables.title = "Checkout";
+
+    req.session.cart = {};
+    req.session.cart.name = req.body.name;
+    req.session.cart.addrOne = req.body.addrOne;
+    req.session.cart.addrTwo = req.body.addrTwo;
+    req.session.cart.city = req.body.city;
+    req.session.cart.country = req.body.country;
+    req.session.cart.phone = req.body.phone;
+    req.session.cart.deliver = req.body.deliver;
+
     res.render('checkout-2', variables);
 });
 
-/* GET checkout-3 page. */
-router.get('/checkout-3', function(req, res, next) {
+/* POST checkout-3 page. */
+router.post('/checkout-3', function(req, res, next) {
     variables.title = "Checkout";
+
+    //cardNo, name, expiry, cvc
+    req.session.cart.cardNo = req.body.cardNo;
+    req.session.cart.cardName = req.body.name;
+    req.session.cart.expiry = req.body.expiry;
+    req.session.cart.cvc = req.body.cvc;
+
+    variables.cartData = req.session.cart;
+
     res.render('checkout-3', variables);
 });
 
-/* GET checkout-complete page. */
-router.get('/checkout-complete', function(req, res, next) {
+/* POST checkout-complete page. */
+router.post('/checkout-complete', function(req, res, next) {
     variables.title = "Checkout";
     res.render('checkout-complete', variables);
 });
@@ -139,6 +173,13 @@ router.get('/checkout-complete', function(req, res, next) {
 /* GET compare page. */
 router.get('/compare', function(req, res, next) {
     variables.title = "6Tickets";
+
+    //TODO email confirm
+    //Order no
+    //Amount
+    //Clear cart
+    variables.amount = req.body.amount;
+
     res.render('compare', variables);
 });
 

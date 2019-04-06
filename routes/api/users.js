@@ -396,7 +396,7 @@ router.post("/:username/wishlist/", function(req, res, next) {
 });
 
 /**
- * @api {get} /users/:username/wishlist Get a users history
+ * @api {get} /users/:username/wishlist Get a users wishlist
  * @apiName GetWishlist
  * @apiGroup Users
  */

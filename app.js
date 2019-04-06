@@ -13,6 +13,7 @@ var reviewsRouter = require('./routes/api/reviews');
 var eventsRouter = require('./routes/api/events');
 var categoryRouter = require('./routes/api/categories');
 var ticketRouter = require('./routes/api/tickets');
+var orderRouter = require('./routes/api/orders');
 
 var app = express();
 
@@ -41,6 +42,7 @@ app.use('/api/reviews', reviewsRouter);
 app.use('/api/events', eventsRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/tickets', ticketRouter);
+app.use('/api/orders', orderRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
