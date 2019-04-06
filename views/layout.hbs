@@ -84,7 +84,7 @@
         <li class="nav-item dropdown ml-1 ml-sm-3">
             <a href="#" class="nav-link" data-toggle="modal" data-target="#cartModal">
                 <i class="fa fa-shopping-cart fa-lg"></i>
-                <span class="badge badge-pink badge-count">{{cart.size}}</span>
+                <span id="cartAmount" class="badge badge-pink badge-count">{{cart.size}}</span>
             </a>
         </li>
         <!-- /Shopping Cart Toggle -->
@@ -115,7 +115,7 @@
     {{#if username}}
         <div class="dropdown dropdown-user">
             <a class="dropdown-toggle" href="#" role="button" id="userDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <img src="images/user.svg" alt="User">
+                <img id="username" username="{{username}}" src="images/user.svg" alt="User">
             </a>
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
                 <a class="dropdown-item has-icon" href="/account-order"><i class="fa fa-shopping-bag fa-fw"></i> My Orders</a>
@@ -206,9 +206,9 @@
                     <div class="media">
                         <!--<a href="/detail"><img src="images/product/1.jpg" width="50" height="50"></a>-->
                         <div class="media-body">
-                            <a id="{{ticketID}}-name" href="/detail" title="NEW Microsoft Surface Go">{{_id}}</a>
-                            {{quantity}} x<span id="{{ticketID}}-price" class="price">$549.00</span>
-                            <button id="deleteItem" tid="{{ticketID}}" type="button" class="close" aria-label="Close">
+                            <a class="{{ticketID}}-name" href="/detail" title="NEW Microsoft Surface Go">{{_id}}</a>
+                            {{quantity}} x<span class="price {{ticketID}}-price">$549.00</span>
+                            <button tid="{{ticketID}}" type="button" class="close deleteItem" aria-label="Close">
                                 <i class="fa fa-trash-o"></i>
                             </button>
                         </div>
@@ -220,7 +220,7 @@
             </div>
             <div class="modal-footer">
                 <div class="box-total">
-                    <h4>Subtotal: <span id="subtotal" class="price"></span></h4>
+                    <h4>Subtotal: <span class="price subtotal"></span></h4>
                     <a href="/cart" class="btn btn-success">VIEW CART</a>
                 </div>
             </div>
@@ -237,7 +237,6 @@
                 <a class="nav-link" href="/about">About</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Privacy</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Terms</a>

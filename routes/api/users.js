@@ -430,25 +430,27 @@ router.post("/:username/cart/", function(req, res, next) {
     var ticket = req.body.ticketID;
     var quantity = req.body.quantity;
 
-    Cart.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
-        if (err)
-            throw err;
-    });
-
-    var cart = new Cart();
-    cart.username = username;
-    cart.ticketID = ticket;
-    cart.quantity = quantity;
-
-    cart.save(function (err, resp) {
+    Cart.deleteOne({"username": username, "ticketID": ticket}, function (err, r) {
         if (err)
             throw err;
 
-        res.status(201).json({
-            "success": "Added to cart",
-            "_id": resp._id
+        var cart = new Cart();
+        cart.username = username;
+        cart.ticketID = ticket;
+        cart.quantity = quantity;
+
+        cart.save(function (err, resp) {
+            if (err)
+                throw err;
+
+            res.status(201).json({
+                "success": "Added to cart",
+                "_id": resp._id
+            });
         });
     });
+
+
 });
 
 /**
@@ -469,11 +471,13 @@ router.get("/:username/cart", function (req, res, next) {
 });
 
 /**
- * @api {delete} /users/:username/cart Delete an item from a users cart
- * @apiName GetCartItems
+ * @api {delete} /users/:username/cart/:ticketID Delete an item from a users cart
+ * @apiName DeleteCartItem
  * @apiGroup Users
  */
-router.delete("/:username/cart", function (req, res, next) {
+router.delete("/:username/cart/:ticketID", function (req, res, next) {
+    var username = req.params.username;
+    var ticket = req.params.ticketID;
 
     Cart.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
         if (err)
