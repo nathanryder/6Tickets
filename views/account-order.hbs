@@ -36,40 +36,18 @@
                              <th scope="col">Order ID</th>
                              <th scope="col">Date</th>
                              <th scope="col">Total</th>
-                             <th scope="col">Status</th>
                          </tr>
                          </thead>
                          <tbody>
-                         <tr>
-                             <th scope="row"><a href="#" class="text-info">1712697HPKINV</a></th>
-                             <td>Dec 19, 2017</td>
-                             <td>$74.00</td>
-                             <td><span class="badge badge-warning">In Progress</span></td>
-                         </tr>
-                         <tr>
-                             <th scope="row"><a href="#" class="text-info">171264CK6FINV</a></th>
-                             <td>Dec 10, 2017</td>
-                             <td>$100.00</td>
-                             <td><span class="badge badge-danger">Canceled</span></td>
-                         </tr>
-                         <tr>
-                             <th scope="row"><a href="#" class="text-info">171266PC4AINV</a></th>
-                             <td>Dec 01, 2017</td>
-                             <td>$20.00</td>
-                             <td><span class="badge badge-success">Finished</span></td>
-                         </tr>
-                         <tr>
-                             <th scope="row"><a href="#" class="text-info">1711697HPKINV</a></th>
-                             <td>Nov 19, 2017</td>
-                             <td>$74.00</td>
-                             <td><span class="badge badge-success">Finished</span></td>
-                         </tr>
-                         <tr>
-                             <th scope="row"><a href="#" class="text-info">171164CK6FINV</a></th>
-                             <td>Nov 10, 2017</td>
-                             <td>$100.00</td>
-                             <td><span class="badge badge-success">Finished</span></td>
-                         </tr>
+
+                         {{#each orders}}
+                             <tr>
+                                 <th scope="row">{{_id}}</th>
+                                 <td>{{date}}</td>
+                                 <td>€{{total}}</td>
+                             </tr>
+                         {{/each}}
+
                          </tbody>
                      </table>
                  </div>

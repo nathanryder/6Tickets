@@ -81,7 +81,14 @@ router.get('/account-address', function(req, res, next) {
 /* GET account-order page. */
 router.get('/account-order', function(req, res, next) {
     variables.title = "Orders";
-    res.render('account-order', variables);
+
+    requestify.get("http://" + req.get("host") + "/api/orders/" + variables.username)
+        .then(function (resp) {
+
+            variables.orders = resp.getBody();
+            res.render('account-order', variables);
+        });
+
 });
 
 /* GET account-profile page. */

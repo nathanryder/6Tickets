@@ -3,7 +3,7 @@ var router = express.Router();
 var Order = require("../../models/order");
 
 /**
- * @api {post} /orders/
+ * @api {post} /orders/ Create a order
  * @apiName CreateOrder
  * @apiGroup Orders
  *
@@ -37,7 +37,7 @@ router.post("/", function (req, res, next) {
 });
 
 /**
- * @api {get} /orders/:username
+ * @api {get} /orders/:username Get a order
  * @apiName GetOrders
  * @apiGroup Orders
  */
