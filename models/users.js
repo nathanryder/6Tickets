@@ -16,6 +16,7 @@ var usersSchema = new Schema({
     password: {type: String, default: null},
     admin: {type: Number, default: 0},
     verified: {type: Number, default: 0},
+    join_date: {type: Date, default: new Date()},
     access_token: String
 });
 

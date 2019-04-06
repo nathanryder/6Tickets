@@ -6,9 +6,9 @@
                  <div class="media">
                      <img src="images/user.svg" class="img-thumbnail rounded-circle" alt="John Thor">
                      <div class="media-body ml-3 pt-4">
-                         <h4>John Thor</h4>
-                         <div class="small text-muted">Joined Dec 31, 2017</div>
-                         <div class="small text-muted">Points: 100</div>
+                         <h3>{{username}}</h3>
+                         <div id="full-name"></div>
+                         <div class="small text-muted">Joined {{join_date}}</div>
                      </div>
                  </div>
                  <hr>
@@ -55,3 +55,20 @@
          </div>
      </div>
  </div>
+
+ <script>
+     $(document).ready(function () {
+         $.ajax({
+             type: "GET",
+             url: "/api/users/{{username}}",
+             success: function (data) {
+                 $("#profileFirstName").val(data[0].firstname);
+                 $("#profileLastName").val(data[0].lastname);
+                 $("#profileEmail").val(data[0].emailAddress);
+                 $("#profilePhone").val(data[0].phoneNo);
+                 $("#full-name").html(data[0].firstname + " " + data[0].lastname);
+             }
+         });
+
+     });
+ </script>

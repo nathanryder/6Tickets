@@ -37,6 +37,8 @@ router.get("*", function(req, res, next) {
 
     if (data[1] !== "api") {
         variables.username = req.session.username;
+        if (req.session.join_date)
+            variables.join_date = req.session.join_date.toString().split("T")[0];
 
         requestify.get("http://" + req.get("host") + "/api/users/" + req.session.username + "/cart")
             .then(function (resp) {

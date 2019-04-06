@@ -161,6 +161,7 @@ router.post("/login", function(req, res, next) {
                 req.session.email = user.emailAddress;
                 req.session.admin = user.admin;
                 req.session.id = user._id;
+                req.session.join_date = user.join_date;
                 res.status(200).json({"success": "loggedIn"});
             } else {
                 res.status(401).send({
@@ -253,8 +254,8 @@ router.put("/:username", function (req, res, next) {
 
                     res.status(201).json({"success": "Updated user details"});
                 });
-                return;
             });
+        return;
     }
 
     User.updateOne({"username": username}, {$set:{
