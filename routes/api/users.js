@@ -214,6 +214,7 @@ router.put("/:username", function (req, res, next) {
         return;
     }
 
+    password = new User().generateHash(password);
     if (!firstname || !lastname || !email || !addressOne || !city || !country) {
         requestify.get("http://" + req.get("host") + "/api/users/" + username)
             .then(function (resp) {
@@ -236,7 +237,6 @@ router.put("/:username", function (req, res, next) {
                 if (!phoneNo)
                     phoneNo = data.phoneNo;
 
-                password = new User().generateHash(password);
                 User.updateOne({"username": username}, {$set:{
                         "password": password,
                         "firstname": firstname,
@@ -253,10 +253,26 @@ router.put("/:username", function (req, res, next) {
 
                     res.status(201).json({"success": "Updated user details"});
                 });
+                return;
             });
     }
 
+    User.updateOne({"username": username}, {$set:{
+            "password": password,
+            "firstname": firstname,
+            "lastname": lastname,
+            "emailAddress": email,
+            "phoneNo": phoneNo,
+            "addressOne": addressOne,
+            "addressTwo": addressTwo,
+            "city": city,
+            "country": country
+        }}, function (err, update) {
+        if (err)
+            throw err;
 
+        res.status(201).json({"success": "Updated user details"});
+    });
 });
 
 /**

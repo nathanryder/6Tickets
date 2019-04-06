@@ -12,7 +12,7 @@ describe("Tickets", () => {
     var ticketID = "";
 
     it("creates a ticket", (done) => {
-        request(app).post("/api/tickets")
+        request(app).post("/api/tickets/")
             .send({
                 "sellerUsername": "test",
                 "eventID": "0",

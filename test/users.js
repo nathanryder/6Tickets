@@ -30,6 +30,7 @@ describe("Users", () => {
     });
 
     it("successfully edits a user", (done) => {
+        console.log("EDIT");
         request(app).put("/api/users/test")
             .send({
                 "password": "new",
@@ -42,6 +43,7 @@ describe("Users", () => {
                 "country": "country"
             })
             .expect(function (res) {
+                console.log("test");
                 res.body.should.contain.property("success");
             })
             .expect(201, done);

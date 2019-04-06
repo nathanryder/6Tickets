@@ -160,20 +160,34 @@ router.post("/", function(req, res, next) {
     ticket.seatNo = seat;
     ticket.info = info;
 
-    requestify.get("http://" + req.get("host") + "/api/events/" + event)
-        .then(function (resp) {
-            ticket.eventName = resp.getBody()[0].name;
+    if (process.env.NODE_ENV === "test") {
+        ticket.eventName = "test";
 
-            ticket.save(function(err, save) {
-                if (err)
-                    throw err;
+        ticket.save(function (err, save) {
+            if (err)
+                throw err;
 
-                res.status(201).json({
-                    "success": "ticket created",
-                    "_id": ticket._id
-                });
+            res.status(201).json({
+                "success": "ticket created",
+                "_id": ticket._id
             });
         });
+    } else {
+        requestify.get("http://" + req.get("host") + "/api/events/" + event)
+            .then(function (resp) {
+                ticket.eventName = resp.getBody()[0].name;
+
+                ticket.save(function (err, save) {
+                    if (err)
+                        throw err;
+
+                    res.status(201).json({
+                        "success": "ticket created",
+                        "_id": ticket._id
+                    });
+                });
+            });
+    }
 
 });
 
