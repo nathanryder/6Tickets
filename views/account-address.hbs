@@ -29,74 +29,91 @@
                          <a class="nav-link" href="account-sell">Sell</a>
                      </li>
                  </ul>              <hr>
-                 <h3 class="title">Billing Address<button class="btn btn-sm btn-outline-warning float-right"><i class="fa fa-pencil"></i> Edit</button></h3>
+                 <h3 class="title">Address</h3>
                  <table class="table mb-3 table-sm">
                      <tbody>
                      <tr>
                          <td class="border-top-0">
-                             <strong>Address</strong>
-                             <div>Lorem ipsum dolor sit amet, consectetur adipisicing.</div>
+                             <label>Line one</label>
+                             <input id="addrLineOne" class="form-control col-sm-6" type="text">
                          </td>
                      </tr>
                      <tr>
-                         <td>
-                             <strong>Country</strong>
-                             <div>United Kingdom</div>
+                         <td class="border-top-0">
+                             <label>Line two</label>
+                             <input id="addrLineTwo" class="form-control col-sm-6" type="text">
                          </td>
                      </tr>
                      <tr>
-                         <td>
-                             <strong>Region / State</strong>
-                             <div>Lorem ipsum</div>
+                         <td class="border-top-0">
+                             <label>City</label>
+                             <input id="city" class="form-control col-sm-2" type="text">
                          </td>
                      </tr>
                      <tr>
-                         <td>
-                             <strong>City</strong>
-                             <div>Manchester</div>
+                         <td class="border-top-0">
+                             <label>Country</label>
+                             <input id="country" class="form-control col-sm-2" type="text">
                          </td>
                      </tr>
                      <tr>
-                         <td>
-                             <strong>ZIP Code</strong>
-                             <div>12345</div>
+                         <td class="border-top-0">
+                             <label>Password</label>
+                             <input id="password" class="form-control col-sm-4" type="password">
                          </td>
                      </tr>
+
+                     <tr>
+                         <td class="border-top-0">
+                             <br>
+                             <button type="button" class="btn btn-success" id="saveAddrBtn">Save</button>
+                         </td>
+                     </tr>
+
                      </tbody>
                  </table>
-                 <h3 class="title">Shipping Address</h3>
-                 <div class="custom-control custom-checkbox">
-                     <input type="checkbox" class="custom-control-input" id="shippingAddr" checked="checked">
-                     <label class="custom-control-label" for="shippingAddr">
-                         <span role="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">Same as Billing Address</span>
-                     </label>
-                 </div>
-                 <form class="mt-2 collapse" id="collapseExample">
-                     <div class="form-group mb-1 mb-md-3">
-                         <label for="inputAddress" class="mb-0 mb-md-2">Address *</label>
-                         <input type="text" class="form-control" id="inputAddress">
-                     </div>
-                     <div class="form-row">
-                         <div class="form-group mb-1 mb-md-3 col-md-6">
-                             <label for="inputCountry" class="mb-0 mb-md-2">Country *</label>
-                             <input type="text" class="form-control" id="inputCountry">
-                         </div>
-                         <div class="form-group mb-1 mb-md-3 col-md-6">
-                             <label for="inputZip" class="mb-0 mb-md-2">Zip/Postal Code *</label>
-                             <input type="text" class="form-control" id="inputZip">
-                         </div>
-                         <div class="form-group mb-1 mb-md-3 col-md-6">
-                             <label for="inputCity" class="mb-0 mb-md-2">City *</label>
-                             <input type="text" class="form-control" id="inputCity">
-                         </div>
-                         <div class="form-group mb-1 mb-md-3 col-md-6">
-                             <label for="inputRegion" class="mb-0 mb-md-2">Region *</label>
-                             <input type="text" class="form-control" id="inputRegion">
-                         </div>
-                     </div>
-                     <button type="submit" class="btn btn-success btn-block">SAVE</button>
-                 </form>
              </div>
          </div>
      </div>
  </div>
+
+ <script>
+     $(document).ready(function () {
+         $.ajax({
+             type: "GET",
+             url: "/api/users/{{username}}",
+             success: function (data) {
+                 $("#addrLineOne").val(data[0].addressOne);
+                 $("#addrLineTwo").val(data[0].addressTwo);
+                 $("#city").val(data[0].city);
+                 $("#country").val(data[0].country);
+             }
+         });
+
+         $("#saveAddrBtn").click(function (e) {
+             e.preventDefault();
+
+             var lineOne = $("#addrLineOne").val();
+             var lineTwo = $("#addrLineTwo").val();
+             var city = $("#city").val();
+             var country = $("#country").val();
+             var password = $("#country").val();
+
+             $.ajax({
+                 url: "/api/users/{{username}}",
+                 type: "PUT",
+                 data: {
+                     password: password,
+                     addressOne: lineOne,
+                     addressTwo: lineTwo,
+                     city: city,
+                     country: country,
+                 },
+                 success: function () {
+                     window.location.reload();
+                 }
+             });
+         });
+
+     });
+ </script>
