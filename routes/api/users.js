@@ -5,6 +5,7 @@ var History = require("../../models/history");
 var Wishlist = require("../../models/wishlist");
 var Cart = require("../../models/cart");
 var jwt = require("jsonwebtoken");
+var requestify = require("requestify");
 
 /**
  * @api {get} /users/ Get the list of users
@@ -180,7 +181,7 @@ router.post("/login", function(req, res, next) {
 });
 
 /**
- * @api {put} /users/:username Create a user
+ * @api {put} /users/:username Edit a user
  * @apiName UpdateUser
  * @apiGroup Users
  * @apiParam {String} password Users password.
@@ -205,29 +206,56 @@ router.put("/:username", function (req, res, next) {
     var city = req.body.city;
     var country = req.body.country;
 
-    if (!password || !firstname || !lastname || !email || !addressOne || !city || !country) {
+    if (!password) {
         res.status(400).json({
             "error": "Invalid arguments"
         });
         return;
     }
 
-    User.updateOne({"username": username}, {$set:{
-            "password": password,
-            "firstname": firstname,
-            "lastname": lastname,
-            "emailAddress": email,
-            "phoneNo": phoneNo,
-            "addressOne": addressOne,
-            "addressTwo": addressTwo,
-            "city": city,
-            "country": country
-        }}, function (err, update) {
-        if (err)
-            throw err;
+    if (!firstname || !lastname || !email || !addressOne || !city || !country) {
+        requestify.get("http://" + req.get("host") + "/api/users/" + username)
+            .then(function (resp) {
+                var data = resp.getBody()[0];
 
-        res.status(201).json({"success": "Updated user details"});
-    });
+                if (!firstname)
+                    firstname = data.firstname;
+                if (!lastname)
+                    lastname = data.lastname;
+                if (!email)
+                    email = data.emailAddress;
+                if (!addressOne)
+                    addressOne = data.addressOne;
+                if (!addressTwo)
+                    addressTwo = data.addressTwo;
+                if (!city)
+                    city = data.city;
+                if (!country)
+                    country = data.country;
+                if (!phoneNo)
+                    phoneNo = data.phoneNo;
+
+                password = new User().generateHash(password);
+                User.updateOne({"username": username}, {$set:{
+                        "password": password,
+                        "firstname": firstname,
+                        "lastname": lastname,
+                        "emailAddress": email,
+                        "phoneNo": phoneNo,
+                        "addressOne": addressOne,
+                        "addressTwo": addressTwo,
+                        "city": city,
+                        "country": country
+                    }}, function (err, update) {
+                    if (err)
+                        throw err;
+
+                    res.status(201).json({"success": "Updated user details"});
+                });
+            });
+    }
+
+
 });
 
 /**
