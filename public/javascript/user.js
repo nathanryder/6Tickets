@@ -103,33 +103,36 @@ $(document).ready(function() {
     });
 
 //    edit profile
-//     $("#save").on('keyup', function(){
-        ////need to get the username from somewhere
-        // var username;
-        //
-        // $.ajax({
-        //     type: "PUT",
-        //     url: "api/users/"+username,
-        //     dataType: "json",
-        //     data: {
-        //         "adminPage": 0,
-        //         "profileFirstName": profileFirstName,
-        //         "profileLastName": profileLastName,
-        //         "profileEmail": profileEmail,
-        //         "profilePhone": profilePhone,
-        //         "profilePassword": profilePassword,
-        //         "profileConfirmPassword": profileConfirmPassword
-        //
-        //     },
-        //     success: function (res) {
-        //         window.location.href = "/";
-        //     },
-        //     error: function (res) {
-            //
-            // }
-        // })
+    $("#saveBtn").click(function(e){
+        e.preventDefault();
 
-    // });
+        var username = $("#username").attr("username");
+        var password = $("#profilePassword").val();
+        var firstname = $("#profileFirstName").val();
+        var lastname = $("#profileLastName").val();
+        var email = $("#profileEmail").val();
+        var phone = $("#profilePhone").val();
+
+        $.ajax({
+            type: "PUT",
+            url: "api/users/"+username,
+            dataType: "json",
+            data: {
+                "password": password,
+                "firstname": firstname,
+                "lastname": lastname,
+                "emailAddress": email,
+                "phoneNo": phone
+            },
+            success: function (res) {
+                window.location.href = "/account-profile";
+            },
+            error: function (res) {
+
+            }
+        })
+
+    });
 
     //edit profile - check if passwords are the same
     $("#profilePassword, #profileConfirmPassword").on('keyup', function(){
