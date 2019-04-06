@@ -1,21 +1,20 @@
 $(document).ready(function() {
     var formCount=1;
-    var forms;
+    var forms="";
 
 
     // -- TRIGERS --
 
     $("#addAnother").on("click", function () {
-        console.log("You clicked add form btn");
         addForm();
-    });
+    })
 
     // -- FUNCTIONS --
 
     function addForm() {
         formCount++;
-        var output+=
-            "<tr id='tickets-1'>" +
+        var output=
+            "<div class=\"form-row\">" +
             "    <hr class='mb-3 hr-' width='100%'>" +
             "    <div class='form-group col-sm-12'>" +
             "        <label for='ticketType'>*Ticket type</label>" +
@@ -55,13 +54,13 @@ $(document).ready(function() {
             "        <label for='ticketDescription'>Ticket description - optional</label>" +
             "        <textarea class='form-control' id='ticketDescription' rows='4' maxlength='600'></textarea>" +
             "    </div>" +
-            "</tr>"+
-            "<tr id='tickets-"+ formCount+1 +"'></tr>";
+            "</div>";
 
-        console.log(formCount);
-        $.ajax({
-            $("#tickets-"+formCount).html(output);
-        })
+        // console.log(output);
+
+        $("#ticketsSell").append(output);
+
+        console.log("End")
     };
 
-}
+});
