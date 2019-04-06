@@ -59,7 +59,7 @@
                      <tr>
                          <td class="border-top-0">
                              <label>Password</label>
-                             <input id="password" class="form-control col-sm-4" type="password">
+                             <input id="passwordInput" class="form-control col-sm-4" type="password">
                          </td>
                      </tr>
 
@@ -97,7 +97,7 @@
              var lineTwo = $("#addrLineTwo").val();
              var city = $("#city").val();
              var country = $("#country").val();
-             var password = $("#country").val();
+             var password = $("#passwordInput").val();
 
              $.ajax({
                  url: "/api/users/{{username}}",
