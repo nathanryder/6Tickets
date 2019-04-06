@@ -397,7 +397,7 @@ router.get("/:username/history", function (req, res, next) {
 /**
  * @api {post} /users/:username/wishlist/ Add an item to a users wishlist
  * @apiName AddWishlist
- * @apiGroup Users
+ * @apiGroup Wishlist
  *
  * @apiParam {String} ticketID
  */
@@ -428,7 +428,7 @@ router.post("/:username/wishlist/", function(req, res, next) {
 /**
  * @api {get} /users/:username/wishlist Get a users wishlist
  * @apiName GetWishlist
- * @apiGroup Users
+ * @apiGroup Wishlist
  */
 router.get("/:username/wishlist", function (req, res, next) {
 
@@ -443,6 +443,41 @@ router.get("/:username/wishlist", function (req, res, next) {
 
         res.status(200).json(resp);
     }).sort({date: -1}).skip(page).limit(HISTORY_PER_PAGE);
+
+});
+
+/**
+ * @api {delete} /users/:username/wishlist Delete all items in a users wishlist
+ * @apiName DeleteWishlistItems
+ * @apiGroup Wishlist
+ */
+router.delete("/:username/wishlist", function (req, res, next) {
+    var username = req.params.username;
+
+    Wishlist.deleteMany({"username": new RegExp(username, 'i')}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json({"success": "Successfully cleared wishlist"})
+    });
+
+});
+
+/**
+ * @api {delete} /users/:username/wishlist/:ticketID Delete an item from a users wishlist
+ * @apiName DeleteWishlistItem
+ * @apiGroup Wishlist
+ */
+router.delete("/:username/wishlist/:ticketID", function (req, res, next) {
+    var username = req.params.username;
+    var ticket = req.params.ticketID;
+
+    Wishlist.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
+        if (err)
+            throw err;
+
+        res.status(200).json({"success": "Successfully removed item"})
+    });
 
 });
 

@@ -93,7 +93,30 @@ router.get('/account-profile', function(req, res, next) {
 /* GET account-wishlist page. */
 router.get('/account-wishlist', function(req, res, next) {
     variables.title = "Wishlist";
-    res.render('account-wishlist', variables);
+
+    //???
+    requestify.get("http://" + req.get("host") + "/api/users/" + variables.username + "/wishlist")
+        .then(function (resp) {
+            var wishlists = resp.getBody();
+            var userlist = [];
+
+            if (wishlists.length === 0) {
+                res.render('account-wishlist', variables);
+                return;
+            }
+
+            for (var i = 0; i < wishlists.length; i++) {
+
+                if (wishlists[i].username !== variables.username)
+                    continue;
+
+                userlist.push(wishlists[i]);
+            }
+
+            variables.wishlist = userlist;
+            res.render('account-wishlist', variables);
+            variables.wishlist = {};
+        });
 });
 
 /* GET account-sell page. */
