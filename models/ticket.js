@@ -5,6 +5,7 @@ require("./database");
 var ticketSchema = new Schema({
     seller: {type: String},
     eventID: {type: String},
+    eventName: {type: String},
     deliveryMethod: {type: Number},
     price: {type: Number},
     seatNo: {type: String},

@@ -99,7 +99,22 @@ router.get('/account-wishlist', function(req, res, next) {
 /* GET account-sell page. */
 router.get('/account-sell', function(req, res, next) {
     variables.title = "For Sale";
-    res.render('account-sell', variables);
+
+    requestify.get("http://" + req.get("host") + "/api/tickets/")
+        .then(function (resp) {
+
+            var data = resp.getBody();
+            var tickets = [];
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].seller === variables.username)
+                    tickets.push(data[i]);
+            }
+
+            variables.selling = tickets;
+            res.render('account-sell', variables);
+        });
+
 });
 
 /* GET cart page. */

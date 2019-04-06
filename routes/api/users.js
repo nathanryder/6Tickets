@@ -160,6 +160,7 @@ router.post("/login", function(req, res, next) {
                 req.session.username = username;
                 req.session.email = user.emailAddress;
                 req.session.admin = user.admin;
+                req.session.id = user._id;
                 res.status(200).json({"success": "loggedIn"});
             } else {
                 res.status(401).send({

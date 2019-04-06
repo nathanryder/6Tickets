@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Ticket = require("../../models/ticket");
+var requestify = require("requestify");
 
 /**
  * @api {get} /tickets/ Get all tickets
@@ -159,15 +160,20 @@ router.post("/", function(req, res, next) {
     ticket.seatNo = seat;
     ticket.info = info;
 
-    ticket.save(function(err, save) {
-        if (err)
-            throw err;
+    requestify.get("http://" + req.get("host") + "/api/events/" + event)
+        .then(function (resp) {
+            ticket.eventName = resp.getBody()[0].name;
 
-        res.status(201).json({
-            "success": "ticket created",
-            "_id": ticket._id
+            ticket.save(function(err, save) {
+                if (err)
+                    throw err;
+
+                res.status(201).json({
+                    "success": "ticket created",
+                    "_id": ticket._id
+                });
+            });
         });
-    });
 
 });
 
