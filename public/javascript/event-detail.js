@@ -1,6 +1,7 @@
 $(document).ready(function() {
     // -- VARIABLES --
     var username = $("#username").attr("username");
+    console.log(username)
     var eventID = document.getElementById("data-row-1").getAttribute("data-eventId");
     var startDate = document.getElementById("data-row-1").getAttribute("data-startDate").split("-");
     var endDate= document.getElementById("data-row-1").getAttribute("data-endDate").split("-");
@@ -27,7 +28,6 @@ $(document).ready(function() {
         for(var i=0; i<cartItems.length; i++){
             cartItemsId[i]=cartItems[i].ticketID;
         }
-        console.log(cartItemsId);
     }
 
     function getTickets() {
@@ -36,9 +36,6 @@ $(document).ready(function() {
             url: "api/tickets/search?e="+eventID,
             success: function (res) {
                 getCart(res);
-
-                console.log(eventID);
-                console.log(res);
             }
         });
     }
@@ -56,9 +53,7 @@ $(document).ready(function() {
             }
             var description = tickets[i].info;
 
-            console.log(cartItemsId.length);
             for(var z=0; z<cartItemsId.length; z++){
-                console.log("Compare: "+ticketID+" and "+cartItemsId[z]);
                 if(ticketID===cartItemsId[z]){
                     inCart=true;
                     break;
@@ -97,11 +92,9 @@ $(document).ready(function() {
 
 function addToCart() {
     var ticketID = event.target.id;
-    console.log("ID:"+ticketID);
     ticketID=ticketID.split("-")[1];
-    console.log("TicketID:"+ticketID);
 
-    var username = $("#username").attr("username");
+    // var username = $("#username").attr("username");
 
     $.ajax({
         type: "POST",
