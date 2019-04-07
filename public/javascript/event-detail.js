@@ -1,5 +1,6 @@
 $(document).ready(function() {
     // -- VARIABLES --
+    var username = $("#username").attr("username");
     var eventID = document.getElementById("data-row-1").getAttribute("data-eventId");
     var startDate = document.getElementById("data-row-1").getAttribute("data-startDate").split("-");
     var endDate= document.getElementById("data-row-1").getAttribute("data-endDate").split("-");
