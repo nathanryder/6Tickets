@@ -37,7 +37,7 @@ $(document).ready(function() {
 
             output+=
                 "<div class='col-6 col-md-3 mb-1'>" +
-                "    <a href='/grid' class='card'>" +
+                "    <a href='/list?category="+category+"' class='card'>" +
                 "        <img src='images/categories/"+category+".jpeg' alt='' class='card-img-top'>" +
                 "        <div class='card-img-overlay card-img-overlay-bottom p-2 primary'>" +
                 "            <h5>"+category+"</h5>" +
