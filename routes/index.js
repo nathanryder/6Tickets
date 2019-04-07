@@ -325,7 +325,13 @@ router.get('/grid', function(req, res, next) {
 /* GET list page. */
 router.get('/list', function(req, res, next) {
     variables.title = "6Tickets";
-    res.render('list', variables);
+
+    requestify.get("http://" + req.get("host") + "/api/events/search?q=" + req.query.q)
+        .then(function (resp) {
+           variables.data = resp.getBody();
+            res.render('list', variables);
+        });
+
 });
 
 /* GET login page. */
