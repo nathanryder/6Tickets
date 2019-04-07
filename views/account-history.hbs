@@ -1,0 +1,92 @@
+<script>
+    //Takes in event ID
+    function setupHistory(id) {
+
+        console.log("/api/events/" + id);
+        $.ajax({
+            url: "/api/events/" + id,
+            type: "GET",
+            success: function (resp) {
+                console.log(resp);
+                $("#" + id + "-name").html("<a href='event-detail?eventId=" + resp[0]._id + "'>" + resp[0].name + "</a>");
+                $("#" + id + "-venue").html(resp[0].venue);
+                $("#" + id + "-date").html(resp[0].startDate.toString().split("T")[0]);
+            }
+        })
+
+    }
+
+
+    $(document).ready(function () {
+        $.ajax({
+            type: "GET",
+            url: "/api/users/{{username}}",
+            success: function (data) {
+                $("#full-name").html(data[0].firstname + " " + data[0].lastname);
+            }
+        });
+
+    });
+</script>
+
+<div class="row">
+    <div class="col" id="main-content">
+
+        <div class="card user-card">
+            <div class="card-body">
+                <div class="media">
+                    <img src="images/user.svg" class="img-thumbnail rounded-circle" alt="John Thor">
+                    <div class="media-body ml-3 pt-4">
+                        <h3>{{username}}</h3>
+                        <div id="full-name"></div>
+                        <div class="small text-muted">Joined {{join_date}}</div>
+                    </div>
+                </div>
+                <hr>
+                <ul class="nav nav-pills">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account-profile">Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account-order">Orders</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account-address">Address</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/account-wishlist">Wishlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="account-sell">Sell</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="account-sell">History</a>
+                    </li>
+                </ul>              <hr>
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col">Event Name</th>
+                            <th scope="col">Venue</th>
+                            <th scope="col">Viewed On</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {{#each history}}
+                            <tr>
+                                <th id="{{ticketID}}-name" scope="row"></th>
+                                <td id="{{ticketID}}-venue"></td>
+                                <td id="{{ticketID}}-date"></td>
+                            </tr>
+                            <script>setupHistory("{{ticketID}}")</script>
+                        {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

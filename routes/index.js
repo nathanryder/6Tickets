@@ -93,6 +93,19 @@ router.get('/account-order', function(req, res, next) {
 
 });
 
+/* GET account-order page. */
+router.get('/account-history', function(req, res, next) {
+    variables.title = "History";
+
+    requestify.get("http://" + req.get("host") + "/api/users/" + variables.username + "/history")
+        .then(function (resp) {
+
+            variables.history = resp.getBody();
+            res.render('account-history', variables);
+        });
+
+});
+
 /* GET account-profile page. */
 router.get('/account-profile', function(req, res, next) {
     variables.title = "Profile";
@@ -275,8 +288,17 @@ router.get('/event-detail', function(req, res, next) {
 
             data.startDate = data.startDate.split("T")[0];
             data.endDate = data.endDate.split("T")[0];
-
             variables.data = data;
+
+            if (variables.username) {
+                requestify.post("http://" + req.get("host") + "/api/users/" + variables.username + "/history", {
+                    "ticketID": id
+                })
+                .then(function (resp) {
+                    console.log(resp.getBody());
+                });
+            }
+
             res.render('event-detail', variables);
         });
 

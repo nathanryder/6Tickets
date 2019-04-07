@@ -367,22 +367,23 @@ router.post("/:username/history/", function(req, res, next) {
     var username = req.params.username;
     var ticket = req.body.ticketID;
 
+    console.log(req.body);
     History.deleteOne({"username": username, "ticketID": ticket}, function (err, resp) {
         if (err)
             throw err;
-    });
 
-    var history = new History();
-    history.username = username;
-    history.ticketID = ticket;
+        var history = new History();
+        history.username = username;
+        history.ticketID = ticket;
 
-    history.save(function (err, resp) {
-        if (err)
-            throw err;
+        history.save(function (err, resp) {
+            if (err)
+                throw err;
 
-        res.status(201).json({
-            "success": "Added to history",
-            "_id": resp._id
+            res.status(201).json({
+                "success": "Added to history",
+                "_id": resp._id
+            });
         });
     });
 });
