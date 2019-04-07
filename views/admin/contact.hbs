@@ -10,33 +10,32 @@
                 <hr>
                 <ul class="nav nav-pills">
                     <li class="nav-item">
-                        <a class="nav-link active" href="/admin_index">Event Requests</a>
+                        <a class="nav-link" href="/admin_index">Event Requests</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/admin_categories">Categories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/admin_contact">Contact Forms</a>
+                        <a class="nav-link active" href="/admin_contact">Contact Forms</a>
                     </li>
-                </ul>
-                <hr>
+                </ul>              <hr>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="thead-light">
                         <tr>
                             <th scope="col">Name</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Start Date</th>
-                            <th scope="col">End Date</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Message</th>
+                            <th scope="col"></th>
                         </tr>
                         </thead>
                         <tbody>
-                        {{#each data}}
+                        {{#each contacts}}
                             <tr>
-                                <th scope="row"><a href="/admin_eventRequest?eventId={{_id}}" class="text-info">{{name}}</a></th>
-                                <td>{{category}}</td>
-                                <td>{{startDate}}</td>
-                                <td>{{endDate}}</td>
+                                <th scope="row">{{name}}</th>
+                                <td>{{email}}</td>
+                                <td>{{message}}</td>
+                                <td><a class="text-info" href="mailto:{{email}}">Reply</a></td>
                             </tr>
                         {{/each}}
                         </tbody>

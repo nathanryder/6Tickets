@@ -2,14 +2,7 @@
     <div class="col" id="main-content">
 
         <div class="row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
-                <div class="img-thumbnail">
-                    <div class="embed-responsive embed-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3021.9264094650316!2d-73.97488578459351!3d40.763643279326224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c258f00eb25f59%3A0x75ddbee78904e799!2s767+5th+Ave%2C+New+York%2C+NY+10153%2C+USA!5e0!3m2!1sen!2sid!4v1532319134271" width="600" height="450" style="border:0" allowfullscreen></iframe>
-                    </div>
-                </div>
-            </div>
-            <div class="col-sm-6">
+            <div class="col-sm-12">
                 <h3>CONTACT US</h3>
                 <form class="mt-3">
                     <div class="form-row">
@@ -34,18 +27,61 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="alert"></div>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Name">
+                        <input id="name" type="text" class="form-control" placeholder="Name">
                     </div>
                     <div class="form-group">
-                        <input type="email" class="form-control" placeholder="Email">
+                        <input id="email" type="email" class="form-control" placeholder="Email">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="3" placeholder="Message"></textarea>
+                        <textarea id="msg" class="form-control" rows="3" placeholder="Message"></textarea>
                     </div>
-                    <button type="submit" class="btn btn-info">SEND</button>
+                    <button id="submit" type="submit" class="btn btn-info">SEND</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#submit").click(function (e) {
+           e.preventDefault();
+
+           //TODO check for values
+
+           var name = $("#name").val();
+           var email = $("#email").val();
+           var msg = $("#msg").val();
+
+           $.ajax({
+               url: "/api/contacts/",
+               type: "POST",
+               data: {
+                   "name": name,
+                   "email": email,
+                   "message": msg
+               },
+               success: function (res) {
+                   $("#name").val("");
+                   $("#email").val("");
+                   $("#msg").val("");
+
+                    var alert = $("#alert");
+                    alert.addClass("alert alert-success");
+                    alert.html("Thank you for contacting us!\nWe will get back to you as soon as possible!");
+               },
+               error: function (res) {
+                   console.log(res);
+               }
+           });
+
+        });
+
+    });
+
+</script>

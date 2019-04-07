@@ -249,12 +249,6 @@ router.post('/checkout-complete', function(req, res, next) {
 
 });
 
-/* GET compare page. */
-router.get('/compare', function(req, res, next) {
-    variables.title = "6Tickets";
-    res.render('compare', variables);
-});
-
 /* GET contact page. */
 router.get('/contact', function(req, res, next) {
     variables.title = "6Tickets";
