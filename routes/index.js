@@ -264,7 +264,28 @@ router.get('/contact', function(req, res, next) {
 /* GET detail page. */
 router.get('/event-detail', function(req, res, next) {
     variables.title = "Event name";
-    res.render('event-detail', variables);
+
+    var id = req.query.eventId;
+    if (!id) {
+        res.redirect('/');
+        return;
+    }
+
+    requestify.get("http://" + req.get("host") + "/api/events/" + id)
+        .then(function (resp) {
+            var data = resp.getBody()[0];
+            if (data.request === 1) {
+                res.render('event-detail', variables);
+                return;
+            }
+
+            data.startDate = data.startDate.split("T")[0];
+            data.endDate = data.endDate.split("T")[0];
+
+            variables.data = data;
+            res.render('event-detail', variables);
+        });
+
 });
 
 /* GET detail-tab page. */
