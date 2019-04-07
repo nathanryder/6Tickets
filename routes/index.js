@@ -15,21 +15,21 @@ var server = emailjs.server.connect({
 var variables = {};
 var authRequired = ["account-profile", "account-wishlist", "account-order",
     "account-address", "event-search", "event-add", "ticket-sell", "account-history",
-    "account-wishlist", "cart", "event-add"];
+    "account-wishlist"];
 
 // Check if authorization is required
 router.get("*", function(req, res, next) {
     var data = req.url.split("/");
     var page = data[data.length-1];
 
-    var test = new RegExp("admin_*");
-    if (test.test(page) && !req.session.admin && page !== "admin_login") {
-        res.redirect("/admin_login");
-        return;
-    } else if (test.test(page) && req.session.admin && page === "admin_login") {
-        res.redirect("/admin_index");
-        return;
-    }
+    // var test = new RegExp("admin_*");
+    // if (test.test(page) && !req.session.admin && page !== "admin_login") {
+    //     res.redirect("/admin_login");
+    //     return;
+    // } else if (test.test(page) && req.session.admin && page === "admin_login") {
+    //     res.redirect("/admin_index");
+    //     return;
+    // }
 
     if (authRequired.includes(page) && !req.session.username) {
         res.redirect("/login");
