@@ -10,6 +10,14 @@ router.get("/admin_login", function (req, res, next) {
     res.render("admin/login.hbs", {title: "Admin Login"});
 });
 
+router.get("/admin_contact", function (req, res, next) {
+    requestify.get("http://" + req.get("host") + "/api/contacts/")
+        .then(function (resp) {
+            res.render("admin/contact.hbs", {title: "Contacts", contacts: resp.getBody()});
+        });
+
+});
+
 router.get("/admin_categories", function (req, res, next) {
     requestify.get("http://" + req.get("host") + "/api/categories/")
         .then(function (resp) {

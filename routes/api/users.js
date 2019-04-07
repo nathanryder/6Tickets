@@ -502,7 +502,7 @@ router.delete("/:username/wishlist/:ticketID", function (req, res, next) {
 /**
  * @api {post} /users/:username/cart/ Add an item to a users shopping cart
  * @apiName AddToCart
- * @apiGroup Users
+ * @apiGroup Cart
  *
  * @apiParam {String} ticketID
  * @apiParam {Number} quantity
