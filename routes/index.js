@@ -262,9 +262,9 @@ router.get('/contact', function(req, res, next) {
 });
 
 /* GET detail page. */
-router.get('/detail', function(req, res, next) {
-    variables.title = "About Us";
-    res.render('detail', variables);
+router.get('/event-detail', function(req, res, next) {
+    variables.title = "Event name";
+    res.render('event-detail', variables);
 });
 
 /* GET detail-tab page. */
