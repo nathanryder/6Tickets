@@ -289,6 +289,7 @@ router.get('/event-detail', function(req, res, next) {
             data.startDate = data.startDate.split("T")[0];
             data.endDate = data.endDate.split("T")[0];
             variables.data = data;
+            variables.header = data.header;
 
             if (variables.username) {
                 requestify.post("http://" + req.get("host") + "/api/users/" + variables.username + "/history", {
