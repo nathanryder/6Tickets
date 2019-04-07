@@ -12,163 +12,51 @@
 
         <div class="d-flex justify-content-between">
             <!-- Tags -->
-            <div class="btn-tags">
-                <a href="#" class="btn btn-light btn-sm active">Laptops</a>
-                <a href="#" class="btn btn-light btn-sm">Desktops</a>
-                <a href="#" class="btn btn-light btn-sm">PC Gaming</a>
-                <a href="#" class="btn btn-light btn-sm">Monitors</a>
-                <a href="#" class="btn btn-light btn-sm">Tablets</a>
-                <a href="#" class="btn btn-light btn-sm">Computer Accessories</a>
-                <a href="#" class="btn btn-light btn-sm">Networking</a>
-                <a href="#" class="btn btn-light btn-sm">Computer Components</a>
-                <a href="#" class="btn btn-light btn-sm">Storage &amp; Hard Drives</a>
-            </div>
+<!--            <div class="btn-tags">-->
+<!--                <a href="#" class="btn btn-light btn-sm active">Laptops</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Desktops</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">PC Gaming</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Monitors</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Tablets</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Computer Accessories</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Networking</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Computer Components</a>-->
+<!--                <a href="#" class="btn btn-light btn-sm">Storage &amp; Hard Drives</a>-->
+<!--            </div>-->
             <!-- /Tags -->
 
             <!-- Filter Modal Toggler -->
-            <span>
-              <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter"></i> FILTER</button>
-            </span>
+<!--            <span>-->
+<!--              <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#filterModal"><i class="fa fa-filter"></i> FILTER</button>-->
+<!--            </span>-->
         </div>
 
         <!-- List -->
         <div class="d-flex justify-content-between mt-4">
-            <h3 class="title">Laptops</h3>
+            <h3 class="title">Events</h3>
             <div class="btn-group btn-group-sm align-self-start" role="group">
                 <a href="/grid" class="btn btn-outline-secondary"><i class="fa fa-th-large"></i></a>
                 <a href="/list" class="btn btn-secondary"><i class="fa fa-list"></i></a>
             </div>
         </div>
         <div class="row no-gutters gutters-2">
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <div class="ribbon"><span class="bg-info text-white">New</span></div>
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/1.jpg" alt="NEW Microsoft Surface Go" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">NEW Microsoft Surface Go</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$549.00</span>
+            {{#each data}}
+                <div class="col-6 col-sm-12 mb-2">
+                    <div class="card card-product card-product-list">
+                        <button class="wishlist active" title="Add to wishlist"><i class="fa fa-heart"></i></button>
+                        <a href="/detail?eventId={{_id}}"><img src="/uploads/{{header}}" alt='{{name}}' class="card-img-top"></a>
+                        <div class="card-body">
+                            <a href="/detail?eventId={{_id}}" class="card-title h5">{{name}}</a>
+<!--                            <div class="d-inline-block d-sm-block mb-2">-->
+<!--                                <span class="price"></span>-->
+<!--                                <span class="rating" data-value="4"></span>-->
+<!--                            </div>-->
+                            <p lang="zxx">{{description}}</p>
+                            <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
                         </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem illum, at eligendi nisi cumque velit est! Nihil unde, commodi doloribus beatae vero veritatis aliquid mollitia dolores dolor assumenda incidunt, rem.</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist active" title="Added to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/2.jpg" alt='Apple 15.4" MacBook Pro Laptop Space Gray' class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">Apple 15.4" MacBook Pro Laptop Space Gray</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$2,720.38</span>
-                            <span class="rating" data-value="4"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure ipsam at cum consequuntur quo earum error obcaecati neque non accusamus maiores, mollitia minima ipsa minus libero expedita alias reprehenderit animi?</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/9.jpg" alt="ASUS VivoBook F510UA FHD Laptop" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">ASUS VivoBook F510UA FHD Laptop ASUS VivoBook F510UA FHD Laptop</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$509.99</span>
-                            <span class="rating" data-value="4"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Mollitia eveniet, non aperiam, ratione aliquid quo ipsum, iure excepturi blanditiis temporibus recusandae laborum ipsam tempora rem minima. Ut rerum, saepe soluta.</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/13.jpg" alt="Acer Aspire E 15, 15.6&quot; Full HD, 8th Gen Intel Core i3" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">Acer Aspire E 15, 15.6&quot; Full HD, 8th Gen Intel Core i3</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$379.99</span>
-                            <span class="rating" data-value="4"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Blanditiis assumenda voluptas unde dignissimos mollitia cum veniam incidunt ut, repellendus minus aut quidem molestias animi esse harum, fugit omnis debitis alias.</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/14.jpg" alt="MSI GV62 8RD-200 15.6&quot; Full HD" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">MSI GV62 8RD-200 15.6&quot; Full HD</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$799.00</span>
-                            <span class="rating" data-value="4.5"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo iusto non pariatur architecto cumque fugit, mollitia porro, vel atque labore, corporis repudiandae asperiores excepturi eligendi accusamus voluptate repellat assumenda quo.</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/15.jpg" alt="LG Electronics gram Thin and Light Laptop" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">LG Electronics gram Thin and Light Laptop</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$1,196.99</span>
-                            <span class="rating" data-value="5"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Autem eius soluta inventore aspernatur, id cumque harum iure accusantium mollitia, voluptate exercitationem, ducimus. Tempore explicabo porro libero enim suscipit laudantium, maiores.</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/16.jpg" alt="Dell Inspiron 13 5000 2-in-1 - 13.3&quot; FHD Touch" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">Dell Inspiron 13 5000 2-in-1 - 13.3&quot; FHD Touch</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$649.99</span>
-                            <span class="rating" data-value="3.5"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt fuga vero fugiat! Odio sapiente, iusto reiciendis, explicabo vel magni eaque blanditiis, magnam quasi quidem in ipsam, facere placeat earum suscipit!</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-6 col-sm-12 mb-2">
-                <div class="card card-product card-product-list">
-                    <button class="wishlist" title="Add to wishlist"><i class="fa fa-heart"></i></button>
-                    <a href="/detail"><img src="images/product/17.jpg" alt="ASUS ZenBook 13 Ultra-Slim Laptop, 13.3&quot; Full HD" class="card-img-top"></a>
-                    <div class="card-body">
-                        <a href="/detail" class="card-title h5">ASUS ZenBook 13 Ultra-Slim Laptop, 13.3&quot; Full HD</a>
-                        <div class="d-inline-block d-sm-block mb-2">
-                            <span class="price">$749.00</span>
-                            <span class="rating" data-value="4"></span>
-                        </div>
-                        <p lang="zxx">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Doloribus, sunt, ipsam dicta obcaecati impedit eligendi nemo. Ab ipsam odit sequi commodi, error, quod ut beatae fugiat aperiam ex quos voluptatum.</p>
-                        <button type="button" class="btn btn-outline-info btn-sm">Add to cart</button>
-                    </div>
-                </div>
-            </div>
-
+            {{/each}}
         </div>
         <!-- /List -->
 
@@ -192,58 +80,61 @@
     </div>
 </div>
 
-<!-- Modal filter -->
-<div class="modal fade modal-filter" id="filterModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="filterSortBy">Sort by</label>
-                        <select class="form-control custom-select" id="filterSortBy">
-                            <option>Popular</option>
-                            <option>Price: low to high</option>
-                            <option>Price: high to low</option>
-                        </select>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label for="filterCategory">Category</label>
-                        <select id="filterCategory" class="form-control custom-select">
-                            <option>Laptops</option>
-                            <option>Desktops</option>
-                            <option>PC Gaming</option>
-                            <option>Monitors</option>
-                            <option>Tablets</option>
-                            <option>Computer Accessories</option>
-                            <option>Networking</option>
-                            <option>Computer Components</option>
-                            <option>Storage &amp; Hard Drives</option>
-                        </select>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label class="mb-5">Price Range</label>
-                        <div id="price-range"></div>
-                    </div>
-                    <hr>
-                    <div class="form-group">
-                        <label>Rating</label>
-                        <div id="star-rating" data-score="4.5"></div>
-                    </div>
-                    <hr>
-                    <div class="form-group text-center">
-                        <div class="btn-group" role="group" aria-label="Basic example">
-                            <button type="reset" class="btn btn-light">CLEAR ALL</button>
-                            <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">DONE</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
+<!--&lt;!&ndash; Modal filter &ndash;&gt;-->
+<!--<div class="modal fade modal-filter" id="filterModal" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--    <div class="modal-dialog" role="document">-->
+<!--        <div class="modal-content">-->
+<!--            <div class="modal-body">-->
+<!--                <form>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="filterSortBy">Sort by</label>-->
+<!--                        <select class="form-control custom-select" id="filterSortBy">-->
+<!--                            <option>Popular</option>-->
+<!--                            <option>Price: low to high</option>-->
+<!--                            <option>Price: high to low</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="filterCategory">Category</label>-->
+<!--                        <select id="filterCategory" class="form-control custom-select">-->
+<!--                            <option>Laptops</option>-->
+<!--                            <option>Desktops</option>-->
+<!--                            <option>PC Gaming</option>-->
+<!--                            <option>Monitors</option>-->
+<!--                            <option>Tablets</option>-->
+<!--                            <option>Computer Accessories</option>-->
+<!--                            <option>Networking</option>-->
+<!--                            <option>Computer Components</option>-->
+<!--                            <option>Storage &amp; Hard Drives</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <div class="form-group">-->
+<!--                        <label class="mb-5">Price Range</label>-->
+<!--                        <div id="price-range"></div>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <div class="form-group">-->
+<!--                        <label>Rating</label>-->
+<!--                        <div id="star-rating" data-score="4.5"></div>-->
+<!--                    </div>-->
+<!--                    <hr>-->
+<!--                    <div class="form-group text-center">-->
+<!--                        <div class="btn-group" role="group" aria-label="Basic example">-->
+<!--                            <button type="reset" class="btn btn-light">CLEAR ALL</button>-->
+<!--                            <button type="button" class="btn btn-info" data-dismiss="modal" aria-label="Close">DONE</button>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</div>-->
 
 <!-- PLUGINS FOR CURRENT PAGE -->
 <script src="plugins/nouislider/nouislider.min.js"></script>
 <script src="plugins/raty-fa/jquery.raty-fa.min.js"></script>
+
+
+<script>console.log("{{data}}");</script>
