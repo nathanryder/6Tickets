@@ -54,7 +54,7 @@ $(document).ready(function() {
 
             output+=
                 "        <tr id='event-"+id+"'>\n" +
-                "            <th scope='row'><a href='' class='text-info'>"+name+"</a></th>" +
+                "            <th scope='row'><a href='/event-detail?eventId="+id+"' class='text-info'>"+name+"</a></th>" +
                 "            <td>"+address+"</td>" +
                 "            <td>"+venue+"</td>" +
                 "            <td>"+startDate[0]+"</td>" +

@@ -17,7 +17,20 @@ $(document).ready(function() {
         });
 
     });
-});
+
+    $("#searchBarInput").on("keydown", function () {
+        console.log(event.target.value);
+        var searchText = event.target.value;
+        $("#searchBtn").attr({href:"/list?q="+event.target.value});
+    });
+
+    $('#searchBar').on("submit",function(e) {
+        e.preventDefault()
+        var searchText = document.getElementById("searchBarInput").value;
+        window.location.href = "/list?q="+searchText;
+        });
+
+
 
 // -- FUNCTIONS --
 
@@ -46,37 +59,39 @@ $(document).ready(function() {
     }
 
 
-var total = 0;
-var i = 0;
-function setupCartDetails(id, quantity) {
-    var size = $("#cartAmount").html();
+    var total = 0;
+    var i = 0;
+    function setupCartDetails(id, quantity) {
+        var size = $("#cartAmount").html();
 
 
-    $.ajax({
-        url: "/api/tickets/" + id,
-        type: "GET",
-        success: function (resp) {
+        $.ajax({
+            url: "/api/tickets/" + id,
+            type: "GET",
+            success: function (resp) {
 
-            $.ajax({
-                url: "/api/events/" + resp.eventID,
-                type: "GET",
-                success: function (event) {
-                    if (i === parseInt(size)) {
-                        i = 0;
-                        total = 0;
+                $.ajax({
+                    url: "/api/events/" + resp.eventID,
+                    type: "GET",
+                    success: function (event) {
+                        if (i === parseInt(size)) {
+                            i = 0;
+                            total = 0;
+                        }
+
+                        $("." + id + "-price").html("€" + resp.price);
+                        $("." + id + "-name").html(event[0].name);
+
+                        total += resp.price * quantity;
+                        $(".subtotal").html("€" + total);
+                        i++;
                     }
-
-                    $("." + id + "-price").html("€" + resp.price);
-                    $("." + id + "-name").html(event[0].name);
-
-                    total += resp.price * quantity;
-                    $(".subtotal").html("€" + total);
-                    i++;
-                }
-            });
+                });
 
 
-        }
-    });
+            }
+        });
 
-}
+    }
+
+});
