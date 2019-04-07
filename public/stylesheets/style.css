@@ -1,3 +1,7 @@
+body {
+  margin-bottom: 100px;
+}
+
 /* Size */
 ::-webkit-scrollbar {
   width: 9px;
@@ -1226,12 +1230,12 @@ input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-o
   background-color: #f8f9fa;
   padding-top: 1.5rem;
   padding-bottom: 1rem;
-  margin-top: 2rem;
-  margin-left: -15px;
-  margin-right: -15px;
+  margin: 2rem -15px 100px;
   bottom: -100px;
-  width:100%;
-
+  width: 100%;
+  position: fixed;
+  clear: both;
+  z-index: 50;
 }
 
 .btn-tags .btn {
