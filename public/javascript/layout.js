@@ -53,7 +53,7 @@ $(document).ready(function() {
         for(var i=0; i<cat.length; i++){
             var category= cat[i].name;
             output+=
-                "<a href='/grid' class='list-group-item list-group-item-action sub'>"+category+"</a>";
+                "<a href='/list?category="+category+"' class='list-group-item list-group-item-action sub'>"+category+"</a>";
         }
         $("#sidebarCategories").html(output);
     }

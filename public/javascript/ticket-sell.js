@@ -21,6 +21,9 @@ $(document).ready(function() {
         var sellerUsername= document.getElementById("data-row-1").getAttribute("data-username");
 
         for(var i=1; i<=formCount; i++){
+            if(!document.getElementById("type-"+i)){
+                continue;
+            }
             var type = document.getElementById("type-"+i).value;
             var ifSeats = document.getElementById("ifSeats-"+i).value;
 
@@ -90,7 +93,7 @@ $(document).ready(function() {
             else{
                 alertPush(i);
             }
-        }2
+        }
     });
 
     // -- FUNCTIONS --
