@@ -327,8 +327,9 @@ router.get('/grid', function(req, res, next) {
 /* GET list page. */
 router.get('/list', function(req, res, next) {
     variables.title = "6Tickets";
+    var search = req.query.q ? req.query.q : "";
 
-    requestify.get("http://" + req.get("host") + "/api/events/search?q=" + req.query.q)
+    requestify.get("http://" + req.get("host") + "/api/events/search?q=" + search)
         .then(function (resp) {
            variables.data = resp.getBody();
             res.render('list', variables);
