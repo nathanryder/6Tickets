@@ -7,7 +7,8 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="/" class="text-info">Home</a></li>
-                <li class="breadcrumb-item"><a href="/grid" class="text-info">{{data.category}}</a></li>
+                <li class="breadcrumb-item"><a href="/list?category={{data.category}}" class="text-info">{{data.category}}</a></li>
+                <li class="breadcrumb-item"><a href="/event-detail?eventId={{data._id}}" class="text-info">{{data.name}}</a></li>
             </ol>
         </nav>
         <!-- /Breadcrumb -->
