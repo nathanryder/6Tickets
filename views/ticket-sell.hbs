@@ -6,24 +6,31 @@
             <h2><strong>Sell Tickets</strong></h2>
         </div>
 
+        <div id="data-row-1" class="data-row" data-_id="{{data._id}}" data-username="{{username}}"></div>
+
         <div class="row mt-3">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <form id="event-form">
+                    <form id="event-form" style="width: 100%">
 
                         <div class="form-row">
                             <div class="form-group col-sm-12">
                                 <span>Event: </span>
-                                <a href="{{data._id}}"><strong>{{data.name}}</strong></a>
+                                <a id="event" href="{{data._id}}"><strong>{{data.name}}</strong></a>
                             </div>
                         </div>
 
                         <div id="ticketsSell">
-                            <div class="form-row">
+
+                            <div class="form-row" id="tickets-1">
                                 <hr class="mb-3 hr-" width="100%">
+
+                                <div class="col-sm-12 d-flex justify-content-center text-center" id="alert-1">
+                                </div>
+
                                 <div class="form-group col-sm-12">
-                                    <label for="ticketType">*Ticket type</label>
-                                    <select class="form-control col-sm-5" id="ticketType">
+                                    <label for="type-1">*Ticket type</label>
+                                    <select class="form-control col-sm-6" id="type-1">
                                         <option value="0">Digital</option>
                                         <option value="1">Physical</option>
                                         <option value="2">Both</option>
@@ -31,8 +38,8 @@
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label for="ticketType">*Assigned seats</label>
-                                    <select class="form-control" id="ticketIfSeats">
+                                    <label for="ifSeats-1">*Assigned seats</label>
+                                    <select class="form-control" id="ifSeats-1" onchange="ifSeats()">
                                         <option value="no">No - seats assigned on first come first served basis</option>
                                         <option value="yes">Yes - seat no. on the ticket</option>
                                     </select>
@@ -40,37 +47,41 @@
 
                                 <div class="form-group col-sm-6">
                                     <div style="margin-left: 5px; margin-top: 8%;">
-                                        <label class="text-muted" for="diffSeats" disabled>Specify seats</label>
-                                        <input type="checkbox" id="diffSeats" value="true" disabled>
+                                        <label class="text-very-muted" for="seatsSpecify-1" id="seatsSpecifyLabel-1" disabled="disabled">Specify seats</label>
+                                        <input type="checkbox" id="seatsSpecify-1" disabled="disabled" onchange="specifySeats()">
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-6">
-                                    <label for="ticketNum">*Number of tickets</label>
-                                    <input type="number" class="form-control" id="ticketNum">
+
+                                <div id="seatsInput-1">
                                 </div>
 
                                 <div class="form-group col-sm-6">
-                                    <label for="ticketPrice">*Price</label>
-                                    <input type="number" class="form-control" id="ticketPrice">
+                                    <label for="number-1">*Number of tickets</label>
+                                    <input type="number" class="form-control" id="number-1" min="1">
+                                </div>
+
+                                <div class="form-group col-sm-6">
+                                    <label for="price-1">*Price</label>
+                                    <input type="number" class="form-control" id="price-1" min="0">
                                 </div>
 
 
                                 <div class="form-group col-sm-12">
-                                    <label for="ticketDescription">Ticket description - optional</label>
-                                    <textarea class="form-control" id="ticketDescription" rows="4" maxlength="600"></textarea>
+                                    <label for="description-1">Ticket description - optional</label>
+                                    <textarea class="form-control" id="description-1" rows="4" maxlength="600"></textarea>
                                 </div>
                             </div>
                         </div>
 
                         <div class="form-row">
-                            <div class="col-sm-12 text-right -mt-4">
+                            <div class="col-sm-12 text-right">
                                 <span id="addAnother" style="cursor: pointer;">
                                     <span>Add another</span>
                                     <i class="far fa-plus-square" style="font-size: 20px;"></i>
                                  </span>
                             </div>
 
-                            <div class="col-md-5 mx-auto">
+                            <div class="col-md-5 mx-auto mt-3">
                                 <button type="submit" class="btn btn-outline-dark btn-block" id="eventBtn">SELL</button>
                             </div>
                         </div>
