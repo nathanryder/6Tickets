@@ -1,6 +1,6 @@
 $(document).ready(function() {
     // -- VARIABLES --
-    var eventID = document.getElementById("data-row-1").getAttribute("data-_id");
+    var eventID = document.getElementById("data-row-1").getAttribute("data-eventId");
     var startDate = document.getElementById("data-row-1").getAttribute("data-startDate").split("-");
     var endDate= document.getElementById("data-row-1").getAttribute("data-endDate").split("-");
     var cartItemsId=[];
@@ -32,9 +32,12 @@ $(document).ready(function() {
     function getTickets() {
         $.ajax({
             type: "GET",
-            url: "api/tickets?q="+eventID,
+            url: "api/tickets/search?e="+eventID,
             success: function (res) {
                 getCart(res);
+
+                console.log(eventID);
+                console.log(res);
             }
         });
     }
