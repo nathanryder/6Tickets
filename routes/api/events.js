@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var crypto = require("crypto");
 var Event = require("../../models/event");
+var fs = require("fs");
 
 /**
  * @api {post} /events/ Create an event
@@ -49,23 +50,24 @@ router.post("/", function(req, res, next) {
     event.request = request;
 
     if (process.env.NODE_ENV !== "test") {
-        for (var i = 0; i < req.files.file.length; i++) {
-            var file = req.files.file[i];
-            var data = file.name.split("\.");
+        var file = req.files.file;
+        var data = file.name.split("\.");
 
-            var extension = data[data.length - 1];
-            var fileName = crypto.randomBytes(20).toString("hex") + "." + extension;
+        var extension = data[data.length - 1];
+        var fileName = crypto.randomBytes(20).toString("hex") + "." + extension;
 
-            file.mv("uploads/" + fileName, function (err) {
-                if (err) {
-                    console.log(err);
-                    return res.status(500).send(err);
-                }
-            });
-
-            if (i === 0)
-                event.header = fileName;
+        if (!fs.existsSync("./uploads")) {
+            fs.mkdirSync("./uploads")
         }
+
+        file.mv("uploads/" + fileName, function (err) {
+            if (err) {
+                console.log(err);
+                return res.status(500).send(err);
+            }
+        });
+
+            event.header = fileName;
     }
 
     event.save(function(err, event) {
